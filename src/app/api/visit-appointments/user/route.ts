@@ -1,0 +1,24 @@
+import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import axios from "axios";
+import { BaseUrl } from "@/core/api/client";
+
+export async function GET() {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("accessToken")?.value;
+
+    const response = await axios.get(`${BaseUrl}/api/visit-appointments/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return NextResponse.json(response.data);
+  } catch (error) {
+    return NextResponse.json(
+      { message: "error fetching appointments" },
+      { status: 500 },
+    );
+  }
+}
