@@ -2,9 +2,13 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { mockBffResponse } from "@/mocks/bff";
 
 export async function GET(req) {
   try {
+    const mock = mockBffResponse("get", "/api/favorites/user");
+    if (mock) return mock;
+
     const cookieStore = await cookies();
     const token = cookieStore.get("accessToken")?.value;
 
@@ -38,5 +42,3 @@ export async function GET(req) {
     );
   }
 }
-
-

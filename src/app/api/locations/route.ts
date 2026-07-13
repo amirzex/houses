@@ -1,8 +1,14 @@
 import { BaseUrl } from "@/core/api/client";
 import { NextResponse } from "next/server";
+import { mockBffResponse } from "@/mocks/bff";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
+  const mock = mockBffResponse(
+    "get",
+    `/api/locations?${searchParams.toString()}`,
+  );
+  if (mock) return mock;
 
   const page = searchParams.get("page") ?? "1";
   const limit = searchParams.get("limit") ?? "10";
@@ -12,7 +18,6 @@ export async function GET(request: Request) {
   const lat = searchParams.get("lat");
   const lng = searchParams.get("lng");
 
-  // ✅ ساخت URL بک‌اند
   const backendUrl = new URL(`${BaseUrl}/api/locations`);
 
   backendUrl.searchParams.set("page", page);
@@ -20,7 +25,6 @@ export async function GET(request: Request) {
   backendUrl.searchParams.set("sort", sort);
   backendUrl.searchParams.set("order", order);
 
-  // ✅ فیلترهای اختیاری
   if (area_name && area_name.trim() !== "") {
     backendUrl.searchParams.set("area_name", area_name);
   }
@@ -39,7 +43,7 @@ export async function GET(request: Request) {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store", // همیشه دیتای تازه
+      cache: "no-store",
     });
 
     if (!response.ok) {

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { BaseUrl } from "@/core/api/client";
+import { mockBffResponse } from "@/mocks/bff";
 
 function getUserIdFromToken(token: string) {
   const decoded = jwt.decode(token) as { id: string } | null;
@@ -10,6 +11,9 @@ function getUserIdFromToken(token: string) {
 
 export async function GET() {
   try {
+    const mock = mockBffResponse("get", "/api/user/profile");
+    if (mock) return mock;
+
     const cookieStore = await cookies();
     const token = cookieStore.get("accessToken")?.value;
 
@@ -79,6 +83,10 @@ export async function GET() {
 
 export async function PUT(request: Request) {
   try {
+    const body = await request.json();
+    const mock = mockBffResponse("put", "/api/user/profile", body);
+    if (mock) return mock;
+
     const cookieStore = await cookies();
     const token = cookieStore.get("accessToken")?.value;
 
@@ -91,8 +99,6 @@ export async function PUT(request: Request) {
     if (!userId) {
       return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     }
-
-    const body = await request.json();
 
     const response = await fetch(`${BaseUrl}/api/users/${userId}`, {
       method: "PUT",

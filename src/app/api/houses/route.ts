@@ -3,9 +3,12 @@ import { NextResponse } from "next/server";
 
 import axios from "axios";
 import { cookies } from "next/headers";
+import { mockBffResponse } from "@/mocks/bff";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
+  const mock = mockBffResponse("get", `/api/houses?${searchParams.toString()}`);
+  if (mock) return mock;
 
   const limit = searchParams.get("limit") ?? "10";
   const transactionType = searchParams.get("transactionType") ?? "rental";
@@ -73,10 +76,12 @@ export async function GET(request: Request) {
 
 export async function POST(request) {
   try {
+    const body = await request.json();
+    const mock = mockBffResponse("post", "/api/houses", body);
+    if (mock) return mock;
+
     const cookieStore = await cookies();
     const token = cookieStore.get("accessToken")?.value;
-
-    const body = await request.json();
 
     const response = await axios.post(`${BaseUrl}/api/houses`, body, {
       headers: {
