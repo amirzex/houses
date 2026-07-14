@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Card from "./Card";
 import righticon from "../../assets/landing/rightarrow.svg";
@@ -7,6 +7,7 @@ import lefticon from "../../assets/landing/leftarrow.svg";
 
 const Slider = () => {
     const [index, setIndex] = useState(0);
+    const [visibleCards, setVisibleCards] = useState(1);
 
     const cards = [
         <Card key={1} />,
@@ -18,7 +19,17 @@ const Slider = () => {
         <Card key={7} />,
     ];
 
-    const visibleCards = 4;
+    useEffect(() => {
+        const updateVisibleCards = () => {
+            if (window.innerWidth >= 1280) setVisibleCards(4);
+            else if (window.innerWidth >= 768) setVisibleCards(2);
+            else setVisibleCards(1);
+        };
+
+        updateVisibleCards();
+        window.addEventListener("resize", updateVisibleCards);
+        return () => window.removeEventListener("resize", updateVisibleCards);
+    }, []);
 
     const nextSlide = () => {
         setIndex((prev) => (prev + 1) % cards.length);
@@ -28,25 +39,31 @@ const Slider = () => {
         setIndex((prev) => (prev - 1 + cards.length) % cards.length);
     };
 
+    const slideWidth = 100 / visibleCards;
+
     return (
-        <div className="relative w-full overflow-hidden">
-            {/* Track */}
+        <div className="relative w-full overflow-hidden px-10 sm:px-12">
             <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{
-                    transform: `translateX(-${(index * 100) / visibleCards}%)`,
+                    transform: `translateX(-${index * slideWidth}%)`,
                 }}
             >
                 {cards.map((card, i) => (
-                    <div key={i} className="w-1/4 shrink-0  mr-10">
+                    <div
+                        key={i}
+                        className="shrink-0 px-2"
+                        style={{ width: `${slideWidth}%` }}
+                    >
                         {card}
                     </div>
                 ))}
             </div>
 
-            {/* Right button */}
-            <div
-                className="bg-brand w-15 h-15 rounded-full flex justify-center items-center absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+            <button
+                type="button"
+                aria-label="بعدی"
+                className="absolute right-0 top-1/2 flex size-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-brand sm:size-12"
                 onClick={nextSlide}
             >
                 <Image
@@ -56,11 +73,12 @@ const Slider = () => {
                     height={15}
                     className="object-contain"
                 />
-            </div>
+            </button>
 
-            {/* Left button */}
-            <div
-                className="bg-brand w-15 h-15 rounded-full flex justify-center items-center absolute left-2 top-1/2 -translate-y-1/2 cursor-pointer"
+            <button
+                type="button"
+                aria-label="قبلی"
+                className="absolute left-0 top-1/2 flex size-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-brand sm:size-12"
                 onClick={prevSlide}
             >
                 <Image
@@ -68,11 +86,11 @@ const Slider = () => {
                     alt="prev"
                     width={15}
                     height={15}
-                    className="object-contain "
+                    className="object-contain"
                 />
-            </div>
+            </button>
         </div>
     );
 }
 
-export default Slider
+export default Slider;

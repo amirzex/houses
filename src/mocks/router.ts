@@ -422,6 +422,15 @@ export function handleMockRequest(
       typeof body.callbackUrl === "string" && body.callbackUrl
         ? body.callbackUrl
         : "/";
+    let gatewayOrigin = "";
+    try {
+      if (callbackUrl.startsWith("http")) {
+        gatewayOrigin = new URL(callbackUrl).origin;
+      }
+    } catch {
+      gatewayOrigin = "";
+    }
+    const gatewayPath = `/payment/fake-gateway?paymentId=${id}&amount=${amount}&callback=${encodeURIComponent(callbackUrl)}`;
     const payment = {
       id,
       amount,
@@ -431,7 +440,7 @@ export function handleMockRequest(
       created_at: new Date().toISOString(),
       bookingId: body.bookingId || null,
       callbackUrl,
-      paymentUrl: `/payment/fake-gateway?paymentId=${id}&amount=${amount}&callback=${encodeURIComponent(callbackUrl)}`,
+      paymentUrl: gatewayOrigin ? `${gatewayOrigin}${gatewayPath}` : gatewayPath,
     };
     mockStore.payments.unshift(payment);
     return ok(payment, 201);

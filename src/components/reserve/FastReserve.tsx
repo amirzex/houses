@@ -55,42 +55,36 @@ const FastReserve = () => {
 
     return (
         <div
-            className="flex flex-col justify-center items-center mt-30"
+            className="page-top flex w-full min-w-0 flex-col items-center justify-center"
             dir="rtl"
         >
             <Breadcrumb />
 
-            {/* filter div */}
-            <div className="w-full p-10 mb-10 max-sm:p-5 max-sm:mb-0 mt-5">
-                {/* desktop */}
-                <div className="max-sm:hidden md:block">
+            <div className="section-wrap mb-6 mt-5 w-full">
+                <div className="hidden md:block">
                     <FilterForm filters={filters} setFilters={setFilters} />
                 </div>
 
-                {/* mobile */}
-                <div className="max-sm:block md:hidden">
+                <div className="md:hidden">
                     <FilterWithMobileMenu filters={filters} setFilters={setFilters} />
                 </div>
             </div>
 
-            <div className="w-full flex flex-row max-sm:flex-col-reverse justify-center items-start gap-5 max-sm:gap-0">
+            <div className="section-wrap flex w-full flex-col gap-6 pb-8 md:flex-row md:items-start md:gap-8">
 
-                {/* desktop cards */}
-                <div className="w-[60%] max-sm:hidden md:flex flex-col justify-start items-center gap-5 pr-10 h-auto overflow-y-auto">
+                <div className="hidden w-full flex-col items-stretch gap-5 md:flex md:w-[58%] md:pr-4">
                     {data?.map((item, index) => (
                         <FastCard item={item} key={index} />
                     ))}
                 </div>
 
-                {/* mobile cards */}
-                <div className="w-full max-sm:flex md:hidden flex-col justify-start items-center gap-5 pr-5 pl-5" dir="ltr">
+                <div className="flex w-full flex-col items-stretch gap-5 md:hidden" dir="ltr">
                     {data?.map((item, index) => (
                         <Card value={item} detailPath="fast-reserve" key={index} />
                     ))}
                 </div>
 
-                {/* map */}
-                <div className="w-[40%] max-sm:mt-5  max-sm:pl-5 max-sm:pr-5 max-sm:h-auto  max-sm:w-full pl-10">
+                <div className="w-full md:w-[42%] md:pl-4">
                     <LocationMap />
                 </div>
             </div>

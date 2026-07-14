@@ -6,18 +6,16 @@ import Card from '@/components/common/Card'
 const BestChoice = async () => {
     const response = await getBestChoice()
     return (
-        <div className='w-full flex flex-col gap-10 justify-center items-center  p-15 mt-30'>
+        <div className='section-wrap flex w-full flex-col items-center justify-center gap-8 py-8 md:gap-10 md:py-12 lg:mt-30'>
 
-            <div className='w-full flex flex-row-reverse justify-start items-center'>
-                <p className='text-2xl text-right justify-end w-[50%] flex '>بهترین انتخاب برای تعطیلات و اقامت</p>
-                <div className='w-[50%] flex '>
-                    <Link
-                        href={"/"}
-                        className='w-[15%] border-2 flex rounded-4xl justify-center items-center text-brand border-brand p-3 text-center '
-                    >
-                        مشاهده همه
-                    </Link>
-                </div>
+            <div className='flex w-full flex-col gap-4 sm:flex-row-reverse sm:items-center sm:justify-between'>
+                <p className='text-right text-xl font-bold sm:text-2xl'>بهترین انتخاب برای تعطیلات و اقامت</p>
+                <Link
+                    href={"/"}
+                    className='inline-flex w-full items-center justify-center rounded-4xl border-2 border-brand p-3 text-center text-sm text-brand sm:w-auto'
+                >
+                    مشاهده همه
+                </Link>
             </div>
 
             {/* card holder */}

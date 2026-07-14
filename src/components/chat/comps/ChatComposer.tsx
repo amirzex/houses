@@ -18,7 +18,7 @@ export const ChatComposer = ({
     isUploading: boolean;
 }) => {
     return (
-        <div className=" p-4 absolute bottom-0 w-full md:bg-transparent z-20">
+        <div className="absolute bottom-0 z-20 w-full p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:p-4 md:bg-transparent">
             <form
                 onSubmit={handleSend}
                 className="mx-auto flex items-end gap-2 bg-white rounded-2xl shadow-lg p-2 border border-gray-100"

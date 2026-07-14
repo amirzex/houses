@@ -32,50 +32,43 @@ const BlogDetail: FC<BlogDetailProps> = ({ id }) => {
   };
 
   return (
-    <div className='w-full flex flex-col justify-center items-center' dir='rtl'>
+    <div className='page-shell flex w-full min-w-0 flex-col items-center justify-center pb-8' dir='rtl'>
 
       <Breadcrumb />
-      <div className='w-full flex flex-col gap-3 justify-center items-center'>
-        <div className='w-full flex flex-row justify-center items-center px-5'>
-          <h1 className='w-[50%] flex justify-start items-center text-3xl'>
+      <div className='flex w-full min-w-0 flex-col items-center justify-center gap-3'>
+        <div className='flex w-full min-w-0 flex-col gap-3 px-1 sm:flex-row sm:items-center sm:justify-between sm:px-0'>
+          <h1 className='min-w-0 text-right text-xl font-bold leading-snug sm:text-2xl md:text-3xl'>
             {data?.title}
           </h1>
-          <div className='w-[50%] flex justify-end items-center '>
-            <div className='bg-brand px-5 py-2 w-[15%]  rounded-full text-white flex flex-row-reverse justify-center items-center gap-1'>
-              <Image src={clock} alt='' unoptimized />
-              <p>
-                { }
-              </p>
-              {data?.estimated_reading_time}
+          <div className='flex shrink-0 items-center justify-start sm:justify-end'>
+            <div className='flex flex-row-reverse items-center justify-center gap-1.5 rounded-full bg-brand px-4 py-2 text-sm text-white sm:px-5'>
+              <Image src={clock} alt='' unoptimized className="size-4" />
+              <span>{data?.estimated_reading_time}</span>
             </div>
           </div>
         </div>
 
-        <div className='w-full flex flex-row justify-center items-center px-5'>
-          <h1 className='w-[50%] flex justify-start gap-1 items-center text-gray-400 text-xl'>
-            <Image src={calende} alt='' unoptimized />
-            {formatDate(data?.created_at)}
-          </h1>
-          <div className='w-[50%] flex justify-end items-center '>
-            <div className=' w-[15%]  flex flex-row-reverse justify-start items-center gap-2'>
-              <Image src={shair} alt='' unoptimized />
-              <Image src={copy} alt='' unoptimized className='' />
-            </div>
+        <div className='flex w-full min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
+          <div className='flex min-w-0 items-center justify-start gap-1.5 text-sm text-gray-400 sm:text-base md:text-xl'>
+            <Image src={calende} alt='' unoptimized className="size-4 shrink-0 sm:size-5" />
+            <span className="truncate">{formatDate(data?.created_at)}</span>
+          </div>
+          <div className='flex shrink-0 items-center justify-start gap-2 sm:justify-end'>
+            <Image src={shair} alt='' unoptimized className="size-5" />
+            <Image src={copy} alt='' unoptimized className="size-5" />
           </div>
         </div>
       </div>
-      {/* top bg */}
-      <div className='w-full mt-5 rounded-4xl overflow-hidden'>
-        <Image src={bg} alt='backgraound' unoptimized className='w-full h-150 ' />
+
+      <div className='mt-5 w-full overflow-hidden rounded-3xl sm:rounded-4xl'>
+        <Image src={bg} alt='backgraound' unoptimized className='h-48 w-full object-cover sm:h-64 md:h-80 lg:h-150' />
       </div>
 
-      {/* text section */}
-      <div className='w-full flex flex-col justify-center items-center gap-10 mt-5'>
+      <div className='mt-5 flex w-full flex-col items-center justify-center gap-8 sm:gap-10'>
 
-        {/* first section */}
-        <div className='w-full flex flex-col justify-center items-center gap-5'>
-          <h2 className='w-full text-right text-gray-500 text-3xl'> بهترین قیمت های کادیلاک 2024 در سال میلادی جدید ؟ </h2>
-          <p className='text-gray-400 text-xl leading-9'>
+        <div className='flex w-full flex-col items-center justify-center gap-4 sm:gap-5'>
+          <h2 className='w-full text-right text-lg font-bold text-gray-500 sm:text-2xl md:text-3xl'> بهترین قیمت های کادیلاک 2024 در سال میلادی جدید ؟ </h2>
+          <p className='text-sm leading-7 text-gray-400 sm:text-base sm:leading-8 md:text-xl md:leading-9'>
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها
             و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است .لورم ایپسوم متن ساختگی با تولید سادگی
             نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون
@@ -88,10 +81,10 @@ const BlogDetail: FC<BlogDetailProps> = ({ id }) => {
             از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است .
           </p>
         </div>
-        {/* second section */}
-        <div className='w-full flex flex-col justify-center items-center gap-5'>
-          <h2 className='w-full text-right text-gray-500 text-3xl'> بهترین قیمت های کادیلاک 2024 در سال میلادی جدید ؟ </h2>
-          <p className='text-gray-400 text-xl leading-9'>
+
+        <div className='flex w-full flex-col items-center justify-center gap-4 sm:gap-5'>
+          <h2 className='w-full text-right text-lg font-bold text-gray-500 sm:text-2xl md:text-3xl'> بهترین قیمت های کادیلاک 2024 در سال میلادی جدید ؟ </h2>
+          <p className='text-sm leading-7 text-gray-400 sm:text-base sm:leading-8 md:text-xl md:leading-9'>
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها
             و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است .لورم ایپسوم متن ساختگی با تولید سادگی
             نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون
@@ -106,21 +99,16 @@ const BlogDetail: FC<BlogDetailProps> = ({ id }) => {
         </div>
       </div>
 
-      {/* card section */}
-
-      <div className='w-full  flex flex-row flex-wrap gap-10 justify-center items-center p-10'>
-        <div className='w-full flex flex-row justify-center items-center'>
-          <h2 className='w-[85%] text-2xl'> مقالات مشابه </h2>
-          <div className='w-[15%] flex justify-end'>
-
-            <Link href='/blogs' className='w-[60%] flex flex-row-reverse border border-brand p-4 rounded-full text-brand'>
-              <Image src={arrow} alt='arrow' unoptimized />
-              مشاهده همه </Link>
-          </div>
-
+      <div className='flex w-full min-w-0 flex-col items-center justify-center gap-6 p-4 sm:gap-10 sm:p-6 md:p-10'>
+        <div className='flex w-full min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
+          <h2 className='text-xl font-bold sm:text-2xl'> مقالات مشابه </h2>
+          <Link href='/blogs' className='inline-flex w-full flex-row-reverse items-center justify-center gap-2 rounded-full border border-brand px-4 py-3 text-sm text-brand sm:w-auto sm:px-5'>
+            <Image src={arrow} alt='arrow' unoptimized className="size-4" />
+            مشاهده همه
+          </Link>
         </div>
 
-        <div className='w-full flex flex-row justify-center items-center'>
+        <div className='w-full min-w-0 overflow-hidden'>
             {isLoading && <p>در حال بارگذاری مقالات...</p>}
             {error && <p>خطا در دریافت اطلاعات.</p>}
             {swiperData?.data && <BlogSwiper blogData={swiperData.data} />}

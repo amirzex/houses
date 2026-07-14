@@ -9,8 +9,8 @@ interface NumberInputProps {
 
 const NumberInput: React.FC<NumberInputProps> = ({ label, name, value, onChange }) => {
     return (
-        <div className="flex flex-col gap-3 w-full">
-            <label className="text-xs font-bold text-gray-800 px-2 dark:text-[#D9D9E0]">
+        <div className="flex w-full flex-col gap-3">
+            <label className="px-2 text-xs font-bold text-gray-800 dark:text-[#D9D9E0]">
                 {label}
             </label>
             <input
@@ -18,7 +18,7 @@ const NumberInput: React.FC<NumberInputProps> = ({ label, name, value, onChange 
                 value={value || ""} 
                 onChange={(e) => onChange(name, e.target.value)} 
                 placeholder="مقدار"
-                className="w-full bg-gray-100/80 text-gray-500 dark:text-[#D9D9E0] dark:bg-[#353535] text-sm rounded-full px-4 py-3 outline-none focus:ring-2 focus:ring-brand/20"
+                className="w-full rounded-full bg-gray-100/80 px-4 py-3 text-sm text-gray-500 outline-none focus:ring-2 focus:ring-brand/20 dark:bg-[#353535] dark:text-[#D9D9E0]"
             />
         </div>
     );
@@ -34,21 +34,20 @@ const FilterForm = ({ filters, setFilters }: any) => {
     };
 
     return (
-        <form className="w-full flex flex-col gap-6" onSubmit={e => e.preventDefault()} dir='rtl'>
-            {/* first */}
-            <div className="w-full flex flex-row max-sm:flex-col justify-center items-center gap-4 ">
-                <div className="flex flex-col gap-3 w-[25%] max-sm:w-full ">
-                    <label className="text-xs font-bold text-gray-800 px-2 dark:text-[#D9D9E0]">جستجو</label>
+        <form className="flex w-full flex-col gap-6" onSubmit={e => e.preventDefault()} dir='rtl'>
+            <div className="flex w-full flex-col items-stretch justify-center gap-4 md:flex-row md:items-center">
+                <div className="flex w-full flex-col gap-3 md:w-1/4">
+                    <label className="px-2 text-xs font-bold text-gray-800 dark:text-[#D9D9E0]">جستجو</label>
                     <input
                         type="text"
                         value={filters?.search || ""}
                         onChange={(e) => handleChange("search", e.target.value)}
                         placeholder="نام محل مورد نظر ..."
-                        className="w-full bg-gray-100/80 text-gray-500 dark:text-[#D9D9E0] dark:bg-[#353535] text-sm rounded-full px-4 py-3 outline-none focus:ring-2 focus:ring-brand/20 transition-all placeholder:text-gray-400"
+                        className="w-full rounded-full bg-gray-100/80 px-4 py-3 text-sm text-gray-500 outline-none transition-all placeholder:text-gray-400 focus:ring-2 focus:ring-brand/20 dark:bg-[#353535] dark:text-[#D9D9E0]"
                     />
                 </div>
 
-                <div className='w-[75%] flex flex-row max-sm:flex-col max-sm:w-full justify-center gap-5 items-center'>
+                <div className='grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:w-3/4 lg:grid-cols-4'>
                     <SelectInput label="مرتب سازی" value={filters?.sort} onChange={(v: any) => handleChange("sort", v)} options={[{ label: "جدیدترین", value: "last_updated" }, { label: "قدیمی ترین", value: "created_at" }]} />
                     <SelectInput label="محل" value={filters?.location} onChange={(v: any) => handleChange("location", v)} options={[{ label: "بابل", value: "بابل" }, { label: "ساری", value: "ساری" },{ label: "بابلسر", value: "بابلسر" },{ label: "رامسر", value: "رامسر" },{ label: "نور", value: "نور" }]} />
                     <SelectInput label="نوع ملک" value={filters?.propertyType} onChange={(v: any) => handleChange("propertyType", v)} options={[{ label: "آپارتمان", value: "apartment" }, { label: "ویلا", value: "villa" }]} />
@@ -56,7 +55,7 @@ const FilterForm = ({ filters, setFilters }: any) => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-4 max-sm:grid-cols-1 gap-4 px-20 max-sm:px-0">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <NumberInput label="حداقل قیمت" name="minPrice" value={filters?.minPrice} onChange={handleChange} />
                 <NumberInput label="حداکثر قیمت" name="maxPrice" value={filters?.maxPrice} onChange={handleChange} />
                 <NumberInput label="حداقل اجاره" name="minRent" value={filters?.minRent} onChange={handleChange} />

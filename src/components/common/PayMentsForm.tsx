@@ -11,19 +11,19 @@ const PayMentsForm = ({ id }) => {
     const { data } = useHouseById(id)
 
     return (
-        <div className='w-full flex flex-col justify-center items-center ' dir='rtl'>
+        <div className='page-shell flex w-full min-w-0 flex-col items-center justify-center max-sm:px-3' dir='rtl'>
 
             <Breadcrumb />
 
-            <div className='w-full flex flex-row max-sm:flex-col justify-center items-center gap-10 p-10 max-sm:p-5 '>
+            <div className='flex w-full flex-col items-stretch justify-center gap-6 py-6 lg:flex-row lg:gap-10'>
 
-                <form className='w-[70%] max-sm:w-full flex flex-col justify-center items-center gap-5 ' action="">
+                <div className='w-full lg:w-[70%]'>
                     <Suspense fallback={<div className="py-10 text-center text-gray-500">در حال بارگذاری...</div>}>
                         <PaymentWizard bookingData={data} />
                     </Suspense>
-                </form>
+                </div>
 
-                <div className='w-[30%] max-sm:w-full p-10 max-sm:p-5'>
+                <div className='w-full lg:w-[30%]'>
                     <PayMentCard value={data} />
                 </div>
 

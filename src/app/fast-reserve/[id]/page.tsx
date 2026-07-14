@@ -10,7 +10,7 @@ const page: FC<IProps> = ({ params }) => {
 
     const { id } = use(params)
     return (
-        <div className='flex flex-col justify-center items-center mt-30'>
+        <div className='page-top w-full'>
             <FastReserveDetail id={id} />
         </div>
     )

@@ -7,7 +7,7 @@ interface IProps {
 const page: FC<IProps> = ({params}) => {
   const { id } = use(params)
   return (
-    <div className='w-full flex flex-col justify-center items-center gap-10 mt-30'>
+    <div className='page-top w-full'>
       <PayMentsForm id={id} />
     </div>
   )

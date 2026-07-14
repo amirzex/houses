@@ -125,10 +125,10 @@ const PropertyTabs = ({ property }) => {
     return (
         <div className='w-full flex flex-col gap-5 p-4 rounded-lg'>
             {/* buttons*/}
-            <div className='w-full flex flex-row-reverse items-center justify-start gap-5 flex-wrap'>
+            <div className='flex w-full flex-row-reverse flex-wrap items-center justify-start gap-2 sm:gap-3'>
                 <button
                     onClick={() => setActiveTab('about')}
-                    className={`p-3 w-[120px] text-center rounded-4xl transition-all duration-300 ${activeTab === 'about'
+                    className={`rounded-4xl px-4 py-2.5 text-center text-sm transition-all duration-300 sm:px-5 sm:py-3 sm:text-base ${activeTab === 'about'
                         ? 'bg-brand text-white shadow-lg scale-105'
                         : 'bg-gray-100 hover:bg-gray-200'
                         }`}
@@ -137,7 +137,7 @@ const PropertyTabs = ({ property }) => {
                 </button>
                 <button
                     onClick={() => setActiveTab('amenities')}
-                    className={`p-3 w-[150px] text-center rounded-4xl transition-all duration-300 ${activeTab === 'amenities'
+                    className={`rounded-4xl px-4 py-2.5 text-center text-sm transition-all duration-300 sm:px-5 sm:py-3 sm:text-base ${activeTab === 'amenities'
                         ? 'bg-brand text-white shadow-lg scale-105'
                         : 'bg-gray-100 hover:bg-gray-200'
                         }`}
@@ -146,7 +146,7 @@ const PropertyTabs = ({ property }) => {
                 </button>
                 <button
                     onClick={() => setActiveTab('reviews')}
-                    className={`p-3 w-[120px] text-center rounded-4xl transition-all duration-300 ${activeTab === 'reviews'
+                    className={`rounded-4xl px-4 py-2.5 text-center text-sm transition-all duration-300 sm:px-5 sm:py-3 sm:text-base ${activeTab === 'reviews'
                         ? 'bg-brand text-white shadow-lg scale-105'
                         : 'bg-gray-100 hover:bg-gray-200'
                         }`}
@@ -162,8 +162,8 @@ const PropertyTabs = ({ property }) => {
 
             {/* see more button for all tabs */}
             {activeTab !== 'amenities' && (
-                <div className='text-gray-400 w-full flex flex-row justify-center items-center'>
-                    <button className='w-[12%] border-2 p-2 rounded-4xl hover:bg-gray-100 transition-colors'>
+                <div className='flex w-full flex-row justify-center items-center'>
+                    <button className='w-full rounded-4xl border-2 p-3 text-sm transition-colors hover:bg-gray-100 sm:w-auto sm:min-w-[10rem] sm:px-6'>
                         {tabContents[activeTab].buttonText}
                     </button>
                 </div>

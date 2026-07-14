@@ -54,7 +54,7 @@ export const ChatMessages = ({
     return (
         <div
             ref={scrollRef}
-            className="flex-1 overflow-y-auto p-4 md:p-8 space-y-4 bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')] bg-fixed"
+            className="flex-1 space-y-4 overflow-y-auto bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')] bg-fixed p-4 pb-28 md:p-8 md:pb-8"
         >
             {isLoadingHistory ? (
                 <div className="flex justify-center mt-10">

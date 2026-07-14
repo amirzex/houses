@@ -100,7 +100,7 @@ const RentDetail: FC<IProps> = ({ id }) => {
     }
 
     return (
-        <div className='section-wrap flex w-full flex-col gap-6 pb-12 pt-20 sm:gap-8 sm:pt-24 xl:pt-28' dir='rtl'>
+        <div className='section-wrap flex w-full min-w-0 flex-col gap-6 overflow-x-clip pb-12 pt-20 sm:gap-8 sm:pt-24 xl:pt-28' dir='rtl'>
             <Breadcrumb />
 
             {/* Header */}
@@ -152,8 +152,8 @@ const RentDetail: FC<IProps> = ({ id }) => {
             </div>
 
             {/* Gallery */}
-            <div className="grid w-full gap-3 lg:grid-cols-[1fr_220px] xl:grid-cols-[1fr_260px] xl:gap-4">
-                <div className="relative aspect-[16/10] min-h-[240px] overflow-hidden rounded-3xl shadow-[var(--shadow-soft)] sm:min-h-[320px]">
+            <div className="grid w-full min-w-0 max-w-full gap-3 lg:grid-cols-[minmax(0,1fr)_220px] xl:grid-cols-[minmax(0,1fr)_260px] xl:gap-4">
+                <div className="relative aspect-[16/10] min-h-[240px] min-w-0 overflow-hidden rounded-3xl shadow-[var(--shadow-soft)] sm:min-h-[320px]">
                     <Image
                         src={gallery[activeImage] || houses}
                         alt={data?.title || "property"}
@@ -165,7 +165,7 @@ const RentDetail: FC<IProps> = ({ id }) => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                 </div>
-                <div className="flex h-auto gap-2 overflow-x-auto scroll-smooth pb-1 [scrollbar-width:thin] [scrollbar-color:var(--color-border)_transparent] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border/70 [&::-webkit-scrollbar-track]:bg-transparent lg:h-145 lg:flex-col lg:gap-3 lg:overflow-x-hidden lg:overflow-y-auto lg:pb-0">
+                <div className="flex h-auto min-w-0 w-full max-w-full gap-2 overflow-x-auto scroll-smooth pb-1 [scrollbar-width:thin] [scrollbar-color:var(--color-border)_transparent] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border/70 [&::-webkit-scrollbar-track]:bg-transparent lg:h-145 lg:flex-col lg:gap-3 lg:overflow-x-hidden lg:overflow-y-auto lg:pb-0">
                     {gallery.map((src, index) => (
                         <button
                             key={index}

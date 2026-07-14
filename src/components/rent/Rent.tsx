@@ -55,18 +55,18 @@ const Rent = () => {
         <div className="flex flex-col w-full font-sans text-gray-800" dir="rtl">
             <Breadcrumb />
 
-            <div className="px-10 max-sm:px-5 max-sm:mb-0 w-full mb-4">
-                <div className="max-sm:hidden md:block">
+            <div className="section-wrap mb-4 w-full max-sm:mb-0">
+                <div className="hidden md:block">
                     <FilterForm filters={filters} setFilters={setFilters} />
                 </div>
 
-                <div className="max-sm:block md:hidden">
+                <div className="md:hidden">
                     <FilterWithMobileMenu filters={filters} setFilters={setFilters}/>
                 </div>
             </div>
 
             <div
-                className="flex flex-row max-sm:flex-col justify-center p-10 items-center flex-wrap gap-6 max-sm:p-5"
+                className="cards-grid section-wrap pb-8 sm:pb-10"
                 dir="ltr"
             >
                 {data?.map((item, index) => (

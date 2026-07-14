@@ -3,7 +3,7 @@ import React from 'react'
 
 const page = () => {
     return (
-        <div className='flex flex-col justify-center items-center gap-10 mt-30'>
+        <div className='page-top flex flex-col items-center justify-center'>
             <Rent />
         </div>
     )

@@ -28,7 +28,7 @@ const Card: FC<CardProps> = ({ value, detailPath = "rent" }) => {
     return (
         <Link
             href={`/${detailPath}/${value.id}`}
-            className='surface-card group flex w-[30%] min-w-[300px] flex-col font-sans'
+            className='surface-card group flex w-full min-w-0 max-w-full flex-col font-sans sm:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)]'
         >
             <div className='relative h-48 w-full overflow-hidden sm:h-56 xl:h-64'>
                 <Image

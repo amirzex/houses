@@ -20,7 +20,7 @@ export const ActionMenu = ({ onDelete, onApprove, isApproved }: ActionMenuProps)
             </button>
 
             {isOpen && (
-                <div className="absolute top-0 left-full mt-2 w-40 bg-white dark:bg-[#252525] shadow-2xl rounded-2xl border border-slate-100 dark:border-white/10 z-50 overflow-hidden animate-in zoom-in-95">
+                <div className="absolute top-full right-0 z-50 mt-2 w-40 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-2xl animate-in zoom-in-95 dark:border-white/10 dark:bg-[#252525] sm:top-0 sm:left-full sm:mt-2 sm:right-auto">
                     {!isApproved && (
                         <button
                             onClick={() => { onApprove?.(); setIsOpen(false); }}

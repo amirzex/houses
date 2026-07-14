@@ -12,10 +12,10 @@ const Forgot = () => {
     const [email, setEmail] = useState("");
 
     return (
-        <div className=" flex items-center justify-center p-4 font-sans mt-30 max-sm:mt-20 max-sm:p-0" dir="rtl">
-            <div className="  p-3 flex flex-col gap-10 md:flex-row w-[80%] max-sm:w-full">
+        <div className="page-top flex items-center justify-center p-4 font-sans max-sm:p-0" dir="rtl">
+            <div className="flex w-full max-w-6xl flex-col gap-8 rounded-[32px] p-3 md:flex-row">
 
-                <div className="w-full dark:bg-[#272727] dark:text-white md:w-[40%] flex flex-col px-8 py-10 lg:px-16 max-sm:px-5 relative justify-center shadow-sm rounded-[32px]">
+                <div className="relative flex w-full flex-col justify-center rounded-[32px] px-5 py-10 shadow-sm dark:bg-[#272727] dark:text-white md:w-[42%] sm:px-8 lg:px-16">
 
                     <div className="flex justify-center items-center gap-2 mb-4">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand">
@@ -48,7 +48,7 @@ const Forgot = () => {
 
                 </div>
 
-                <div className="hidden md:block md:w-[60%] relative h-[700px]">
+                <div className="relative hidden h-[min(700px,80dvh)] md:block md:w-[58%]">
                     <div className="w-full h-full relative rounded-[28px] overflow-hidden bg-gray-200">
                         <Image
                             src={apartment}

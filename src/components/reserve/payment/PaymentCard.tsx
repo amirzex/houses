@@ -14,9 +14,8 @@ const PayMentCard = ({ value }) => {
             : null
     return (
         <div className='w-full flex flex-col justify-center items-center  '>
-            <Link href={`/fast-reserve/${value?.id}`} className='flex flex-col w-full max-sm:w-full max-sm:h-130 bg-white rounded-3xl overflow-hidden border dark:border-[#313131] shadow-sm mx-auto font-sans'>
-                {/* image holder */}
-                <div className='relative h-80 w-full overflow-hidden'>
+            <Link href={`/fast-reserve/${value?.id}`} className='mx-auto flex w-full flex-col overflow-hidden rounded-3xl border bg-white font-sans shadow-sm dark:border-[#313131]'>
+                <div className='relative h-48 w-full overflow-hidden sm:h-56 md:h-64'>
                     <Image
                         src={value?.photos?.[0] || picture}
                         fill
@@ -40,29 +39,29 @@ const PayMentCard = ({ value }) => {
                     </div>
 
                     {/* Location Overlay */}
-                    <div className=' w-full absolute bottom-3 right-3 flex flex-row gap-1 justify-start items-center text-white drop-shadow-md'>
+                    <div className='absolute bottom-3 right-3 left-3 flex flex-row items-center justify-start gap-1.5 text-white drop-shadow-md'>
                         <Image
                             src={loc}
                             width={20}
                             height={20}
                             alt="location"
-                            className="object-contain w-[5%] text-white"
+                            className="size-4 shrink-0 object-contain"
                             unoptimized
                         />
-                        <p className='text-2xl max-sm:text-sm font-medium text-right'>{value?.address || "خیابان 404 بروکلین کالیفرنیا نیویورک"}</p>
+                        <p className='line-clamp-2 text-right text-xs font-medium sm:text-sm'>{value?.address || "خیابان 404 بروکلین کالیفرنیا نیویورک"}</p>
                     </div>
                 </div>
 
                 {/* card info */}
-                <div className='flex flex-col bg-[#FFFFFA] dark:bg-[#353535] p-5 gap-6'>
+                <div className='flex flex-col gap-4 bg-[#FFFFFA] p-4 dark:bg-[#353535] sm:gap-6 sm:p-5'>
 
-                    <div className='w-full flex flex-row justify-center items-center '>
-                        <p className='w-[50%] text-sm text-gray-400 '>تاریخ ورود به هتل  </p>
-                        <span className='w-[50%] text-gray-400 text-left'>1404/06/16</span>
+                    <div className='flex w-full flex-row items-center justify-between gap-2'>
+                        <p className='text-xs text-gray-400 sm:text-sm'>تاریخ ورود به هتل</p>
+                        <span className='text-xs text-gray-400 sm:text-sm'>1404/06/16</span>
                     </div>
-                    <div className='w-full flex flex-row justify-center items-center '>
-                        <p className='w-[50%] text-sm text-gray-400 '>تاریخ ورود به هتل  </p>
-                        <span className='w-[50%] text-gray-400 text-left'>1404/06/16</span>
+                    <div className='flex w-full flex-row items-center justify-between gap-2'>
+                        <p className='text-xs text-gray-400 sm:text-sm'>تاریخ خروج از هتل</p>
+                        <span className='text-xs text-gray-400 sm:text-sm'>1404/06/16</span>
                     </div>
 
 

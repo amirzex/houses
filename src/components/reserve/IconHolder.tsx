@@ -16,22 +16,22 @@ const IconHolder = ({ items }) => {
     ]
 
     return (
-        <div className='w-full flex flex-row flex-wrap justify-end items-center gap-4'>
+        <div className='grid w-full grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4'>
             {data.map((item, index) => (
-                <div key={index} className='w-[20%] flex flex-row-reverse items-center gap-3 border-2 rounded-4xl p-2'>
-                    <div className='w-[20%] flex justify-center items-center '>
+                <div key={index} className='flex flex-row-reverse items-center gap-2 rounded-3xl border-2 p-2.5 sm:gap-3 sm:p-3'>
+                    <div className='flex shrink-0 items-center justify-center'>
                         <Image
-                            width={50}
-                            height={50}
+                            width={40}
+                            height={40}
                             src={item.icon}
                             alt={item.title}
-                            className='w-15'
+                            className='size-8 sm:size-10'
                             unoptimized
                         />
                     </div>
-                    <div className='w-[80%] flex flex-col gap-1 text-right '>
-                        <p className='text-xl w-full pr-1'>{item.title}</p>
-                        <p className='w-full pr-1'>  {item.count} </p>
+                    <div className='flex min-w-0 flex-1 flex-col gap-0.5 text-right'>
+                        <p className='truncate text-sm font-bold sm:text-base'>{item.title}</p>
+                        <p className='text-sm text-ink-muted'>{item.count}</p>
                     </div>
                 </div>
             ))}

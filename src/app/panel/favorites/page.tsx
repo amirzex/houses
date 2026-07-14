@@ -173,7 +173,7 @@ const FavoritesPage = () => {
                                             </button>
 
                                             {openMenu === index && (
-                                                <div className="absolute left-full top-0 z-50 mt-2 w-36 overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-lift)] animate-in zoom-in-95 dark:border-white/10">
+                                                <div className="absolute top-full right-0 z-50 mt-2 w-36 overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-lift)] animate-in zoom-in-95 dark:border-white/10 sm:top-0 sm:left-full sm:right-auto">
                                                     <button
                                                         onClick={() => openHouseModal(item.house)}
                                                         className="flex w-full items-center justify-between px-4 py-3 text-[11px] font-black text-ink-muted hover:bg-muted dark:hover:bg-white/5"

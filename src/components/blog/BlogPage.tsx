@@ -25,12 +25,11 @@ const BlogPage = () => {
     if (isLoading) return <p>در حال دریافت بلاگ‌ها...</p>;
     if (error) return <p>خطا در دریافت اطلاعات</p>;
     return (
-        <div className='w-full flex flex-col justify-center items-center mt-30 ' dir='rtl'>
+        <div className='page-shell flex w-full flex-col items-center justify-center pb-8' dir='rtl'>
 
             <Breadcrumb />
 
-            {/* filter sectionF */}
-            <div className='w-full pr-5 pb-5 max-sm:hidden md:block'>
+            <div className='hidden w-full md:block'>
                 <BlogFilter
                     data={Category}
                     selectedCategory={selectedCategory}
@@ -38,17 +37,15 @@ const BlogPage = () => {
                     searchTerm={searchTerm}
                     setSearchTerm={setSearchTerm}
                 />
-
             </div>
 
-            <div className='max-sm:block md:hidden'>
+            <div className='w-full md:hidden'>
                 <FilterBlogMobile />
             </div>
 
-            {/* cards */}
-            <div className='w-full flex-wrap flex flex-row max-sm:flex-col justify-center items-center gap-5 '>
+            <div className='cards-grid w-full py-6 sm:py-8'>
                 {data?.data?.map((item) => (
-                    <div className='w-[31.5%] max-sm:w-full max-sm:p-5' key={item.id}>
+                    <div className='w-full min-w-0' key={item.id}>
                         <BlogCard item={item} />
                     </div>
                 ))}

@@ -22,6 +22,7 @@ type Room = {
 const Chat = () => {
     const [messageText, setMessageText] = useState("");
     const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+    const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -124,22 +125,25 @@ const Chat = () => {
     }
 
     return (
-        <div className="fixed inset-0 z-[9999] flex bg-[#f0f2f5] overflow-hidden font-sans">
+        <div className="fixed inset-0 z-[9999] flex overflow-hidden bg-[#f0f2f5] font-sans">
             <ChatSidebar
                 roomsList={roomsList}
                 selectedRoom={selectedRoom}
                 setSelectedRoom={setSelectedRoom}
-                canEnterRoom={canEnterRoom}
-                isAdmin={isAdmin}
+                isMobileOpen={isMobileSidebarOpen}
+                onMobileClose={() => setIsMobileSidebarOpen(false)}
             />
 
-            <div className="flex-1 flex flex-col relative bg-[#e7ebf0]">
-                <ChatHeader selectedRoom={selectedRoom} />
+            <div className="relative flex min-w-0 flex-1 flex-col bg-[#e7ebf0]">
+                <ChatHeader
+                    selectedRoom={selectedRoom}
+                    onOpenSidebar={() => setIsMobileSidebarOpen(true)}
+                />
 
                 <ChatMessages
                     chatHistory={chatHistory}
                     isLoadingHistory={isLoadingHistory}
-                    myUserId={myUserId}
+                    roomId={selectedRoom || ""}
                     scrollRef={scrollRef}
                 />
 

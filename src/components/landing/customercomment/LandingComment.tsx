@@ -14,7 +14,7 @@ const LandingComment = async () => {
     })) : []
 
     return (
-        <div className='flex w-full flex-col gap-10 p-15'>
+        <div className='section-wrap flex w-full flex-col gap-8 py-8'>
             <p className='text-2xl text-right w-full'>
                 مشتریان در باره ما چه می گویند ؟
             </p>

@@ -1,9 +1,9 @@
 export const Step3Confirmation = () => {
     return (
         <div className="flex flex-col gap-8" dir="ltr">
-            <div className="flex flex-row max-sm:flex-col-reverse justify-center gap-8">
+            <div className="flex flex-col justify-center gap-6 lg:flex-row lg:gap-8">
 
-                <div className="w-[70%] max-sm:w-full flex flex-col gap-6" dir="rtl">
+                <div className="flex w-full flex-col gap-6 lg:w-[70%]" dir="rtl">
                     <div>
                         <h2 className="text-xl font-bold text-brand mb-4 dark:text-[#D9D9E0]">هزینه های جانبی</h2>
                         <p className="text-gray-600 leading-relaxed text-justify dark:text-[#D9D9E0]">
@@ -24,7 +24,7 @@ export const Step3Confirmation = () => {
                     </div>
                 </div>
 
-                <div className=" w-[30%] max-sm:w-full" dir="rtl">
+                <div className="w-full lg:w-[30%]" dir="rtl">
                     <div className="bg-gray-100 dark:bg-[#353535]  rounded-2xl p-6 flex flex-col gap-4">
                         <h3 className="text-lg font-bold text-brand mb-2 dark:text-white">مشخصات مسافران</h3>
 

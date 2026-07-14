@@ -11,11 +11,10 @@ const Register = () => {
     const [step, setStep] = useState(1);
     const [tempUserId, setTempUserId] = useState(null);
     return (
-        <div className=" flex items-center justify-center p-4 max-sm:p-0 mt-30 max-sm:mt-20 font-sans" dir="rtl">
-            <div className=" rounded-[32px] gap-10 p-3 flex flex-col md:flex-row w-[80%] max-sm:w-full ">
+        <div className="page-top flex items-center justify-center p-4 font-sans max-sm:p-0" dir="rtl">
+            <div className="flex w-full max-w-6xl flex-col gap-8 rounded-[32px] p-3 md:flex-row">
 
-                {/* register form*/}
-                <div className="w-full dark:bg-[#272727]  md:w-[40%] flex flex-col px-8 py-10 max-sm:px-3 lg:px-16 shadow-sm rounded-[32px]">
+                <div className="flex w-full flex-col rounded-[32px] px-5 py-8 shadow-sm dark:bg-[#272727] md:w-[42%] sm:px-8 sm:py-10 lg:px-12">
 
                     {/* logo Home */}
                     <div className="flex justify-center items-center gap-2 mb-8">
@@ -49,7 +48,7 @@ const Register = () => {
                 </div>
 
                 {/* picture left*/}
-                <div className="hidden md:block md:w-[60%] relative h-[700px]">
+                <div className="relative hidden h-[min(700px,80dvh)] md:block md:w-[58%]">
                     <div className="w-full h-full relative rounded-[28px] overflow-hidden">
                         <Image
                             src={apartment}
