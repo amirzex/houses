@@ -388,18 +388,50 @@ export function handleMockRequest(
     return ok({ data: mockStore.payments });
   }
 
+  if (path.includes("/api/payments/verify") && method === "post") {
+    const paymentId = Number(body.paymentId);
+    const status = body.status === "success" ? "success" : "failed";
+    const existing = mockStore.payments.find((p) => p.id === paymentId);
+    if (!existing) {
+      return { status: 404, data: { message: "پرداخت یافت نشد" } };
+    }
+    mockStore.payments = mockStore.payments.map((p) =>
+      p.id === paymentId ? { ...p, status } : p,
+    );
+    const updated = mockStore.payments.find((p) => p.id === paymentId);
+    return ok({ payment: updated, status });
+  }
+
+  if (path.match(/\/api\/payments\/\d+$/) && method === "get") {
+    const id = Number(path.split("/").pop());
+    const payment = mockStore.payments.find((p) => p.id === id);
+    if (!payment) {
+      return { status: 404, data: { message: "پرداخت یافت نشد" } };
+    }
+    return ok({ payment });
+  }
+
   if (path.includes("/api/payments") && method === "get") {
     return ok({ payments: mockStore.payments, data: mockStore.payments });
   }
 
   if (path.includes("/api/payments") && method === "post") {
+    const id = ++mockStore.nextId;
+    const amount = Number(body.amount || 0);
+    const callbackUrl =
+      typeof body.callbackUrl === "string" && body.callbackUrl
+        ? body.callbackUrl
+        : "/";
     const payment = {
-      id: ++mockStore.nextId,
-      amount: Number(body.amount || 0),
-      status: "success",
+      id,
+      amount,
+      status: "pending",
       type: body.type || "booking",
+      description: body.description || "",
       created_at: new Date().toISOString(),
       bookingId: body.bookingId || null,
+      callbackUrl,
+      paymentUrl: `/payment/fake-gateway?paymentId=${id}&amount=${amount}&callback=${encodeURIComponent(callbackUrl)}`,
     };
     mockStore.payments.unshift(payment);
     return ok(payment, 201);

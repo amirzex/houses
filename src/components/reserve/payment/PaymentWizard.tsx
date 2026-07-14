@@ -12,18 +12,14 @@ import step4 from "../../../assets/payment/money-01.svg";
 import step5 from "../../../assets/payment/tiket.svg";
 import { useCreatePayment } from "@/core/api/dashboard/payments/queries";
 import { Step2Passengers } from "./Step2Passengers ";
+import { useRouter, useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 
 const PaymentWizard = ({ bookingData }) => {
-
-    const price = Number(bookingData?.price)
-    const discounted = Number(bookingData?.discounted_price)
-
-    const discountPercent =
-        discounted && price && discounted < price
-            ? Math.round(((price - discounted) / price) * 100)
-            : null
     const [passengerInfo, setPassengerInfo] = useState(null);
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
     useEffect(() => {
         const item = localStorage.getItem("bookingInfo");
@@ -35,7 +31,25 @@ const PaymentWizard = ({ bookingData }) => {
     const [currentStep, setCurrentStep] = useState(2);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-    // استفاده از هوک
+    useEffect(() => {
+        const status = searchParams.get("status");
+        if (!status) return;
+
+        if (status === "success") {
+            setCurrentStep(5);
+            setShowSuccessModal(true);
+            toast.success("پرداخت با موفقیت انجام شد");
+        } else if (status === "failed") {
+            setCurrentStep(3);
+            toast.error("پرداخت ناموفق بود یا لغو شد");
+        }
+
+        const url = new URL(window.location.href);
+        url.searchParams.delete("status");
+        url.searchParams.delete("paymentId");
+        router.replace(url.pathname + url.search, { scroll: false });
+    }, [searchParams, router]);
+
     const { mutate, isPending } = useCreatePayment();
 
     const steps = [
@@ -61,12 +75,17 @@ const PaymentWizard = ({ bookingData }) => {
                     setCurrentStep(4);
                     if (res?.paymentUrl) {
                         window.location.href = res.paymentUrl;
+                    } else {
+                        toast.error("آدرس درگاه پرداخت دریافت نشد");
+                        setCurrentStep(3);
                     }
                 },
                 onError: () => {
-                    alert("خطا در برقراری ارتباط با درگاه");
+                    toast.error("خطا در برقراری ارتباط با درگاه");
                 }
             });
+        } else if (currentStep === 5) {
+            setShowSuccessModal(true);
         } else {
             setCurrentStep(prev => Math.min(prev + 1, 5));
         }
@@ -75,7 +94,6 @@ const PaymentWizard = ({ bookingData }) => {
     return (
         <div dir="rtl" className="w-full h-full p-4 max-sm:p-0 relative">
 
-            {/* Progress Navigation - بدون تغییر استایل */}
             <div className=" flex items-center justify-between bg-gray-50 dark:bg-[#353535] dark:text-white p-2 rounded-full mb-6 border text-sm overflow-x-auto">
                 {steps.map((step, index) => (
                     <React.Fragment key={step.id}>
@@ -103,7 +121,6 @@ const PaymentWizard = ({ bookingData }) => {
                 ))}
             </div>
 
-            {/* Main Form */}
             <div className="border rounded-3xl p-6 md:p-8 bg-white dark:bg-[#272727] shadow-sm flex flex-col gap-8">
 
                 {currentStep === 2 && <Step2Passengers passengerInfo={passengerInfo} setPassengerInfo={setPassengerInfo} />}
@@ -113,6 +130,17 @@ const PaymentWizard = ({ bookingData }) => {
                         در حال اتصال به درگاه پرداخت امن...
                     </div>
                 )}
+                {currentStep === 5 && (
+                    <div className="text-center py-10 flex flex-col items-center gap-3">
+                        <div className="w-16 h-16 bg-[#2b8a7b] rounded-full flex items-center justify-center">
+                            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <p className="text-lg font-bold text-blue-900 dark:text-white">بلیت شما صادر شد</p>
+                        <p className="text-sm text-gray-500">پرداخت با موفقیت ثبت شد و رزرو تأیید گردید.</p>
+                    </div>
+                )}
 
                 <hr className="border-gray-200" />
 
@@ -120,10 +148,10 @@ const PaymentWizard = ({ bookingData }) => {
                     <button
                         type="button"
                         onClick={handleNextStep}
-                        disabled={isPending}
-                        className={`${isPending ? 'bg-gray-400' : 'bg-blue-800 hover:bg-blue-700'} text-white px-6 py-3 rounded-full font-semibold flex flex-row-reverse items-center gap-2 transition`}
+                        disabled={isPending || currentStep === 4}
+                        className={`${isPending || currentStep === 4 ? 'bg-gray-400' : 'bg-blue-800 hover:bg-blue-700'} text-white px-6 py-3 rounded-full font-semibold flex flex-row-reverse items-center gap-2 transition`}
                     >
-                        {isPending ? 'لطفاً صبر کنید...' : currentStep === 3 ? 'پرداخت آنلاین' : 'تایید و ادامه فرایند'}
+                        {isPending ? 'لطفاً صبر کنید...' : currentStep === 3 ? 'پرداخت آنلاین' : currentStep === 5 ? 'مشاهده جزئیات' : 'تایید و ادامه فرایند'}
                         <span>‹</span>
                     </button>
 

@@ -16,12 +16,13 @@ const LayoutWrapper = (props: LayoutWrapperProps) => {
 
     const pathname = usePathname();
     const isPanel = pathname.startsWith("/panel");
+    const isFakeGateway = pathname.startsWith("/payment/");
 
     return (
         <>
-            {!isPanel && <Header isLoggedIn={isLoggedIn} />}
+            {!isPanel && !isFakeGateway && <Header isLoggedIn={isLoggedIn} />}
             {children}
-            {!isPanel && <Footer />}
+            {!isPanel && !isFakeGateway && <Footer />}
         </>
     );
 }
