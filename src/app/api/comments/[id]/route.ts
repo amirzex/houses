@@ -5,16 +5,17 @@ import { BaseUrl } from "@/core/api/client";
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
+    const { id } = await context.params;
     const body = await req.json();
 
     const cookieStore = await cookies();
     const token = cookieStore.get("accessToken")?.value;
 
     const response = await axios.put(
-      `${BaseUrl}/api/comments/${params.id}`,
+      `${BaseUrl}/api/comments/${id}`,
       {
         title: body.title,
         caption: body.caption,

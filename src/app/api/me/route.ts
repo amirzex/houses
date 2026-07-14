@@ -20,7 +20,7 @@ export async function GET() {
     }
 
     return NextResponse.json({ role });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     return NextResponse.json({ role: null }, { status: 500 });
   }

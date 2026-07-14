@@ -71,7 +71,7 @@ export async function GET() {
       user: userData,
       activity: activityData,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("🔥 Server Error:", error);
 
     return NextResponse.json(
@@ -120,7 +120,7 @@ export async function PUT(request: Request) {
     const data = await response.json();
 
     return NextResponse.json(data);
-  } catch (error) {
+  } catch (error: any) {
     console.error("🔥 Server Error:", error);
 
     return NextResponse.json(

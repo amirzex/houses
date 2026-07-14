@@ -27,12 +27,12 @@ const MobileMenuDrawer = ({ isOpen, onClose, handleDarkMode }) => {
 
       {/* Drawer Links */}
       <div className="flex flex-col p-6 gap-8 font-bold text-black text-lg" dir="rtl">
-        <Link href='FastReserve' onClick={onClose} className="flex dark:text-white justify-between items-center cursor-pointer">
+        <Link href='/fast-reserve' onClick={onClose} className="flex dark:text-white justify-between items-center cursor-pointer">
           <span>رزرو سریع</span>
           {/* <svg width="12" height="7" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg> */}
         </Link>
 
-        <Link href='rent' onClick={onClose} className="flex dark:text-white justify-between items-center cursor-pointer">
+        <Link href='/rent' onClick={onClose} className="flex dark:text-white justify-between items-center cursor-pointer">
           <span>رهن و اجاره</span>
           {/* <svg width="12" height="7" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg> */}
         </Link>

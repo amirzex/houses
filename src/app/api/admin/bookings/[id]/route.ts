@@ -3,17 +3,18 @@ import { cookies } from "next/headers";
 import { BaseUrl } from "@/core/api/client";
 
 type Params = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export async function GET(req: NextRequest, { params }: Params) {
   try {
+    const { id } = await params;
     const cookieStore = await cookies();
     const token = cookieStore.get("accessToken")?.value;
 
-    const response = await fetch(`${BaseUrl}/api/admin/bookings/${params.id}`, {
+    const response = await fetch(`${BaseUrl}/api/admin/bookings/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +25,7 @@ export async function GET(req: NextRequest, { params }: Params) {
 
     const data = await response.json();
     return NextResponse.json(data, { status: response.status });
-  } catch (error) {
+  } catch (error: any) {
     console.error("GET admin booking by id error:", error);
     return NextResponse.json(
       { message: "خطا در دریافت رزرو" },
@@ -84,7 +85,7 @@ export async function PUT(
 
     const data = await response.json();
     return NextResponse.json(data, { status: response.status });
-  } catch (error) {
+  } catch (error: any) {
     console.error("PUT admin booking error:", error);
     return NextResponse.json(
       { message: "خطا در بروزرسانی رزرو" },

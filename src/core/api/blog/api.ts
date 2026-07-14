@@ -11,7 +11,7 @@ export const GetBlog = async (category_id, title) => {
   return Response.data;
 };
 
-export const GetBlogById = async ({ id }) => {
+export const GetBlogById = async (id: string | number) => {
   const Response = await axios.get(`${BaseUrl}/api/blogs/${id}`);
   return Response.data;
 };

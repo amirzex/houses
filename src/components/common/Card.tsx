@@ -13,9 +13,10 @@ import Link from 'next/link'
 
 interface CardProps {
     value: IData
+    detailPath?: "rent" | "fast-reserve"
 }
 
-const Card: FC<CardProps> = ({ value }) => {
+const Card: FC<CardProps> = ({ value, detailPath = "rent" }) => {
     const price = Number(value.price)
     const discounted = Number(value.discounted_price)
 
@@ -25,7 +26,7 @@ const Card: FC<CardProps> = ({ value }) => {
             : null
 
     return (
-        <Link href={`rent/${value.id}`} className='flex flex-col mt-15 w-[31.5%] max-sm:w-full max-sm:h-100 bg-white dark:bg-[#272727] rounded-3xl overflow-hidden border dark:border-none border-gray-200 shadow-sm mx-auto font-sans'>
+        <Link href={`/${detailPath}/${value.id}`} className='flex flex-col mt-15 w-[31.5%] max-sm:w-full max-sm:h-100 bg-white dark:bg-[#272727] rounded-3xl overflow-hidden border dark:border-none border-gray-200 shadow-sm mx-auto font-sans'>
             {/* image holder */}
             <div className='relative h-80 w-full overflow-hidden'>
                 <Image

@@ -5,9 +5,10 @@ import { cookies } from "next/headers";
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } },
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
+    const { id } = await context.params;
     const cookieStore = await cookies();
     const token = cookieStore.get("accessToken")?.value;
 
@@ -16,7 +17,7 @@ export async function GET(
     }
 
     const response = await axios.get(
-      `${BaseUrl}/api/admin/comments/${params.id}`,
+      `${BaseUrl}/api/admin/comments/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

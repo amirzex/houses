@@ -4,13 +4,14 @@ import { BaseUrl } from "@/core/api/client";
 import { cookies } from "next/headers";
 
 type RouteContext = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export async function GET(request: Request, { params }: RouteContext) {
   try {
+    const { id } = await params;
     const cookieStore = await cookies();
     const token = cookieStore.get("accessToken")?.value;
 
@@ -19,7 +20,7 @@ export async function GET(request: Request, { params }: RouteContext) {
     }
 
     const response = await axios.get(
-      `${BaseUrl}/api/admin/payments/${params.id}`,
+      `${BaseUrl}/api/admin/payments/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,7 +31,7 @@ export async function GET(request: Request, { params }: RouteContext) {
     return NextResponse.json(response.data, { status: 200 });
   } catch (error: any) {
     console.error(
-      `GET payment ${params?.id} error:`,
+      "GET payment error:",
       error?.response?.data || error.message,
     );
 

@@ -1,10 +1,10 @@
 // app/api/user/favorites/route.js
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { mockBffResponse } from "@/mocks/bff";
 
-export async function GET(req) {
+export async function GET(req: NextRequest) {
   try {
     const mock = mockBffResponse("get", "/api/favorites/user");
     if (mock) return mock;
@@ -16,7 +16,10 @@ export async function GET(req) {
       return NextResponse.json({ message: "Token required" }, { status: 401 });
     }
     const decoded = jwt.decode(token);
-    const userId = decoded?.id;
+    const userId =
+      decoded && typeof decoded !== "string"
+        ? (decoded as { id?: string | number }).id
+        : undefined;
 
     const { searchParams } = new URL(req.url);
     const page = searchParams.get("page") || 1;
@@ -34,7 +37,7 @@ export async function GET(req) {
 
     const data = await response.json();
     return NextResponse.json(data);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Favorite Fetch Error:", error);
     return NextResponse.json(
       { message: "Error fetching favorites" },

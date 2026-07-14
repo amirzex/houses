@@ -5,15 +5,16 @@ import { BaseUrl } from "@/core/api/client";
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
+    const { id } = await context.params;
     const body = await req.json();
     const cookieStore = await cookies();
     const token = cookieStore.get("accessToken")?.value;
 
     const response = await axios.put(
-      `${BaseUrl}/api/admin/houses/${params.id}`,
+      `${BaseUrl}/api/admin/houses/${id}`,
       body,
       {
         headers: token ? { Authorization: `Bearer ${token}` } : undefined,
@@ -34,14 +35,15 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
+    const { id } = await context.params;
     const cookieStore = await cookies();
     const token = cookieStore.get("accessToken")?.value;
 
     const response = await axios.delete(
-      `${BaseUrl}/api/admin/houses/${params.id}`,
+      `${BaseUrl}/api/admin/houses/${id}`,
       {
         headers: token ? { Authorization: `Bearer ${token}` } : undefined,
       },

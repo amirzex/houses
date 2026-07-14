@@ -39,7 +39,6 @@ const Forgot = () => {
                     {step === 2 && (
                         <Step2Form
                             email={email}
-                            tempCode={tempCode}
                             onNext={() => setStep(3)}
                             onBack={() => setStep(1)}
                         />

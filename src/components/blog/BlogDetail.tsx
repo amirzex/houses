@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { FC } from 'react'
 import Breadcrumb from '../common/Breadcrumb'
 import clock from '../../assets/details/Clock01Icon.svg'
 import calende from '../../assets/details/calendar-03.svg'
@@ -9,11 +9,14 @@ import bg from '../../assets/details/blogsbg.jpg'
 import arrow from '../../assets/details/arrow-left.svg'
 import Image from 'next/image';
 import { useGetBlog, useGetBlogById } from '@/core/api/blog/queries'
-import BlogCard from '../common/BlogCard'
 import Link from 'next/link'
 import BlogSwiper from './BlogSwiper'
 
-const BlogDetail = (id) => {
+interface BlogDetailProps {
+  id: string
+}
+
+const BlogDetail: FC<BlogDetailProps> = ({ id }) => {
 
   const { data } = useGetBlogById(id)
   const { data: swiperData, isLoading, error } = useGetBlog();

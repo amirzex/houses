@@ -85,7 +85,7 @@ const FastReserve = () => {
                 {/* mobile cards */}
                 <div className="w-full max-sm:flex md:hidden flex-col justify-start items-center gap-5 pr-5 pl-5" dir="ltr">
                     {data?.map((item, index) => (
-                        <Card value={item} key={index} />
+                        <Card value={item} detailPath="fast-reserve" key={index} />
                     ))}
                 </div>
 

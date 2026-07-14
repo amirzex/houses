@@ -27,7 +27,7 @@ export async function DELETE(
     });
 
     return NextResponse.json(response.data);
-  } catch (error) {
+  } catch (error: any) {
     console.error(
       "Error in DELETE handler:",
       error.response?.data || error.message,

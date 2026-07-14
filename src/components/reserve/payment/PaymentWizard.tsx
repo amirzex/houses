@@ -52,7 +52,7 @@ const PaymentWizard = ({ bookingData }) => {
             const payload = {
                 amount: bookingData?.discounted_price,
                 description: `پرداخت بابت رزرو شماره ${bookingData?.id || 'تست'}`,
-                callbackUrl: `http://localhost:3000/fast-reserve/${bookingData?.id}/Payment`,
+                callbackUrl: `${window.location.origin}/fast-reserve/${bookingData?.id}/Payment`,
                 bookingId: passengerInfo?.bookingId
             };
 

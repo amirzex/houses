@@ -27,7 +27,7 @@ const BlogCard = ({ item }) => {
     };
 
     return (
-        <Link href={`blogs/${item.id}`} dir="rtl" className="w-full h-auto font-sans dark:bg-[#272727] bg-[#FFFFFA] border rounded-[2rem] overflow-hidden shadow-sm flex flex-col">
+        <Link href={`/blogs/${item.id}`} dir="rtl" className="w-full h-auto font-sans dark:bg-[#272727] bg-[#FFFFFA] border rounded-[2rem] overflow-hidden shadow-sm flex flex-col">
 
             <div className="relative  w-full h-90 max-sm:h-70 transition-all duration-300">
                 <Image

@@ -6,9 +6,9 @@ import { BaseUrl } from "@/core/api/client";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { room: string } },
+  context: { params: Promise<{ room: string }> },
 ) {
-  const { room } = params; 
+  const { room } = await context.params;
 
 
   const accessToken = request.cookies.get("accessToken")?.value;

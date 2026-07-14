@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     const data = await response.json();
 
     return NextResponse.json(data, { status: response.status });
-  } catch (error) {
+  } catch (error: any) {
     console.error("GET /api/admin/bookings error:", error);
 
     return NextResponse.json(

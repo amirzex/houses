@@ -15,7 +15,7 @@ export async function GET() {
     });
 
     return NextResponse.json(response.data);
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
       { message: "error fetching appointments" },
       { status: 500 },

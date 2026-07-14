@@ -11,12 +11,11 @@ import Image from 'next/image'
 import { IData } from '@/core/types/IData'
 import { FC } from 'react'
 
-interface CardProps {
-    value: IData
+interface FastCardProps {
+    item: IData
 }
 
-
-const FastCard: FC<CardProps> = ({ item }) => {
+const FastCard: FC<FastCardProps> = ({ item }) => {
 
     const price = Number(item.price)
     const discounted = Number(item.discounted_price)
@@ -97,7 +96,7 @@ const FastCard: FC<CardProps> = ({ item }) => {
 
                         <div className='w-[20%] flex flex-row-reverse justify-end items-center'>
                             <Image src={arrowleft} alt='' unoptimized />
-                            <Link href={`FastReserve/${item.id}`} className='text-blue-900'> مشاهده جزییات </Link>
+                            <Link href={`/fast-reserve/${item.id}`} className='text-blue-900'> مشاهده جزییات </Link>
                         </div>
                     </div>
                 </div>

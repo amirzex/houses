@@ -74,7 +74,7 @@ export async function GET(request: Request) {
   }
 }
 
-export async function POST(request) {
+export async function POST(request: Request) {
   try {
     const body = await request.json();
     const mock = mockBffResponse("post", "/api/houses", body);
@@ -91,7 +91,7 @@ export async function POST(request) {
     });
 
     return NextResponse.json(response.data, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error(
       "Error creating house:",
       error.response?.data || error.message,

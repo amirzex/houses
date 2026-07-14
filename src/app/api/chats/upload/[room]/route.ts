@@ -5,11 +5,10 @@ import { NextResponse } from "next/server";
 
 export async function POST(
   request: Request,
-  { params }: { params: Promise<{ room: string }> },
+  context: { params: Promise<{ room: string }> },
 ) {
   try {
-    const resolvedParams = await params;
-    const room = resolvedParams.room;
+    const { room } = await context.params;
 
     const formData = await request.formData();
 

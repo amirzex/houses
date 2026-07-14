@@ -14,7 +14,7 @@ const PayMentCard = ({ value }) => {
             : null
     return (
         <div className='w-full flex flex-col justify-center items-center  '>
-            <Link href={`FastReserve/${value?.id}`} className='flex flex-col w-full max-sm:w-full max-sm:h-130 bg-white rounded-3xl overflow-hidden border dark:border-[#313131] shadow-sm mx-auto font-sans'>
+            <Link href={`/fast-reserve/${value?.id}`} className='flex flex-col w-full max-sm:w-full max-sm:h-130 bg-white rounded-3xl overflow-hidden border dark:border-[#313131] shadow-sm mx-auto font-sans'>
                 {/* image holder */}
                 <div className='relative h-80 w-full overflow-hidden'>
                     <Image
