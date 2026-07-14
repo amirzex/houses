@@ -33,25 +33,31 @@ const BookingsAdminPage = () => {
 
   const columns = getBookingColumns(deleteBooking, (id) => updateBooking({ id, body: { status: "confirmed" } }));
 
-  if (isLoading) return <div className="p-10 text-center">در حال بارگذاری...</div>;
+  if (isLoading) return <div className="panel-empty">در حال بارگذاری...</div>;
 
   return (
-    <div className=" space-y-6">
-      <div className="flex justify-between items-center bg-white rounded-3xl">
-        <h1 className="text-xl font-black">مدیریت رزروها</h1>
-        <input
-          value={searchTerm}
-          onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
-          placeholder="جستجو در اقامتگاه‌ها..."
-          className="border rounded-full px-4 py-2 text-sm"
-        />
+    <div className="panel-page" dir="rtl">
+      <div className="panel-toolbar">
+        <h1 className="panel-heading">مدیریت رزروها</h1>
+        <div className="panel-filter-field w-full sm:w-64 sm:flex-none">
+          <input
+            value={searchTerm}
+            onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
+            placeholder="جستجو در اقامتگاه‌ها..."
+            className="panel-input"
+          />
+        </div>
       </div>
 
-      <DataTable
-        columns={columns}
-        data={filteredData.slice((currentPage - 1) * 5, currentPage * 5)}
-        emptyMessage="رزروی یافت نشد"
-      />
+      {isError ? (
+        <div className="panel-card panel-empty text-danger">خطا در دریافت اطلاعات</div>
+      ) : (
+        <DataTable
+          columns={columns}
+          data={filteredData.slice((currentPage - 1) * 5, currentPage * 5)}
+          emptyMessage="رزروی یافت نشد"
+        />
+      )}
     </div>
   );
 };

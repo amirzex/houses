@@ -16,7 +16,7 @@ const AddHouseModal = ({ isOpen, onClose }) => {
         rooms: "",
         bathrooms: "",
         parking: "",
-        tags: "apartment", 
+        tags: "apartment",
         transaction_type: "rental",
         caption: "",
     });
@@ -56,37 +56,37 @@ const AddHouseModal = ({ isOpen, onClose }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-[2px]">
-            <div className="bg-white w-full max-w-2xl rounded-3xl shadow-xl overflow-hidden animate-in zoom-in-95 duration-200">
-                <div className="p-6 border-b border-gray-100">
-                    <h2 className="text-xl font-semibold text-gray-800">ثبت ملک جدید</h2>
+        <div className="panel-modal-backdrop">
+            <div className="panel-modal max-h-[90dvh] overflow-hidden p-0 sm:p-0">
+                <div className="border-b border-border/60 p-5 dark:border-white/10 sm:p-6">
+                    <h2 className="panel-heading">ثبت ملک جدید</h2>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
-                    <div className="grid grid-cols-2 gap-4">
-                        <input placeholder="عنوان" className="p-3 rounded-xl bg-gray-50 outline-none" onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
-                        <input placeholder="آدرس" className="p-3 rounded-xl bg-gray-50 outline-none" onChange={(e) => setFormData({ ...formData, address: e.target.value })} />
+                <form onSubmit={handleSubmit} className="max-h-[70vh] space-y-4 overflow-y-auto p-5 sm:p-6">
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                        <input placeholder="عنوان" className="panel-input" onChange={(e) => setFormData({ ...formData, title: e.target.value })} required />
+                        <input placeholder="آدرس" className="panel-input" onChange={(e) => setFormData({ ...formData, address: e.target.value })} />
 
-                        <input type="number" placeholder="قیمت اصلی" className="p-3 rounded-xl bg-gray-50 outline-none" onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
-                        <input type="number" placeholder="قیمت تخفیف‌خورده" className="p-3 rounded-xl bg-gray-50 outline-none" onChange={(e) => setFormData({ ...formData, discounted_price: e.target.value })} />
+                        <input type="number" placeholder="قیمت اصلی" className="panel-input" onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
+                        <input type="number" placeholder="قیمت تخفیف‌خورده" className="panel-input" onChange={(e) => setFormData({ ...formData, discounted_price: e.target.value })} />
 
-                        <input type="number" placeholder="ظرفیت" className="p-3 rounded-xl bg-gray-50 outline-none" onChange={(e) => setFormData({ ...formData, capacity: e.target.value })} />
-                        <input type="number" placeholder="تعداد اتاق" className="p-3 rounded-xl bg-gray-50 outline-none" onChange={(e) => setFormData({ ...formData, rooms: e.target.value })} />
+                        <input type="number" placeholder="ظرفیت" className="panel-input" onChange={(e) => setFormData({ ...formData, capacity: e.target.value })} />
+                        <input type="number" placeholder="تعداد اتاق" className="panel-input" onChange={(e) => setFormData({ ...formData, rooms: e.target.value })} />
 
-                        <input type="number" placeholder="سرویس بهداشتی" className="p-3 rounded-xl bg-gray-50 outline-none" onChange={(e) => setFormData({ ...formData, bathrooms: e.target.value })} />
-                        <input type="number" placeholder="پارکینگ" className="p-3 rounded-xl bg-gray-50 outline-none" onChange={(e) => setFormData({ ...formData, parking: e.target.value })} />
+                        <input type="number" placeholder="سرویس بهداشتی" className="panel-input" onChange={(e) => setFormData({ ...formData, bathrooms: e.target.value })} />
+                        <input type="number" placeholder="پارکینگ" className="panel-input" onChange={(e) => setFormData({ ...formData, parking: e.target.value })} />
                     </div>
 
-                    <select className="w-full p-3 rounded-xl bg-gray-50" onChange={(e) => setFormData({ ...formData, transaction_type: e.target.value })}>
+                    <select className="panel-input w-full cursor-pointer" onChange={(e) => setFormData({ ...formData, transaction_type: e.target.value })}>
                         <option value="rental">اجاره</option>
                         <option value="sale">فروش</option>
                     </select>
 
-                    <textarea placeholder="توضیحات" className="w-full p-3 rounded-xl bg-gray-50 h-24 outline-none" onChange={(e) => setFormData({ ...formData, caption: e.target.value })} />
+                    <textarea placeholder="توضیحات" className="panel-input h-24 resize-none" onChange={(e) => setFormData({ ...formData, caption: e.target.value })} />
 
-                    <div className="flex gap-3 pt-4">
-                        <button type="button" onClick={onClose} className="flex-1 py-3 rounded-xl bg-gray-100 font-medium hover:bg-gray-200 transition">انصراف</button>
-                        <button type="submit" disabled={isPending} className="flex-1 py-3 rounded-xl bg-brand text-white font-bold hover:bg-brand-hover transition">
+                    <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+                        <button type="button" onClick={onClose} className="btn-outline-brand flex-1 py-3">انصراف</button>
+                        <button type="submit" disabled={isPending} className="btn-brand flex-1 py-3">
                             {isPending ? 'در حال ثبت...' : 'ثبت نهایی'}
                         </button>
                     </div>

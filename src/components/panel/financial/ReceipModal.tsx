@@ -13,54 +13,57 @@ const ReceiptModal = ({ open, onClose, payment }: Props) => {
     if (!open) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-            <div className="w-full max-w-md rounded-3xl bg-white dark:bg-[#1E1E1E] shadow-xl p-6 space-y-6 relative">
+        <div className="panel-modal-backdrop" onClick={onClose}>
+            <div
+                className="panel-modal w-full max-w-md space-y-6"
+                onClick={(e) => e.stopPropagation()}
+            >
 
                 {/* close */}
                 <button
                     onClick={onClose}
-                    className="absolute left-4 top-4 text-slate-400 hover:text-red-500"
+                    className="absolute left-4 top-4 text-ink-muted transition-colors hover:text-danger"
                 >
                     <X size={18} />
                 </button>
 
                 {/* title */}
                 <div className="text-center">
-                    <h2 className="font-black text-lg">رسید تراکنش</h2>
-                    <p className="text-xs text-slate-400">Transaction Receipt</p>
+                    <h2 className="panel-heading">رسید تراکنش</h2>
+                    <p className="panel-subheading">Transaction Receipt</p>
                 </div>
 
                 {/* receipt body */}
                 <div className="space-y-4 text-sm">
 
-                    <div className="flex justify-between border-b pb-2">
-                        <span className="text-slate-400">شماره پیگیری</span>
+                    <div className="flex justify-between border-b border-border/60 pb-2 dark:border-white/10">
+                        <span className="text-ink-muted">شماره پیگیری</span>
                         <span className="font-bold">
                             {payment?.trackingId || "۱۲۳۴۵۶۷۸۹۱۲۳۴۵۶"}
                         </span>
                     </div>
 
-                    <div className="flex justify-between border-b pb-2">
-                        <span className="text-slate-400">مبلغ</span>
+                    <div className="flex justify-between border-b border-border/60 pb-2 dark:border-white/10">
+                        <span className="text-ink-muted">مبلغ</span>
                         <span className="font-bold">
                             {payment?.amount || "۱,۲۵۰,۰۰۰"} تومان
                         </span>
                     </div>
 
-                    <div className="flex justify-between border-b pb-2">
-                        <span className="text-slate-400">تاریخ</span>
+                    <div className="flex justify-between border-b border-border/60 pb-2 dark:border-white/10">
+                        <span className="text-ink-muted">تاریخ</span>
                         <span>{payment?.date || "۱۴۰۲/۰۵/۱۲"}</span>
                     </div>
 
-                    <div className="flex justify-between border-b pb-2">
-                        <span className="text-slate-400">وضعیت</span>
-                        <span className="text-green-500 font-bold">
+                    <div className="flex justify-between border-b border-border/60 pb-2 dark:border-white/10">
+                        <span className="text-ink-muted">وضعیت</span>
+                        <span className="panel-badge-success">
                             {payment?.status || "تایید شده"}
                         </span>
                     </div>
 
                     <div className="flex justify-between">
-                        <span className="text-slate-400">نوع تراکنش</span>
+                        <span className="text-ink-muted">نوع تراکنش</span>
                         <span>{payment?.type || "رزرو"}</span>
                     </div>
                 </div>
@@ -69,7 +72,7 @@ const ReceiptModal = ({ open, onClose, payment }: Props) => {
                 <div className="pt-4">
                     <button
                         onClick={onClose}
-                        className="w-full bg-primary text-white rounded-xl py-2 text-sm font-bold"
+                        className="btn-brand w-full"
                     >
                         بستن
                     </button>

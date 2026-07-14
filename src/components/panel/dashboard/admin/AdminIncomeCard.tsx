@@ -5,59 +5,73 @@ import Link from "next/link";
 import React, { useMemo } from "react";
 
 export default function AdminIncomeCard() {
-    const { data: payments, isLoading, isError } = useGetPayments();
+  const { data: payments, isLoading, isError } = useGetPayments();
 
-    const stats = useMemo(() => {
-        if (!payments?.data || !Array.isArray(payments?.data)) {
-            return { total: 0, pending: { count: 0, sum: 0 }, success: { count: 0, sum: 0 } };
+  const stats = useMemo(() => {
+    if (!payments?.data || !Array.isArray(payments?.data)) {
+      return {
+        total: 0,
+        pending: { count: 0, sum: 0 },
+        success: { count: 0, sum: 0 },
+      };
+    }
+
+    return payments.data.reduce(
+      (acc: any, payment: any) => {
+        const amount = Number(payment.amount) || 0;
+        acc.total += amount;
+
+        if (payment.status === "pending") {
+          acc.pending.count += 1;
+          acc.pending.sum += amount;
+        } else if (payment.status === "success") {
+          acc.success.count += 1;
+          acc.success.sum += amount;
         }
-
-        return payments.data.reduce((acc: any, payment: any) => {
-            const amount = Number(payment.amount) || 0;
-            acc.total += amount;
-
-            if (payment.status === "pending") {
-                acc.pending.count += 1;
-                acc.pending.sum += amount;
-            } else if (payment.status === "success") {
-                acc.success.count += 1;
-                acc.success.sum += amount;
-            }
-            return acc;
-        }, { total: 0, pending: { count: 0, sum: 0 }, success: { count: 0, sum: 0 } });
-    }, [payments]);
-
-    return (
-        <div>
-            <div>
-                <h3 className="font-bold opacity-80 mb-2 text-sm">مجموع درآمد تقریبی</h3>
-
-                {isLoading ? (
-                    <p className="text-sm opacity-80 ">در حال محاسبه درآمد...</p>
-                ) : isError ? (
-                    <p className="text-sm text-red-200">خطا در دریافت پرداخت‌ها</p>
-                ) : (
-                    <>
-                        <p className="text-3xl font-black mb-4">
-                            {stats.total.toLocaleString("fa-IR")}
-                            <span className="text-sm mr-2">تومان</span>
-                        </p>
-
-                        <div className="text-sm space-y-2 opacity-90">
-                            <p className="border-green-500 border-2 bg-green-300/80 p-2 rounded-xl">تراکنش‌های موفق: {stats.success.count} عدد ({stats.success.sum.toLocaleString("fa-IR")} تومان)</p>
-                            <p className="border-yellow-500 border-2 bg-yellow-200/80 p-2 rounded-xl">تراکنش‌های در انتظار: {stats.pending.count} عدد ({stats.pending.sum.toLocaleString("fa-IR")} تومان)</p>
-                        </div>
-                    </>
-                )}
-            </div>
-
-            <div className="mt-22 space-y-3">
-                <button className="w-full py-4 bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-2xl font-bold transition-all text-sm">
-                    <Link href='/panel/payments/admin'>
-                        مدیریت پرداخت ها
-                    </Link>
-                </button>
-            </div>
-        </div>
+        return acc;
+      },
+      { total: 0, pending: { count: 0, sum: 0 }, success: { count: 0, sum: 0 } }
     );
+  }, [payments]);
+
+  return (
+    <div className="flex h-full flex-col justify-between gap-6">
+      <div>
+        <h3 className="mb-2 text-sm font-bold opacity-80">
+          مجموع درآمد تقریبی
+        </h3>
+
+        {isLoading ? (
+          <p className="text-sm opacity-80">در حال محاسبه درآمد...</p>
+        ) : isError ? (
+          <p className="text-sm text-rose-200">خطا در دریافت پرداخت‌ها</p>
+        ) : (
+          <>
+            <p className="mb-4 text-2xl font-black sm:text-3xl">
+              {stats.total.toLocaleString("fa-IR")}
+              <span className="mr-2 text-sm font-bold opacity-80">تومان</span>
+            </p>
+
+            <div className="space-y-2 text-sm">
+              <p className="rounded-xl border border-emerald-400/40 bg-emerald-400/20 p-2.5 backdrop-blur-sm">
+                موفق: {stats.success.count} (
+                {stats.success.sum.toLocaleString("fa-IR")} ت)
+              </p>
+              <p className="rounded-xl border border-amber-300/40 bg-amber-300/20 p-2.5 backdrop-blur-sm">
+                در انتظار: {stats.pending.count} (
+                {stats.pending.sum.toLocaleString("fa-IR")} ت)
+              </p>
+            </div>
+          </>
+        )}
+      </div>
+
+      <Link
+        href="/panel/payments/admin"
+        className="block w-full rounded-2xl bg-white/20 py-3.5 text-center text-sm font-bold backdrop-blur-md transition-all hover:bg-white/30 active:scale-[0.98] sm:py-4"
+      >
+        مدیریت پرداخت‌ها
+      </Link>
+    </div>
+  );
 }

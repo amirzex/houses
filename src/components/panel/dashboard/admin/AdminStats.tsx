@@ -1,24 +1,47 @@
 import React from "react";
+import { Users, Home, CalendarDays, Star } from "lucide-react";
 
 export default function AdminStats({ info }: { info: any }) {
-    return (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4  ">
-            <div className="bg-gray-50 rounded-2xl p-6 shadow dark:bg-[#353535]">
-                <p className="text-sm opacity-70">تعداد کاربران</p>
-                <p className="text-2xl font-bold">{info?.totalUsers || 0}</p>
+  const stats = [
+    {
+      title: "تعداد کاربران",
+      value: info?.totalUsers || 0,
+      icon: <Users size={18} className="text-brand" />,
+    },
+    {
+      title: "کل خانه‌ها",
+      value: info?.totalHouses || 0,
+      icon: <Home size={18} className="text-accent-teal" />,
+    },
+    {
+      title: "کل رزروها",
+      value: info?.totalBookings || 0,
+      icon: <CalendarDays size={18} className="text-deal" />,
+    },
+    {
+      title: "کل امتیاز",
+      value: info?.averageRating ?? "—",
+      icon: <Star size={18} className="text-amber-500" />,
+    },
+  ];
+
+  return (
+    <div className="panel-stat-grid">
+      {stats.map((stat) => (
+        <div key={stat.title} className="panel-stat">
+          <div className="relative z-10 mb-3 flex items-center justify-between">
+            <div className="rounded-xl bg-muted p-2.5 dark:bg-white/5">
+              {stat.icon}
             </div>
-            <div className="bg-gray-50 rounded-2xl p-6 shadow dark:bg-[#353535]">
-                <p className="text-sm opacity-70">کل خانه‌ها</p>
-                <p className="text-2xl font-bold">{info?.totalHouses || 0}</p>
-            </div>
-            <div className="bg-gray-50 rounded-2xl p-6 shadow dark:bg-[#353535]">
-                <p className="text-sm opacity-70">کل رزروها</p>
-                <p className="text-2xl font-bold">{info?.totalBookings || 0}</p>
-            </div>
-            <div className="bg-gray-50 rounded-2xl p-6 shadow dark:bg-[#353535]">
-                <p className="text-sm opacity-70">کل امتیاز</p>
-                <p className="text-2xl font-bold">{info?.averageRating}</p>
-            </div>
+          </div>
+          <p className="relative z-10 text-sm font-bold text-ink-muted">
+            {stat.title}
+          </p>
+          <p className="relative z-10 mt-1 text-xl font-black text-ink sm:text-2xl dark:text-white">
+            {stat.value}
+          </p>
         </div>
-    );
+      ))}
+    </div>
+  );
 }

@@ -34,28 +34,28 @@ const MaintenancePage = () => {
   const columns = getMaintenanceColumns(handleDelete, handleEdit, isDeleting);
 
   return (
-    <div className=" space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div className="flex items-center justify-between gap-4">
-        <h1 className="text-xl font-black text-slate-800 dark:text-white">
+    <div className="panel-page" dir="rtl">
+      <div className="panel-toolbar">
+        <h1 className="panel-heading">
           درخواست‌های نگهداری
         </h1>
 
         <button
           onClick={() => refetch()}
-          className="px-4 py-2 rounded-md bg-brand hover:bg-brand-hover text-white text-sm font-semibold transition-colors"
+          className="btn-brand w-full shrink-0 sm:w-auto"
         >
           بروزرسانی
         </button>
       </div>
 
       {isLoading && (
-        <div className="text-sm text-slate-500 dark:text-slate-300">
+        <div className="panel-card panel-empty">
           در حال بارگذاری درخواست‌ها...
         </div>
       )}
 
       {isError && (
-        <div className="text-sm text-red-600">
+        <div className="panel-card panel-empty text-danger">
           خطا در دریافت اطلاعات: {(error as any)?.message || "خطای نامشخص"}
         </div>
       )}

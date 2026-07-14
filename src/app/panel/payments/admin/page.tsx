@@ -43,29 +43,43 @@ const PaymentsUserPageAdmin = () => {
 
     const columns = getPaymentColumns(deletePayment, handleUpdate);
 
-    if (isLoading) return <div className="p-8 text-center font-black">در حال بارگذاری...</div>;
+    if (isLoading) return <div className="panel-empty">در حال بارگذاری...</div>;
 
     return (
-        <div className="p-4 md:p-8 space-y-8" dir="rtl">
-            {/* Header & Filters */}
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                <div className="flex flex-row-reverse items-center gap-4">
-                    <select value={filters.status} onChange={(e) => setFilters(p => ({ ...p, status: e.target.value }))} className="w-44 border-2 rounded-full px-5 py-3 text-xs font-bold bg-transparent outline-none cursor-pointer">
+        <div className="panel-page" dir="rtl">
+            <div className="panel-toolbar">
+                <h1 className="panel-heading">تراکنش‌های مالی</h1>
+                <div className="panel-filter-field">
+                    <select
+                        value={filters.status}
+                        onChange={(e) => setFilters(p => ({ ...p, status: e.target.value }))}
+                        className="panel-input w-full cursor-pointer sm:w-44"
+                    >
                         <option value="all">همه</option>
                         <option value="تایید شده">تایید شده</option>
                         <option value="تایید نشده">تایید نشده</option>
                     </select>
                 </div>
-                <h1 className="text-xl font-black">تراکنش‌های مالی</h1>
             </div>
 
-            <DataTable columns={columns} data={paginatedData} emptyMessage="هیچ تراکنشی یافت نشد" />
+            {isError ? (
+                <div className="panel-card panel-empty text-danger">خطا در دریافت اطلاعات</div>
+            ) : (
+                <DataTable columns={columns} data={paginatedData} emptyMessage="هیچ تراکنشی یافت نشد" />
+            )}
 
-            {/* Pagination Logic */}
             {totalPages > 1 && (
-                <div className="flex justify-center gap-3">
+                <div className="flex flex-wrap justify-center gap-2">
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                        <button key={page} onClick={() => setCurrentPage(page)} className={`w-11 h-11 rounded-2xl ${currentPage === page ? "bg-black text-white" : "bg-white border"}`}>
+                        <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={`panel-pager-btn ${
+                                currentPage === page
+                                    ? "panel-pager-btn-active"
+                                    : "panel-pager-btn-idle"
+                            }`}
+                        >
                             {page}
                         </button>
                     ))}

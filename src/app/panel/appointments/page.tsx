@@ -19,13 +19,13 @@ const WEEK_DAYS = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه"
 const getStatusColor = (status: string) => {
     switch (status) {
         case "pending":
-            return "bg-yellow-100 text-yellow-800 border-yellow-200 hover:bg-yellow-200";
+            return "panel-badge-warn border border-amber-200/60 dark:border-amber-500/20";
         case "approved":
-            return "bg-green-100 text-green-800 border-green-200 hover:bg-green-200";
+            return "panel-badge-success border border-emerald-200/60 dark:border-emerald-500/20";
         case "rejected":
-            return "bg-red-100 text-red-800 border-red-200 hover:bg-red-200";
+            return "panel-badge-danger border border-rose-200/60 dark:border-rose-500/20";
         default:
-            return "bg-gray-100 text-gray-800 border-gray-200 hover:bg-gray-200";
+            return "panel-badge-muted border border-border/60";
     }
 };
 
@@ -66,7 +66,7 @@ const AppointmentsFullCalendar = () => {
     }, [data]);
 
     if (isLoading) {
-        return <div className="flex justify-center items-center h-64"><span className="text-gray-500 animate-pulse text-lg font-bold">در حال ساخت تقویم...</span></div>;
+        return <div className="panel-empty">در حال ساخت تقویم...</div>;
     }
 
     // شبیه‌سازی یک ماه ۳۱ روزه که روز اول آن مثلاً دوشنبه (ایندکس 2) است.
@@ -82,32 +82,36 @@ const AppointmentsFullCalendar = () => {
     });
 
     return (
-        <div className="w-full mx-auto p-4 lg:p-8" dir="rtl">
-            <div className="mb-8 mt-[-40px] flex justify-between items-end">
-                <div className="">
-                    <h2 className="text-3xl font-black text-gray-900 tracking-tight dark:text-white">تقویم من</h2>
-                    <p className="mt-2 text-gray-500 font-medium" dir="ltr">
+        <div className="panel-page" dir="rtl">
+            <div className="panel-toolbar">
+                <div>
+                    <h2 className="panel-heading text-xl sm:text-2xl">تقویم من</h2>
+                    <p className="panel-subheading" dir="ltr">
                         {currentDateTitle || "در حال بارگذاری..."}
                     </p>
                 </div>
-                <div className="flex gap-2">
-                    <div className="flex items-center gap-1 text-xs font-bold text-gray-600"><span className="w-3 h-3 rounded-full bg-green-400"></span> تایید شده</div>
-                    <div className="flex items-center gap-1 text-xs font-bold text-gray-600"><span className="w-3 h-3 rounded-full bg-yellow-400"></span> در انتظار</div>
+                <div className="flex flex-wrap gap-3">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-ink-muted">
+                        <span className="size-3 rounded-full bg-emerald-400"></span> تایید شده
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-ink-muted">
+                        <span className="size-3 rounded-full bg-amber-400"></span> در انتظار
+                    </div>
                 </div>
             </div>
 
-            <div className="bg-white dark:bg-[#272727] rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+            <div className="panel-card overflow-x-auto">
                 {/* هدر روزهای هفته */}
-                <div className="grid grid-cols-7 border-b border-gray-200 bg-gray-50/80">
+                <div className="grid min-w-[640px] grid-cols-7 border-b border-border/60 bg-muted/80 dark:border-white/5 dark:bg-white/5">
                     {WEEK_DAYS.map((day, idx) => (
-                        <div key={idx} className="py-4 text-center dark:bg-[#272727] dark:text-white text-sm font-black text-gray-600">
+                        <div key={idx} className="py-3 text-center text-sm font-black text-ink-muted sm:py-4">
                             {day}
                         </div>
                     ))}
                 </div>
 
                 {/* شبکه‌ی روزها (Grid) */}
-                <div className="grid grid-cols-7 dark:bg-black auto-rows-[minmax(90px,auto)]">
+                <div className="grid min-w-[640px] auto-rows-[minmax(90px,auto)] grid-cols-7">
                     {calendarCells.map((cell) => {
                         const dayAppointments = cell.isCurrentMonth ? (appointmentsByDay[cell.dayNumber] || []) : [];
                         const isToday = cell.dayNumber === todayJalaliDay; // بررسی روز جاری
@@ -116,16 +120,16 @@ const AppointmentsFullCalendar = () => {
                             <div
                                 key={cell.index}
                                 className={`
-                                     p-2 border-b border-l last:border-l-0 border-gray-100 relative transition-colors
-                                    ${!cell.isCurrentMonth ? 'bg-gray-50/50 text-gray-400' : 'bg-white dark:bg-[#272727] hover:bg-gray-50/30'}
-                                    ${isToday ? 'bg-blue-50/30' : ''} /* هایلایت روز جاری */
+                                     relative border-b border-l border-border/50 p-2 transition-colors last:border-l-0 dark:border-white/5
+                                    ${!cell.isCurrentMonth ? 'bg-muted/40 text-ink-muted' : 'bg-card hover:bg-brand-soft/30'}
+                                    ${isToday ? 'bg-brand-soft/40' : ''}
                                 `}
                             >
                                 {/* شماره روز */}
                                 {cell.isCurrentMonth && (
                                     <span className={`
-                                        inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold mb-2
-                                        ${isToday ? 'bg-brand text-white shadow-md' : 'text-gray-700 dark:text-white'}
+                                        mb-2 inline-flex size-8 items-center justify-center rounded-full text-sm font-bold
+                                        ${isToday ? 'bg-brand text-white shadow-md' : 'text-ink dark:text-white'}
                                     `}>
                                         {cell.dayNumber}
                                     </span>
@@ -133,7 +137,7 @@ const AppointmentsFullCalendar = () => {
 
                                 {/* لیست قرارهای این روز */}
                                 {cell.isCurrentMonth && dayAppointments.length > 0 && (
-                                    <div className="flex flex-col gap-1.5 mt-1">
+                                    <div className="mt-1 flex flex-col gap-1.5">
                                         {dayAppointments.map((app) => {
                                             const time = new Date(app.appointmentTime).toLocaleTimeString("fa-IR", {
                                                 hour: "2-digit",
@@ -143,7 +147,7 @@ const AppointmentsFullCalendar = () => {
                                                 <div
                                                     key={app.id}
                                                     // کلاس group اضافه شد برای کنترل هاور
-                                                    className={`group relative px-2 py-1.5 rounded-lg border text-xs font-bold shadow-sm cursor-pointer transition-transform hover:scale-[1.02] ${getStatusColor(app.status)}`}
+                                                    className={`group relative cursor-pointer px-2 py-1.5 text-xs font-bold shadow-sm transition-transform hover:scale-[1.02] ${getStatusColor(app.status)}`}
                                                 >
                                                     <div className="flex items-center justify-between">
                                                         <span>{time}</span>
@@ -151,36 +155,36 @@ const AppointmentsFullCalendar = () => {
                                                     </div>
 
                                                     {/* تولتیپ اطلاعات تکمیلی */}
-                                                    <div className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-3 bg-gray-900 text-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 scale-95 group-hover:scale-100 pointer-events-none">
-                                                        <div className="text-sm font-black border-b border-gray-700 pb-2 mb-2">
+                                                    <div className="pointer-events-none invisible absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 scale-95 rounded-xl bg-ink p-3 text-white opacity-0 shadow-2xl transition-all duration-200 group-hover:visible group-hover:scale-100 group-hover:opacity-100">
+                                                        <div className="mb-2 border-b border-white/20 pb-2 text-sm font-black">
                                                             جزئیات ملاقات
                                                         </div>
-                                                        <div className="flex flex-col gap-2 text-xs font-medium text-gray-300">
+                                                        <div className="flex flex-col gap-2 text-xs font-medium text-ink-muted">
                                                             <div className="flex justify-between">
-                                                                <span className="text-gray-500">ساعت:</span>
+                                                                <span className="text-white/50">ساعت:</span>
                                                                 <span className="text-white">{time}</span>
                                                             </div>
                                                             <div className="flex justify-between">
-                                                                <span className="text-gray-500">شناسه ملک:</span>
+                                                                <span className="text-white/50">شناسه ملک:</span>
                                                                 <span className="text-white">#{app.houseId}</span>
                                                             </div>
                                                             <div className="flex justify-between">
-                                                                <span className="text-gray-500">نوع قرار:</span>
+                                                                <span className="text-white/50">نوع قرار:</span>
                                                                 <span className="text-white">{app.type === 'virtual' ? 'مجازی' : 'حضوری'}</span>
                                                             </div>
                                                             <div className="flex justify-between">
-                                                                <span className="text-gray-500">وضعیت:</span>
+                                                                <span className="text-white/50">وضعیت:</span>
                                                                 <span className={`
-                                                                    ${app.status === 'approved' ? 'text-green-400' : ''}
-                                                                    ${app.status === 'pending' ? 'text-yellow-400' : ''}
-                                                                    ${app.status === 'rejected' ? 'text-red-400' : ''}
+                                                                    ${app.status === 'approved' ? 'text-emerald-400' : ''}
+                                                                    ${app.status === 'pending' ? 'text-amber-400' : ''}
+                                                                    ${app.status === 'rejected' ? 'text-rose-400' : ''}
                                                                 `}>
                                                                     {app.status === 'approved' ? 'تایید شده' : app.status === 'rejected' ? 'رد شده' : 'در انتظار'}
                                                                 </span>
                                                             </div>
                                                         </div>
                                                         {/* مثلث پایین تولتیپ */}
-                                                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-ink"></div>
                                                     </div>
                                                 </div>
                                             );

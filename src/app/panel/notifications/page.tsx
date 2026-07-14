@@ -25,8 +25,10 @@ const Notifications = () => {
   const columns = getNotificationColumns(removeNotification, markAsRead);
 
   return (
-    <div className="p-4 md:p-8 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <h1 className="text-xl font-black text-slate-800 dark:text-white">اعلان‌های شما</h1>
+    <div className="panel-page" dir="rtl">
+      <div className="panel-toolbar">
+        <h1 className="panel-heading">اعلان‌های شما</h1>
+      </div>
       <DataTable
         columns={columns}
         data={notifications}

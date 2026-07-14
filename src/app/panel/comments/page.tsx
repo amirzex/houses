@@ -15,12 +15,14 @@ const Comments = () => {
 
     const columns = getCommentColumns(handleDelete, handleApprove);
 
-    if (isLoading) return <div className="p-8 text-center">در حال بارگذاری...</div>;
-    if (isError) return <div className="p-8 text-center text-red-500">خطا در دریافت اطلاعات</div>;
+    if (isLoading) return <div className="panel-empty">در حال بارگذاری...</div>;
+    if (isError) return <div className="panel-empty text-danger">خطا در دریافت اطلاعات</div>;
 
     return (
-        <div className="p-4 md:p-8 space-y-6 animate-in fade-in duration-700">
-            <h1 className="text-xl font-black text-slate-800 dark:text-white">کامنت‌های کاربران</h1>
+        <div className="panel-page" dir="rtl">
+            <div className="panel-toolbar">
+                <h1 className="panel-heading">کامنت‌های کاربران</h1>
+            </div>
             <DataTable columns={columns} data={comments?.data || []} />
         </div>
     );

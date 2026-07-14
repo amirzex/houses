@@ -85,179 +85,156 @@ const FinancialPage = () => {
     const [openModal, setOpenModal] = useState(false);
 
     return (
-        <div className="p-4 md:p-8 space-y-8">
+        <div className="panel-page" dir="rtl">
             {mappedApiData.length === 0 && (
-                <div className="rounded-2xl border border-amber-200 bg-amber-50 text-amber-700 px-4 py-3 text-sm">
+                <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-400">
                     در حال حاضر داده‌ای از API دریافت نشد و داده‌های نمونه نمایش داده می‌شوند.
                 </div>
             )}
 
-            <div className="bg-white dark:bg-[#1E1E1E]">
-                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="flex flex-row-reverse items-center gap-4 w-full md:w-auto flex-wrap">
-                        {/* وضعیت پرداخت */}
-                        <div className="relative flex-grow md:w-48">
-                            <span className="absolute -top-3 right-6 bg-white dark:bg-[#1E1E1E] px-2 text-[10px] text-slate-400 font-bold">
-                                وضعیت پرداخت:
-                            </span>
+            <div className="panel-toolbar">
+                <h1 className="panel-heading shrink-0">لیست تراکنش های شما</h1>
 
-                            <div className="relative">
-                                <select
-                                    value={filters.status}
-                                    onChange={(e) =>
-                                        setFilters((prev) => ({
-                                            ...prev,
-                                            status: e.target.value,
-                                        }))
-                                    }
-                                    className="w-full border-2 border-slate-100 dark:border-white/5 rounded-full px-5 py-3 text-xs font-bold text-slate-400 bg-white dark:bg-[#1E1E1E] appearance-none outline-none cursor-pointer"
-                                >
-                                    <option value="all">همه</option>
-                                    <option value="تایید شده">تایید شده</option>
-                                    <option value="تایید نشده">تایید نشده</option>
-                                </select>
-
-                                <ChevronDown
-                                    size={16}
-                                    className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
-                                />
-                            </div>
+                <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                    <div className="panel-filter-field">
+                        <span className="panel-filter-label">وضعیت پرداخت:</span>
+                        <div className="relative">
+                            <select
+                                value={filters.status}
+                                onChange={(e) =>
+                                    setFilters((prev) => ({
+                                        ...prev,
+                                        status: e.target.value,
+                                    }))
+                                }
+                                className="panel-select"
+                            >
+                                <option value="all">همه</option>
+                                <option value="تایید شده">تایید شده</option>
+                                <option value="تایید نشده">تایید نشده</option>
+                            </select>
+                            <ChevronDown
+                                size={16}
+                                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted"
+                            />
                         </div>
-
-                        {/* نوع تراکنش */}
-                        <div className="relative flex-grow md:w-48">
-                            <span className="absolute -top-3 right-6 bg-white dark:bg-[#1E1E1E] px-2 text-[10px] text-slate-400 font-bold">
-                                نوع تراکنش:
-                            </span>
-
-                            <div className="relative">
-                                <select
-                                    value={filters.type}
-                                    onChange={(e) =>
-                                        setFilters((prev) => ({
-                                            ...prev,
-                                            type: e.target.value,
-                                        }))
-                                    }
-                                    className="w-full border-2 border-slate-100 dark:border-white/5 rounded-full px-5 py-3 text-xs font-bold text-slate-400 bg-white dark:bg-[#1E1E1E] appearance-none outline-none cursor-pointer"
-                                >
-                                    <option value="all">همه</option>
-                                    <option value="رزرو">رزرو</option>
-                                    <option value="شارژ کیف پول">شارژ کیف پول</option>
-                                </select>
-
-                                <ChevronDown
-                                    size={16}
-                                    className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
-                                />
-                            </div>
-                        </div>
-
-                        {/* مرتب‌سازی */}
-                        <div className="relative flex-grow md:w-48">
-                            <span className="absolute -top-3 right-6 bg-white dark:bg-[#1E1E1E] px-2 text-[10px] text-slate-400 font-bold">
-                                مرتب‌سازی بر اساس:
-                            </span>
-
-                            <div className="relative">
-                                <select
-                                    value={filters.sort}
-                                    onChange={(e) =>
-                                        setFilters((prev) => ({
-                                            ...prev,
-                                            sort: e.target.value,
-                                        }))
-                                    }
-                                    className="w-full border-2 border-slate-100 dark:border-white/5 rounded-full px-5 py-3 text-xs font-bold text-slate-400 bg-white dark:bg-[#1E1E1E] appearance-none outline-none cursor-pointer"
-                                >
-                                    <option value="createdAt">تاریخ ایجاد</option>
-                                    <option value="updatedAt">تاریخ بروزرسانی</option>
-                                    <option value="amount">مبلغ</option>
-                                    <option value="status">وضعیت</option>
-                                </select>
-
-                                <ChevronDown
-                                    size={16}
-                                    className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
-                                />
-                            </div>
-                        </div>
-
-                        {/* ترتیب */}
-                        <div className="relative flex-grow md:w-48">
-                            <span className="absolute -top-3 right-6 bg-white dark:bg-[#1E1E1E] px-2 text-[10px] text-slate-400 font-bold">
-                                ترتیب:
-                            </span>
-
-                            <div className="relative">
-                                <select
-                                    value={filters.order}
-                                    onChange={(e) =>
-                                        setFilters((prev) => ({
-                                            ...prev,
-                                            order: e.target.value,
-                                        }))
-                                    }
-                                    className="w-full border-2 border-slate-100 dark:border-white/5 rounded-full px-5 py-3 text-xs font-bold text-slate-400 bg-white dark:bg-[#1E1E1E] appearance-none outline-none cursor-pointer"
-                                >
-                                    <option value="ASC">صعودی (ASC)</option>
-                                    <option value="DESC">نزولی (DESC)</option>
-                                </select>
-
-                                <ChevronDown
-                                    size={16}
-                                    className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
-                                />
-                            </div>
-                        </div>
-
-                        {/* دانلود */}
-                        <button className="p-3 bg-slate-50 dark:bg-white/5 text-slate-400 rounded-2xl">
-                            <Download size={20} />
-                        </button>
                     </div>
 
-                    <h1 className="text-xl font-black">لیست تراکنش های شما</h1>
+                    <div className="panel-filter-field">
+                        <span className="panel-filter-label">نوع تراکنش:</span>
+                        <div className="relative">
+                            <select
+                                value={filters.type}
+                                onChange={(e) =>
+                                    setFilters((prev) => ({
+                                        ...prev,
+                                        type: e.target.value,
+                                    }))
+                                }
+                                className="panel-select"
+                            >
+                                <option value="all">همه</option>
+                                <option value="رزرو">رزرو</option>
+                                <option value="شارژ کیف پول">شارژ کیف پول</option>
+                            </select>
+                            <ChevronDown
+                                size={16}
+                                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="panel-filter-field">
+                        <span className="panel-filter-label">مرتب‌سازی بر اساس:</span>
+                        <div className="relative">
+                            <select
+                                value={filters.sort}
+                                onChange={(e) =>
+                                    setFilters((prev) => ({
+                                        ...prev,
+                                        sort: e.target.value,
+                                    }))
+                                }
+                                className="panel-select"
+                            >
+                                <option value="createdAt">تاریخ ایجاد</option>
+                                <option value="updatedAt">تاریخ بروزرسانی</option>
+                                <option value="amount">مبلغ</option>
+                                <option value="status">وضعیت</option>
+                            </select>
+                            <ChevronDown
+                                size={16}
+                                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="panel-filter-field">
+                        <span className="panel-filter-label">ترتیب:</span>
+                        <div className="relative">
+                            <select
+                                value={filters.order}
+                                onChange={(e) =>
+                                    setFilters((prev) => ({
+                                        ...prev,
+                                        order: e.target.value,
+                                    }))
+                                }
+                                className="panel-select"
+                            >
+                                <option value="ASC">صعودی (ASC)</option>
+                                <option value="DESC">نزولی (DESC)</option>
+                            </select>
+                            <ChevronDown
+                                size={16}
+                                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted"
+                            />
+                        </div>
+                    </div>
+
+                    <button className="panel-icon-btn shrink-0">
+                        <Download size={18} />
+                    </button>
                 </div>
             </div>
 
-            <div className="bg-white dark:bg-[#1E1E1E] rounded-[32px] border overflow-hidden">
-                <div className="overflow-x-auto text-right" dir="rtl">
-                    <table className="w-full">
+            <div className="panel-table-shell">
+                <div className="overflow-x-auto text-right">
+                    <table className="panel-table">
                         <thead>
-                            <tr className="bg-slate-100/50 dark:bg-white/5 text-xs font-black">
-                                <th className="p-6">تاریخ</th>
-                                <th className="p-6 text-center">شماره پیگیری</th>
-                                <th className="p-6 text-center">مبلغ</th>
-                                <th className="p-6 text-center">وضعیت</th>
-                                <th className="p-6 text-center">نوع</th>
-                                <th className="p-6 text-left">عملیات</th>
+                            <tr>
+                                <th>تاریخ</th>
+                                <th className="text-center">شماره پیگیری</th>
+                                <th className="text-center">مبلغ</th>
+                                <th className="text-center">وضعیت</th>
+                                <th className="text-center">نوع</th>
+                                <th className="text-left">عملیات</th>
                             </tr>
                         </thead>
 
-                        <tbody className="divide-y">
+                        <tbody>
                             {paginatedData.length > 0 ? (
                                 paginatedData.map((t: any) => (
-                                    <tr key={t.id} className="hover:bg-slate-50/50 dark:hover:bg-white/[0.03]">
-                                        <td className="p-6 text-xs">{t.date}</td>
+                                    <tr key={t.id}>
+                                        <td className="text-xs">{t.date}</td>
 
-                                        <td className="p-6 text-center text-sm">
+                                        <td className="text-center text-sm">
                                             {t.bookingId}
                                         </td>
 
-                                        <td className="p-6 text-center text-sm font-black">
+                                        <td className="text-center text-sm font-black">
                                             {t.amount}
                                         </td>
 
-                                        <td className="p-6">
+                                        <td>
                                             <div className="flex justify-center">
                                                 {t.status === "تایید شده" ? (
-                                                    <span className="px-3 py-1 bg-green-500 text-black text-[10px] rounded-full flex items-center gap-1">
+                                                    <span className="panel-badge-success inline-flex items-center gap-1">
                                                         <CheckCircle2 size={12} />
                                                         {t.status}
                                                     </span>
                                                 ) : (
-                                                    <span className="px-3 py-1 bg-rose-400 text-white text-[10px] rounded-full flex items-center gap-1">
+                                                    <span className="panel-badge-danger inline-flex items-center gap-1">
                                                         <XCircle size={12} />
                                                         {t.status}
                                                     </span>
@@ -265,14 +242,14 @@ const FinancialPage = () => {
                                             </div>
                                         </td>
 
-                                        <td className="p-6 text-center text-xs">{t.type}</td>
+                                        <td className="text-center text-xs">{t.type}</td>
 
                                         <td
                                             onClick={() => {
                                                 setSelectedPayment(t);
                                                 setOpenModal(true);
                                             }}
-                                            className="p-6 text-left text-[10px] font-black text-slate-400 hover:text-primary cursor-pointer"
+                                            className="cursor-pointer text-left text-[10px] font-black text-ink-muted hover:text-brand"
                                         >
                                             مشاهده رسید
                                         </td>
@@ -281,7 +258,7 @@ const FinancialPage = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={6} className="p-8 text-center text-sm text-slate-400">
+                                    <td colSpan={6} className="panel-empty">
                                         موردی برای نمایش وجود ندارد.
                                     </td>
                                 </tr>
@@ -297,15 +274,16 @@ const FinancialPage = () => {
             />
 
             {filteredData.length > itemsPerPage && (
-                <div className="flex justify-center gap-2 py-4">
+                <div className="flex flex-wrap justify-center gap-2 py-4">
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                         <button
                             key={page}
                             onClick={() => setCurrentPage(page)}
-                            className={`w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black transition-all ${currentPage === page
-                                ? "bg-black text-white shadow-lg"
-                                : "bg-white dark:bg-[#1E1E1E] text-slate-400 hover:bg-slate-50 border border-slate-100"
-                                }`}
+                            className={`panel-pager-btn ${
+                                currentPage === page
+                                    ? "panel-pager-btn-active"
+                                    : "panel-pager-btn-idle"
+                            }`}
                         >
                             {page}
                         </button>

@@ -34,37 +34,37 @@ const Modal = ({
 
     return (
         <div
-            className="fixed inset-0 bg-white/5 drop-shadow-2xl bg-opacity-50 flex flex-col justify-center items-center z-50"
+            className="panel-modal-backdrop"
             onClick={onClose}
         >
             <div
-                className="bg-white dark:bg-[#1E1E1E] h-90 rounded-2xl w-[30%] p-10 relative"
+                className="panel-modal w-full max-w-md"
                 onClick={(e) => e.stopPropagation()}
             >
                 <button
                     onClick={onClose}
-                    className="absolute top-3 right-3 text-slate-600 dark:text-slate-300 font-bold"
+                    className="absolute left-4 top-4 font-bold text-ink-muted hover:text-danger"
                 >
                     ✕
                 </button>
                 <Image
                     src={picture}
                     alt={'asas'}
-                    className="rounded-xl h-32 w-full object-cover flex-shrink-0"
+                    className="h-32 w-full shrink-0 rounded-xl object-cover"
                 />
 
-                <h2 className="text-xl font-black mb-4 text-right mt-5">
+                <h2 className="panel-heading mt-5 mb-4 text-right">
                     {house.title || "بدون نام"}
                 </h2>
-                <p className="flex items-center gap-2 mb-2 text-slate-600 dark:text-slate-300">
+                <p className="mb-2 flex items-center gap-2 text-ink-muted">
                     <MapPin size={16} />
                     {house.address || "نامشخص"}
                 </p>
-                <p className="flex items-center gap-2 mb-2 text-yellow-600">
+                <p className="mb-2 flex items-center gap-2 text-amber-600">
                     <Star size={16} />
                     امتیاز: {house.rate || "0"}
                 </p>
-                <p className="mb-4 font-black text-slate-800 dark:text-white text-lg">
+                <p className="mb-4 text-lg font-black">
                     قیمت هر شب: {Number(house.price || 0).toLocaleString()} ت
                 </p>
             </div>
@@ -84,10 +84,10 @@ const FavoritesPage = () => {
     const favorites: FavoriteItem[] = responseData?.data || [];
 
     if (isLoading)
-        return <div className="p-8 text-center">در حال بارگذاری...</div>;
+        return <div className="panel-empty">در حال بارگذاری...</div>;
     if (isError)
         return (
-            <div className="p-8 text-center text-red-500">خطا در دریافت اطلاعات</div>
+            <div className="panel-empty text-danger">خطا در دریافت اطلاعات</div>
         );
 
     const openHouseModal = (house: House | undefined) => {
@@ -102,84 +102,83 @@ const FavoritesPage = () => {
     };
 
     return (
-        <div className="p-4 md:p-8 space-y-6 animate-in h-auto  fade-in slide-in-from-bottom-4 duration-700">
-            <div className="flex flex-row justify-between items-end gap-6 bg-white dark:bg-[#1E1E1E]">
-                <h1 className="text-xl text-right font-black text-slate-800 dark:text-white">
+        <div className="panel-page" dir="rtl">
+            <div className="panel-toolbar">
+                <h1 className="panel-heading text-right">
                     لیست علاقه‌مندی‌های شما
                 </h1>
             </div>
 
-            <div className="bg-white dark:bg-[#1E1E1E] rounded-[32px] shadow-sm border border-slate-50 h-152 overflow-y-scroll dark:border-white/5 overflow-hidden">
-                <div className="overflow-x-auto text-right" dir="rtl">
-                    <table className="w-full border-collapse">
+            <div className="panel-table-shell">
+                <div className="overflow-x-auto text-right">
+                    <table className="panel-table">
                         <thead>
-                            <tr className="bg-slate-50/50 dark:bg-white/5 text-slate-400 text-[11px] font-black uppercase tracking-wider">
-                                <th className="p-5 text-center">نام اقامتگاه</th>
-                                <th className="p-5">موقعیت</th>
-                                <th className="p-5 text-center">امتیاز</th>
-                                <th className="p-5">قیمت هر شب</th>
-                                <th className="p-5 w-10"></th>
+                            <tr>
+                                <th className="text-center">نام اقامتگاه</th>
+                                <th>موقعیت</th>
+                                <th className="text-center">امتیاز</th>
+                                <th>قیمت هر شب</th>
+                                <th className="w-10"></th>
                             </tr>
                         </thead>
 
-                        <tbody className="divide-y divide-slate-50 dark:divide-white/5">
+                        <tbody>
                             {favorites.length === 0 ? (
                                 <tr>
-                                    <td colSpan={5} className="p-8 text-center text-slate-500">
+                                    <td colSpan={5} className="panel-empty">
                                         موردی یافت نشد.
                                     </td>
                                 </tr>
                             ) : (
                                 favorites.map((item, index) => (
-                                    <tr
-                                        key={item.id}
-                                        className="group hover:bg-slate-50/30 dark:hover:bg-white/[0.02] transition-all"
-                                    >
-                                        <td className="p-5">
+                                    <tr key={item.id}>
+                                        <td>
                                             <div className="flex items-center gap-3">
-                                                <div className="w-14 h-14 bg-slate-100 dark:bg-white/10 rounded-2xl flex-shrink-0"></div>
-                                                <span className="text-sm font-bold text-slate-700 dark:text-slate-200">
+                                                <div className="h-14 w-14 shrink-0 rounded-2xl bg-muted dark:bg-white/10"></div>
+                                                <span className="text-sm font-bold">
                                                     {item.house?.title || "بدون نام"}
                                                 </span>
                                             </div>
                                         </td>
 
-                                        <td className="p-5 text-xs  mt-5 font-medium text-slate-500 flex items-center gap-1">
-                                            <MapPin size={14} />
-                                            {item.house?.address || "نامشخص"}
+                                        <td className="text-xs font-medium text-ink-muted">
+                                            <span className="inline-flex items-center gap-1">
+                                                <MapPin size={14} />
+                                                {item.house?.address || "نامشخص"}
+                                            </span>
                                         </td>
 
-                                        <td className="p-5">
+                                        <td>
                                             <div className="flex justify-center">
-                                                <span className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-100 text-yellow-600 rounded-full text-[10px] font-black border border-yellow-200">
+                                                <span className="panel-badge-warn inline-flex items-center gap-1.5">
                                                     <Star size={12} />
                                                     {item.house?.rate || "0"}
                                                 </span>
                                             </div>
                                         </td>
 
-                                        <td className="p-5 text-sm font-black text-slate-800 dark:text-white">
+                                        <td className="text-sm font-black">
                                             {Number(item.house?.price || 0).toLocaleString()}
-                                            <span className="text-[10px] font-normal opacity-60 mr-1">ت</span>
+                                            <span className="mr-1 text-[10px] font-normal opacity-60">ت</span>
                                         </td>
 
-                                        <td className="p-5 relative">
+                                        <td className="relative">
                                             <button
                                                 onClick={() =>
                                                     setOpenMenu(openMenu === index ? null : index)
                                                 }
-                                                className="p-2 hover:bg-slate-100 dark:hover:bg-white/10 rounded-xl transition-colors text-slate-400"
+                                                className="panel-icon-btn"
                                             >
                                                 <MoreHorizontal size={20} />
                                             </button>
 
                                             {openMenu === index && (
-                                                <div className="absolute  top-0 left-full mt-2 w-36 bg-white dark:bg-[#252525] shadow-2xl rounded-2xl border border-slate-100 dark:border-white/10 z-50 overflow-hidden animate-in zoom-in-95">
+                                                <div className="absolute left-full top-0 z-50 mt-2 w-36 overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-lift)] animate-in zoom-in-95 dark:border-white/10">
                                                     <button
                                                         onClick={() => openHouseModal(item.house)}
-                                                        className="w-full px-4 py-3 text-[11px] font-black text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 flex items-center justify-between"
+                                                        className="flex w-full items-center justify-between px-4 py-3 text-[11px] font-black text-ink-muted hover:bg-muted dark:hover:bg-white/5"
                                                     >
-                                                        مشاهده <Heart size={14} className="text-slate-400" />
+                                                        مشاهده <Heart size={14} className="text-ink-muted" />
                                                     </button>
                                                 </div>
                                             )}
@@ -195,8 +194,6 @@ const FavoritesPage = () => {
             {isModalOpen && (
                 <Modal house={selectedHouse} onClose={closeHouseModal} />
             )}
-
-            {/* ... بخش Pagination ... */}
         </div>
     );
 };
