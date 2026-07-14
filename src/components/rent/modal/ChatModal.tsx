@@ -1,4 +1,7 @@
+"use client"
+
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const CloseIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -20,7 +23,7 @@ const ChatModal = ({ isOpen, onClose, sellerName = "امیر محمد خیرآب
         { id: 1, sender: 'seller', text: 'سلام، چطور می‌تونم کمکتون کنم؟', time: '10:12' },
     ]);
 
-    if (!isOpen) return null;
+    if (!isOpen || typeof document === 'undefined') return null;
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
@@ -70,9 +73,12 @@ const ChatModal = ({ isOpen, onClose, sellerName = "امیر محمد خیرآب
         }
     };
 
-    return (
-        <div dir="rtl" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm font-sans">
-            <div className="w-full max-w-md bg-[#FFFFFA] dark:bg-[#272727] border rounded-3xl flex flex-col shadow-lg overflow-hidden h-[80vh] max-h-[600px]">
+    return createPortal(
+        <div dir="rtl" className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm font-sans">
+            <div
+                className="w-full max-w-md bg-[#FFFFFA] dark:bg-[#272727] border rounded-3xl flex flex-col shadow-lg overflow-hidden h-[80vh] max-h-[600px]"
+                onClick={(e) => e.stopPropagation()}
+            >
 
                 {/* Header */}
                 <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-[#272727]">
@@ -87,7 +93,7 @@ const ChatModal = ({ isOpen, onClose, sellerName = "امیر محمد خیرآب
                             <span className="text-xs text-green-500 font-medium">آنلاین</span>
                         </div>
                     </div>
-                    <button onClick={onClose} className="text-gray-500 hover:text-red-500 transition-colors">
+                    <button type="button" onClick={onClose} className="text-gray-500 hover:text-red-500 transition-colors">
                         <CloseIcon />
                     </button>
                 </div>
@@ -115,12 +121,12 @@ const ChatModal = ({ isOpen, onClose, sellerName = "امیر محمد خیرآب
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             placeholder="پیام خود را بنویسید..."
-                            className="flex-1 bg-gray-100 dark:bg-[#353535] text-gray-900 dark:text-[#D9D9E0] placeholder-gray-500 dark:placeholder-gray-400 rounded-full px-5 py-3 text-sm outline-none border border-transparent focus:border-[#1e3a8a] transition-all"
+                            className="flex-1 bg-gray-100 dark:bg-[#353535] text-gray-900 dark:text-[#D9D9E0] placeholder-gray-500 dark:placeholder-gray-400 rounded-full px-5 py-3 text-sm outline-none border border-transparent focus:border-brand transition-all"
                         />
                         <button
                             type="submit"
                             disabled={!newMessage.trim() || isSending}
-                            className="w-12 h-12 flex-shrink-0 bg-[#1e3a8a] text-white rounded-full flex items-center justify-center hover:bg-blue-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed rotate-180"
+                            className="w-12 h-12 flex-shrink-0 bg-[#1e3a8a] text-white rounded-full flex items-center justify-center hover:bg-brand transition-colors disabled:opacity-50 disabled:cursor-not-allowed rotate-180"
                         >
                             <SendIcon />
                         </button>
@@ -128,7 +134,8 @@ const ChatModal = ({ isOpen, onClose, sellerName = "امیر محمد خیرآب
                 </div>
 
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };
 

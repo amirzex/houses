@@ -8,20 +8,16 @@ import React from 'react';
 
 export default function PanelLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className=" bg-transparent dark:bg-transparent flex flex-row pt-10" dir="rtl">
+    <div className="flex min-h-screen flex-row overflow-x-hidden bg-surface pt-4 dark:bg-transparent xl:pt-6" dir="rtl">
 
-      {/* Sidebar - Desktop */}
-      <aside className=" w-[20%] border-2  rounded-l-2xl flex-col bg-white dark:bg-[#1E1E1E] border-l border-gray-100 dark:border-white/5">
+      <aside className="hidden w-[200px] shrink-0 flex-col rounded-l-3xl border border-border/70 bg-card shadow-[var(--shadow-soft)] dark:border-white/5 dark:bg-[#1a222d] xl:flex xl:w-[240px] 2xl:w-[280px]">
         <Sidebar />
       </aside>
 
-      {/* Main Content Area */}
-      <div className="w-[80%] ">
-        {/* <Header /> */}
-
-        <main className="p-5 mt-[-40px] h-200">
-          <div className="  w-full animate-in fade-in duration-700">
-            <div className='w-full flex flex-row jus items-center '>
+      <div className="min-w-0 flex-1 pb-20 xl:pb-0">
+        <main className="p-3 sm:p-4 xl:p-5">
+          <div className="w-full min-w-0 animate-in fade-in duration-700">
+            <div className='mb-3 flex w-full min-w-0 flex-row items-center xl:mb-4'>
               <Header />
             </div>
             {children}
@@ -29,8 +25,7 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
         </main>
       </div>
 
-      {/* Mobile Navigation */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-[60] bg-white/80 dark:bg-black/80 backdrop-blur-xl border-t border-gray-100 dark:border-white/5 px-4 py-2">
+      <div className="fixed bottom-0 left-0 right-0 z-[60] border-t border-border/60 bg-card/85 px-4 py-2 backdrop-blur-xl dark:border-white/5 dark:bg-black/80 xl:hidden">
         <MobileNav />
       </div>
     </div>

@@ -41,95 +41,62 @@ const FormSearch = ({ selectedTab }: { selectedTab: string }) => {
     };
 
     return (
-        <div className='w-full flex flex-row-reverse justify-center items-center'>
-
-            <form
-                onSubmit={handleSearch}
-                className='w-full flex flex-row-reverse justify-center items-center'
-            >
-
-                <div className="w-[20%] text-black flex flex-col gap-1 items-end p-5">
-
-                    <p className="text-xl font-bold dark:text-white">
-                        انتخاب مقصد
-                    </p>
-
-                    <div className="relative w-full">
-
-                        <select
-                            value={location}
-                            onChange={(e) => setLocation(e.target.value)}
-                            className="appearance-none bg-gray-100 dark:bg-[#353535] dark:text-white w-full text-right p-5 rounded-4xl cursor-pointer pr-4"
-                            dir="rtl"
-                        >
-
-                            <option value="">مقصد را انتخاب کنید</option>
-
-                            <option value="ساری">ساری</option>
-                            <option value="بابل">بابل</option>
-                            <option value="بابلسر">بابلسر</option>
-                            <option value="رامسر">رامسر</option>
-
-                        </select>
-
-                    </div>
-                </div>
-
-                <div className='w-[20%] text-black flex flex-col gap-1 items-end p-5'>
-
-                    <p className='text-xl font-bold dark:text-white'>
-                        تعداد نفرات
-                    </p>
-
-                    <input
-                        value={guests}
-                        onChange={(e) => setGuests(e.target.value)}
-                        className='bg-gray-100 dark:bg-[#353535] dark:text-white w-full text-right p-4 rounded-4xl'
-                        type="number"
-                        placeholder='تعداد نفرات'
-                    />
-
-                </div>
-
-                <div className="w-[20%] text-black flex flex-col gap-1 items-end p-5">
-
-                    <p className="text-xl font-bold dark:text-white">
-                        تاریخ ورود
-                    </p>
-
-                    <input
-                        value={checkIn}
-                        onChange={(e) => setCheckIn(e.target.value)}
-                        type="date"
-                        className="bg-gray-100 dark:bg-[#353535] dark:text-white w-full text-right p-4 rounded-4xl"
-                    />
-
-                </div>
-
-                <div className="w-[20%] text-black flex flex-col gap-1 items-end p-5">
-
-                    <p className="text-xl font-bold dark:text-white">
-                        تاریخ خروج
-                    </p>
-
-                    <input
-                        value={checkOut}
-                        onChange={(e) => setCheckOut(e.target.value)}
-                        type="date"
-                        className="bg-gray-100 dark:bg-[#353535] dark:text-white w-full text-right p-4 rounded-4xl"
-                    />
-
-                </div>
-
-                <button
-                    type="submit"
-                    className='text-xl bg-blue-900 text-white font-bold mt-8 w-[20%] rounded-4xl p-4'
+        <form
+            onSubmit={handleSearch}
+            className='grid w-full grid-cols-2 items-end gap-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-3'
+            dir="rtl"
+        >
+            <label className="flex min-w-0 flex-col gap-1 text-right">
+                <span className="px-1 text-xs font-bold text-ink xl:text-sm dark:text-white">انتخاب مقصد</span>
+                <select
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    className="field-input appearance-none cursor-pointer"
                 >
-                    جستجو کنید
-                </button>
+                    <option value="">مقصد را انتخاب کنید</option>
+                    <option value="ساری">ساری</option>
+                    <option value="بابل">بابل</option>
+                    <option value="بابلسر">بابلسر</option>
+                    <option value="رامسر">رامسر</option>
+                </select>
+            </label>
 
-            </form>
-        </div>
+            <label className="flex min-w-0 flex-col gap-1 text-right">
+                <span className="px-1 text-xs font-bold text-ink xl:text-sm dark:text-white">تعداد نفرات</span>
+                <input
+                    value={guests}
+                    onChange={(e) => setGuests(e.target.value)}
+                    className="field-input"
+                    type="number"
+                    min={1}
+                    placeholder="تعداد نفرات"
+                />
+            </label>
+
+            <label className="flex min-w-0 flex-col gap-1 text-right">
+                <span className="px-1 text-xs font-bold text-ink xl:text-sm dark:text-white">تاریخ ورود</span>
+                <input
+                    value={checkIn}
+                    onChange={(e) => setCheckIn(e.target.value)}
+                    type="date"
+                    className="field-input min-w-0"
+                />
+            </label>
+
+            <label className="flex min-w-0 flex-col gap-1 text-right">
+                <span className="px-1 text-xs font-bold text-ink xl:text-sm dark:text-white">تاریخ خروج</span>
+                <input
+                    value={checkOut}
+                    onChange={(e) => setCheckOut(e.target.value)}
+                    type="date"
+                    className="field-input min-w-0"
+                />
+            </label>
+
+            <button type="submit" className="btn-brand col-span-2 h-11 w-full text-sm lg:col-span-1 xl:h-[52px] xl:text-base">
+                جستجو کنید
+            </button>
+        </form>
     );
 };
 

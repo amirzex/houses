@@ -13,7 +13,7 @@ const BestChoice = async () => {
                 <div className='w-[50%] flex '>
                     <Link
                         href={"/"}
-                        className='w-[15%] border-2 flex rounded-4xl justify-center items-center text-blue-900 border-blue-900 p-3 text-center '
+                        className='w-[15%] border-2 flex rounded-4xl justify-center items-center text-brand border-brand p-3 text-center '
                     >
                         مشاهده همه
                     </Link>

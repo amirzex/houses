@@ -18,7 +18,7 @@ const Forgot = () => {
                 <div className="w-full dark:bg-[#272727] dark:text-white md:w-[40%] flex flex-col px-8 py-10 lg:px-16 max-sm:px-5 relative justify-center shadow-sm rounded-[32px]">
 
                     <div className="flex justify-center items-center gap-2 mb-4">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#1a3b99]">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand">
                             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                             <polyline points="9 22 9 12 15 12 15 22"></polyline>
                         </svg>
@@ -58,7 +58,7 @@ const Forgot = () => {
                             unoptimized
                         />
                         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-                            <div className="w-8 h-2.5 bg-[#1a3b99] rounded-full"></div>
+                            <div className="w-8 h-2.5 bg-brand rounded-full"></div>
                             <div className="w-2.5 h-2.5 bg-white/80 rounded-full"></div>
                             <div className="w-2.5 h-2.5 bg-white/80 rounded-full"></div>
                             <div className="w-2.5 h-2.5 bg-white/80 rounded-full"></div>

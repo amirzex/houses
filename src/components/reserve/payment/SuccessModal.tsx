@@ -17,7 +17,7 @@ export const SuccessModal = ({ isOpen, onClose }) => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3.5" d="M5 13l4 4L19 7"></path>
                         </svg>
                     </div>
-                    <h3 className="text-xl font-bold text-blue-900 text-center">
+                    <h3 className="text-xl font-bold text-brand text-center">
                         رزرو بلیت شما با موفقیت انجام شد !
                     </h3>
                 </div>
@@ -28,7 +28,7 @@ export const SuccessModal = ({ isOpen, onClose }) => {
                             onClose();
                             router.push("/");
                         }}
-                        className="bg-blue-800 text-white rounded-full px-4 py-2.5 font-medium text-sm w-1/2 hover:bg-blue-700 transition"
+                        className="bg-brand text-white rounded-full px-4 py-2.5 font-medium text-sm w-1/2 hover:bg-brand-hover transition"
                     >
                         بازگشت به صفحه اصلی
                     </button>

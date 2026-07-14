@@ -3,21 +3,21 @@ import CategoryMobile from './CategoryMobile/CategoryMobile'
 
 const Category = () => {
     return (
-        <div className='w-full flex flex-col text-right mt-30 max-sm:mt-10 p-10 max-sm:p-5 gap-10'>
-            <div className=' w-full flex flex-col gap-4 text-center '>
-                <p className='text-blue-700 text-2xl max-sm:text-xl'>فقط بگرد و پیدا کن</p>
-                <p className='text-4xl max-sm:text-xl '>هر ملکی بخوای اینجا پیدا میشه!</p>
+        <section className='section-wrap mt-12 flex flex-col gap-6 text-right sm:mt-16 sm:gap-8 xl:mt-24 xl:gap-10'>
+            <div className='flex w-full flex-col items-center gap-2 text-center'>
+                <p className='section-eyebrow'>فقط بگرد و پیدا کن</p>
+                <h2 className='section-title'>هر ملکی بخوای اینجا پیدا میشه!</h2>
             </div>
 
-            <div className='max-sm:hidden md:block'>
+            {/* Full 6-col grid only on wide screens; scroll strip on laptop (e.g. 1366) */}
+            <div className='hidden 2xl:block'>
                 <CategoryDesktop />
             </div>
 
-            <div className='max-sm:block md:hidden'>
+            <div className='2xl:hidden'>
                 <CategoryMobile />
             </div>
-        </div>
-
+        </section>
     )
 }
 

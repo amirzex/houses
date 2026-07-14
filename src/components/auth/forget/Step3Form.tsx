@@ -54,7 +54,7 @@ export const Step3Form = ({ onBack, email }) => {
                 <input
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full border dark:bg-[#353535] dark:text-white text-gray-700 outline-none p-4 pr-12 rounded-full focus:border-[#1a3b99] transition-colors placeholder:text-gray-400 text-sm"
+                    className="w-full border dark:bg-[#353535] dark:text-white text-gray-700 outline-none p-4 pr-12 rounded-full focus:border-brand transition-colors placeholder:text-gray-400 text-sm"
                     placeholder="رمز عبور جدید"
                     type="password"
                 />
@@ -67,7 +67,7 @@ export const Step3Form = ({ onBack, email }) => {
                 <input
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full border dark:bg-[#353535] dark:text-white text-gray-700 outline-none p-4 pr-12 rounded-full focus:border-[#1a3b99] transition-colors placeholder:text-gray-400 text-sm"
+                    className="w-full border dark:bg-[#353535] dark:text-white text-gray-700 outline-none p-4 pr-12 rounded-full focus:border-brand transition-colors placeholder:text-gray-400 text-sm"
                     placeholder="تکرار رمز عبور"
                     type="password"
                 />
@@ -76,7 +76,7 @@ export const Step3Form = ({ onBack, email }) => {
             <button
                 disabled={isPending}
                 type="submit"
-                className="bg-[#1a3b99] text-white p-4 rounded-full mt-2 font-bold text-sm hover:bg-blue-900 transition-colors"
+                className="bg-brand text-white p-4 rounded-full mt-2 font-bold text-sm hover:bg-brand-hover transition-colors"
             >
                 تغییر رمز عبور
             </button>

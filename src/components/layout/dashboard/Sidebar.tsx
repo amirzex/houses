@@ -66,32 +66,35 @@ export default function Sidebar() {
 
 
     return (
-        <div className="flex flex-col p-6 overflow-y-hidden h-200">
-            <div className="flex items-center gap-3 mb-10 px-2">
-                <div className="w-10 h-10 bg-primary rounded-2xl flex items-center justify-center text-white font-bold shadow-lg shadow-primary/20 font-sans">
-                    G
+        <div className="flex h-full min-h-[640px] flex-col overflow-y-auto p-5">
+            <div className="mb-8 flex items-center gap-3 px-2">
+                <div className="flex size-10 items-center justify-center rounded-2xl bg-brand font-sans text-sm font-black text-white shadow-lg shadow-brand/25">
+                    H
                 </div>
-                <span className="font-black text-xl tracking-tight dark:text-white">
-                    پنل مدیریت
-                </span>
+                <div className="flex flex-col">
+                    <span className="text-lg font-black tracking-tight text-ink dark:text-white">
+                        Home
+                    </span>
+                    <span className="text-xs font-medium text-ink-muted">پنل مدیریت</span>
+                </div>
             </div>
 
-            <nav className="flex-1 space-y-2">
+            <nav className="flex-1 space-y-1.5">
                 {visibleItems.map((item) => {
                     const isActive = pathname === item.href;
                     return (
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-300 group ${isActive
-                                ? "bg-primary text-white shadow-md dark:text-black shadow-primary/30"
-                                : "text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5"
+                            className={`group flex items-center gap-3 rounded-2xl px-3.5 py-3 transition-all duration-300 ${isActive
+                                ? "bg-brand text-white shadow-md shadow-brand/25"
+                                : "text-ink-muted hover:bg-brand-soft hover:text-brand dark:hover:bg-white/5"
                                 }`}
                         >
                             <span className={`${isActive ? "scale-110" : "group-hover:scale-110"} transition-transform`}>
                                 {item.icon}
                             </span>
-                            <span className="text-[15px] font-bold">{item.title}</span>
+                            <span className="text-sm font-bold">{item.title}</span>
                         </Link>
                     );
                 })}
@@ -100,9 +103,9 @@ export default function Sidebar() {
             <button
                 onClick={() => logout()}
                 disabled={isPending}
-                className={`mt-auto flex items-center gap-4 px-4 py-4 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-2xl transition-colors font-bold ${isPending ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`mt-auto flex items-center gap-3 rounded-2xl px-3.5 py-3.5 font-bold text-danger transition-colors hover:bg-danger/10 ${isPending ? "cursor-not-allowed opacity-50" : ""}`}
             >
-                <LogOut size={22} className={isPending ? "animate-pulse" : ""} />
+                <LogOut size={20} className={isPending ? "animate-pulse" : ""} />
                 <span>{isPending ? "در حال خروج..." : "خروج"}</span>
             </button>
         </div>

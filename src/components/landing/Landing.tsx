@@ -10,7 +10,7 @@ import Suggestion2 from './suggestion/Suggestion2'
 const Landing = async () => {
 
   return (
-    <div className='w-full flex flex-col justify-center items-center'>
+    <div className='flex w-full flex-col items-center justify-center pb-8'>
       <TopSide />
       <Category />
       <Suggestion />

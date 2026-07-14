@@ -52,7 +52,7 @@ const ContactForm = () => {
                 onChange={(e) => setTitle(e.target.value)}
                 type="text"
                 placeholder="موضوع "
-                className="bg-gray-100/70 dark:bg-[#353535] border-none rounded-full p-4 text-sm w-full outline-none focus:ring-2 focus:ring-[#1a3b99]/20 transition-all placeholder:text-gray-400"
+                className="bg-gray-100/70 dark:bg-[#353535] border-none rounded-full p-4 text-sm w-full outline-none focus:ring-2 focus:ring-brand/20 transition-all placeholder:text-gray-400"
             />
 
             <textarea
@@ -60,13 +60,13 @@ const ContactForm = () => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="پیام شما"
-                className="bg-gray-100/70 dark:bg-[#353535] border-none rounded-[24px] p-4 text-sm w-full h-32 outline-none focus:ring-2 focus:ring-[#1a3b99]/20 transition-all placeholder:text-gray-400 resize-none"
+                className="bg-gray-100/70 dark:bg-[#353535] border-none rounded-[24px] p-4 text-sm w-full h-32 outline-none focus:ring-2 focus:ring-brand/20 transition-all placeholder:text-gray-400 resize-none"
             ></textarea>
 
             <button
                 disabled={isPending}
                 type="submit"
-                className="bg-[#1a3b99] text-white font-bold rounded-full py-4 w-full hover:bg-blue-900 transition-colors mt-2 text-sm"
+                className="bg-brand text-white font-bold rounded-full py-4 w-full hover:bg-brand-hover transition-colors mt-2 text-sm"
             >
                 ارسال درخواست شما
             </button>

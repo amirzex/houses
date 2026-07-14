@@ -11,38 +11,30 @@ interface MiniCardProps {
 
 const MiniCard: FC<MiniCardProps> = ({ value }) => {
     return (
-        <div className=' w-full h-full flex flex-row-reverse justify-center bg-gray-200 rounded-4xl p-1'>
-            {/* img holder */}
-            <div className='w-[35%] rounded-4xl overflow-hidden'>
+        <div className='flex h-full w-full flex-row-reverse items-center justify-center gap-2 rounded-3xl border border-border/60 bg-muted p-1.5 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)] dark:border-white/5 dark:bg-[#2a3340]'>
+            <div className='relative h-full min-h-24 w-[35%] overflow-hidden rounded-2xl'>
                 <Image
                     src={minicard}
-                    alt='next'
-                    // width={20}
-                    // height={20}
-                    className='border-2 w-full h-full rounded-4xl'
+                    alt={value.area_name}
+                    fill
+                    className='object-cover'
                 />
             </div>
-            {/* card info */}
-            <div className='w-[65%] flex flex-col gap-3 items-end pr-2'>
-                {/* <p className='w-full text-right text-xl'>اجاره ویلا در رامسر</p> */}
-                <p className='w-full text-xl text-right '>{value.area_name}</p>
-                <span className='w-full flex flex-row-reverse items-center justify-start gap-1 text-gray-400'>
+            <div className='flex w-[65%] flex-col items-end gap-1.5 py-2 pr-2'>
+                <p className='w-full text-right text-base font-bold text-ink dark:text-white'>{value.area_name}</p>
+                <span className='flex w-full flex-row-reverse items-center justify-start gap-1 text-sm text-ink-muted'>
                     {value.id}
                     <p>مورد</p>
                 </span>
-                <div className='w-full h-6'></div>
                 <Link
                     href={"/"}
-                    className='flex flex-row w-full '
+                    className='mt-auto flex w-full flex-row items-center justify-start'
                 >
                     <Image
                         src={arrow}
                         alt='next'
-                        width={20}
-                        height={20}
-                        className='border-2 w-[20%] h-5'
+                        className="size-8"
                     />
-                    <p className='w-[80%] text-right'>مشاهده</p>
                 </Link>
             </div>
         </div>

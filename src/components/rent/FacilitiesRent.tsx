@@ -4,40 +4,42 @@ import member from '../../assets/details/user.svg'
 import bath from '../../assets/details/whater.svg'
 import room from '../../assets/details/BedIcon.svg'
 
-const FacilitiesRent = ({ bathrooms, parking, rooms, capacity }) => {
+const items = [
+    { key: 'parking', label: 'پارکینگ', icon: parkingg },
+    { key: 'capacity', label: 'ظرفیت', icon: member },
+    { key: 'bathrooms', label: 'حمام', icon: bath },
+    { key: 'rooms', label: 'اتاق', icon: room },
+] as const
+
+const FacilitiesRent = ({
+    bathrooms,
+    parking,
+    rooms,
+    capacity,
+}: {
+    bathrooms?: number
+    parking?: number
+    rooms?: number
+    capacity?: number
+}) => {
+    const values = { bathrooms, parking, rooms, capacity }
+
     return (
-        <div className=' w-full flex flex-row flex-wrap gap-5 p-10'>
-            {/* cards */}
-
-            <div className='w-[15%] bg-[#FFFFFA] dark:bg-[#272727] rounded-2xl  p-3 flex flex-col gap-1 justify-center items-center border  hover:border-r-6 hover:border-blue-900 transition-all duration-200 hover:bg-blue-100'>
-                <div className='w-full flex justify-center items-center '>
-                    <Image src={parkingg} alt='' unoptimized className='bg-blue-900 w-15 p-3  rounded-full' />
+        <div className="grid w-full grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {items.map((item) => (
+                <div
+                    key={item.key}
+                    className="group flex flex-col items-center justify-center gap-2 rounded-2xl border border-border/70 bg-card p-4 shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-0.5 hover:border-brand/40 hover:bg-brand-soft dark:border-white/10 dark:bg-[#1a222d]"
+                >
+                    <div className="flex size-12 items-center justify-center rounded-full bg-brand shadow-md shadow-brand/20 transition group-hover:scale-105">
+                        <Image src={item.icon} alt="" unoptimized className="size-6 brightness-0 invert" />
+                    </div>
+                    <h3 className="text-sm font-bold text-brand">{item.label}</h3>
+                    <p className="text-base font-extrabold text-ink dark:text-white">
+                        {values[item.key] ?? "—"}
+                    </p>
                 </div>
-                <h2 className='text-blue-900'>پارکینگ</h2>
-                <p className='text-gray-300'>{parking}</p>
-            </div>
-            <div className='w-[15%] bg-[#FFFFFA] dark:bg-[#272727]  rounded-2xl  p-3 flex flex-col gap-1 justify-center items-center border  hover:border-r-6 hover:border-blue-900 transition-all duration-200 hover:bg-blue-100'>
-                <div className='w-full flex justify-center items-center '>
-                    <Image src={member} alt='' unoptimized className='bg-blue-900 w-15 p-3  rounded-full' />
-                </div>
-                <h2 className='text-blue-900'>ظرفیت</h2>
-                <p className='text-gray-300'>{capacity}</p>
-            </div>
-            <div className='w-[15%] bg-[#FFFFFA] dark:bg-[#272727] rounded-2xl  p-3 flex flex-col gap-1 justify-center items-center border  hover:border-r-6 hover:border-blue-900 transition-all duration-200 hover:bg-blue-100'>
-                <div className='w-full flex justify-center items-center '>
-                    <Image src={bath} alt='' unoptimized className='bg-blue-900 w-15 p-3  rounded-full' />
-                </div>
-                <h2 className='text-blue-900'>حمام</h2>
-                <p className='text-gray-300'>{bathrooms}</p>
-            </div>
-            <div className='w-[15%] bg-[#FFFFFA] dark:bg-[#272727] rounded-2xl  p-3 flex flex-col gap-1 justify-center items-center border  hover:border-r-6 hover:border-blue-900 transition-all duration-200 hover:bg-blue-100'>
-                <div className='w-full flex justify-center items-center '>
-                    <Image src={room} alt='' unoptimized className='bg-blue-900 w-15 p-3  rounded-full' />
-                </div>
-                <h2 className='text-blue-900'>اتاق</h2>
-                <p className='text-gray-300'>{rooms}</p>
-            </div>
-
+            ))}
         </div>
     )
 }

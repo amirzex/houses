@@ -85,7 +85,7 @@ const PayMentCard = ({ value }) => {
                     </div>
                     {/* button */}
 
-                    <button className='w-full rounded-full bg-blue-900 p-5 max-sm:p-3 flex justify-center items-center text-white'>
+                    <button className='w-full rounded-full bg-brand p-5 max-sm:p-3 flex justify-center items-center text-white'>
                         <p>تغییر هتل</p>
                     </button>
                 </div>

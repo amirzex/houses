@@ -15,27 +15,26 @@ const DestinationCard: FC<DestinationCardProps> = ({
     imageSrc
 }) => {
     return (
-        <div className="relative w-[25%] max-sm:w-full h-90  aspect-[4/3] rounded-3xl overflow-hidden shadow-md font-sans">
-            
+        <div className="group relative aspect-[4/3] min-h-[220px] w-full overflow-hidden rounded-3xl shadow-[var(--shadow-soft)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] sm:min-h-[240px]">
             <Image
                 src={imageSrc}
                 alt={title}
                 fill
-                className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
                 unoptimized
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
             <div
                 dir="rtl"
-                className="absolute bottom-4 left-4 right-4 bg-white dark:bg-[#353535]  rounded-2xl px-5 py-5 flex justify-between items-center shadow-lg" 
+                className="absolute inset-x-2 bottom-2 flex items-center justify-between gap-2 rounded-2xl border border-white/50 bg-white/95 px-3 py-2.5 shadow-lg backdrop-blur-md sm:inset-x-3 sm:bottom-3 sm:gap-3 sm:px-4 sm:py-3 dark:border-white/10 dark:bg-[#1a222d]/95"
             >
-                
-                <h3 className="text-lg sm:text-xl max-sm:text-sm dark:text-white font-bold text-gray-900">
+                <h3 className="min-w-0 truncate text-xs font-bold text-ink sm:text-sm xl:text-base dark:text-white">
                     {title}
                 </h3>
 
-                
-                <div className="border border-[#1E3A8A] text-[#1E3A8A] dark:text-blue-600/90  dark:border-blue-600/90 rounded-full px-5 py-2 font-bold text-2xl max-sm:text-sm flex gap-1 justify-center items-center">
+                <div className="flex shrink-0 items-center justify-center gap-1 rounded-full border border-brand/30 bg-brand-soft px-2.5 py-1 text-[11px] font-bold text-brand sm:px-3 sm:text-xs">
                     <span>{count}</span>
                     <span>{countLabel}</span>
                 </div>

@@ -1,12 +1,9 @@
 "use client"
-import React, { FC, useState } from 'react'
+import React, { FC, useMemo, useState } from 'react'
 import Breadcrumb from '../common/Breadcrumb'
 import { slides } from '../landing/suggestion/Suggestion';
 import Image from 'next/image';
-import start from '../../assets/landing/start.svg'
 import loca from '../../assets/landing/location.svg'
-import shair from '../../assets/reserve/Only-IconButton.svg'
-import copy from '../../assets/details/Only-IconButton.svg'
 import houses from '../../assets/reserve/Frame 14333.png'
 import house1 from '../../assets/reserve/image 2.svg'
 import house2 from '../../assets/reserve/image 3.svg'
@@ -19,6 +16,7 @@ import Appointments from '../common/Appointments';
 import { useAddFavorite } from '@/core/api/favorites/queries';
 import toast from 'react-hot-toast';
 import { useCreateMaintenance } from '@/core/api/admin/maintenance/queries';
+import { Heart, Share2, Link2, Wrench, Star, MapPin } from 'lucide-react'
 
 interface IProps {
     id: string;
@@ -27,11 +25,23 @@ interface IProps {
 const RentDetail: FC<IProps> = ({ id }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [description, setDescription] = useState("");
+    const [activeImage, setActiveImage] = useState(0);
 
-    const { data } = useHouseById(id);
+    const { data, isLoading } = useHouseById(id);
     const { mutate: addFavorite, isPending } = useAddFavorite();
-
     const { mutate: createMaintenance, isPending: isMaintenanceLoading } = useCreateMaintenance();
+
+    const gallery = useMemo(() => {
+        const raw = data?.photos as unknown
+        const fromApi = Array.isArray(raw)
+            ? raw.filter(Boolean)
+            : typeof raw === "string" && raw
+                ? [raw]
+                : []
+        const fallbacks = [houses, house1, house2]
+        const merged = [...fromApi, ...fallbacks].slice(0, 5)
+        return merged.length ? merged : fallbacks
+    }, [data?.photos])
 
     const handleAddFavorite = () => {
         if (!id) return;
@@ -43,6 +53,24 @@ const RentDetail: FC<IProps> = ({ id }) => {
             }
         );
     };
+
+    const handleShare = async () => {
+        try {
+            if (navigator.share) {
+                await navigator.share({ title: data?.title, url: window.location.href })
+            } else {
+                await navigator.clipboard.writeText(window.location.href)
+                toast.success("لینک کپی شد")
+            }
+        } catch {
+            /* user cancelled */
+        }
+    }
+
+    const handleCopy = async () => {
+        await navigator.clipboard.writeText(window.location.href)
+        toast.success("لینک کپی شد")
+    }
 
     const handleMaintenanceSubmit = () => {
         if (!description.trim()) {
@@ -63,135 +91,183 @@ const RentDetail: FC<IProps> = ({ id }) => {
         );
     };
 
+    if (isLoading) {
+        return (
+            <div className="section-wrap flex min-h-[50vh] items-center justify-center pt-24 text-ink-muted">
+                در حال بارگذاری جزئیات ملک...
+            </div>
+        )
+    }
+
     return (
-        <div className='w-full flex flex-col justify-center items-center gap-10 p-10' dir='rtl'>
+        <div className='section-wrap flex w-full flex-col gap-6 pb-12 pt-20 sm:gap-8 sm:pt-24 xl:pt-28' dir='rtl'>
             <Breadcrumb />
 
-            <div className='w-full flex flex-col justify-center items-center gap-5 '>
-                {/* title div */}
-                <div className='w-full flex flex-row justify-center items-center px-5'>
-                    <h1 className='w-[50%] flex justify-start items-center text-3xl'>{data?.title}</h1>
-                    <div className='w-[50%] flex justify-end items-center '>
-                        <div className='bg-blue-900 px-5 py-2 w-[15%]  rounded-full text-white flex flex-row-reverse justify-center items-center gap-1'>
-                            <Image src={start} alt='' unoptimized />
-                            <p>ستاره</p>
-                            {data?.rate}
-                        </div>
+            {/* Header */}
+            <div className='flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between'>
+                <div className="min-w-0 flex-1 space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                        <h1 className='text-xl font-extrabold leading-snug text-ink sm:text-2xl xl:text-3xl dark:text-white'>
+                            {data?.title || "جزئیات ملک"}
+                        </h1>
+                        {data?.rate != null && (
+                            <span className='inline-flex items-center gap-1 rounded-full bg-brand px-2.5 py-1 text-xs font-bold text-white shadow-md shadow-brand/20'>
+                                <Star className="size-3.5 fill-white" />
+                                {data.rate}
+                            </span>
+                        )}
                     </div>
+                    <p className='flex items-start gap-1.5 text-sm text-ink-muted sm:text-base'>
+                        <MapPin className="mt-0.5 size-4 shrink-0 text-brand" />
+                        <Image src={loca} alt="" unoptimized className="hidden" />
+                        <span>{data?.address || "آدرس ثبت نشده"}</span>
+                    </p>
                 </div>
 
-                {/* location div */}
-                <div className='w-full flex flex-row justify-center items-center px-5'>
-                    <h1 className='w-[50%] flex justify-start items-center text-gray-400 text-xl'>
-                        <Image src={loca} alt='' unoptimized />
-                        {data?.address}
-                    </h1>
-                    <div className='w-[50%] flex justify-end items-center '>
-                        <div className=' w-auto flex flex-row-reverse justify-start items-center gap-3'>
-                            <Image src={shair} alt='' unoptimized className="cursor-pointer" />
-                            <Image src={copy} alt='' unoptimized className="cursor-pointer" />
-
-                            {/* دکمه گزارش خرابی با استایل مدرن */}
-                            <button
-                                onClick={() => setIsModalOpen(true)}
-                                className="flex items-center gap-2 bg-orange-100 hover:bg-orange-200 text-orange-700 px-4 py-2 rounded-xl transition-all duration-300 font-medium border border-orange-200"
-                            >
-                                <span className="text-sm text-nowrap">گزارش خرابی</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>
-                            </button>
-
-                            <button
-                                onClick={handleAddFavorite}
-                                disabled={isPending}
-                                className='text-gray-500 hover:text-red-500 transition text-2xl'
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    className="w-12 h-12 text-gray-500 hover:text-red-500 transition"
-                                >
-                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.74 0 3.41 1.01 4.22 2.53h.56 C12.09 5.01 13.76 4 15.5 4 18 4 20 6 20 8.5 c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Modal برای گزارش خرابی */}
-                {isModalOpen && (
-                    <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
-                        <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl w-[90%] max-w-md border border-gray-100 dark:border-gray-700">
-                            <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">ثبت گزارش خرابی</h2>
-                            <p className="text-gray-500 mb-6 text-sm">لطفاً جزئیات خرابی مشاهده شده در "{data?.title}" را شرح دهید.</p>
-                            <textarea
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                                className="w-full h-32 p-4 rounded-2xl border border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 outline-none transition-all resize-none bg-gray-50 dark:bg-slate-900"
-                                placeholder="مثلاً: شیر آب آشپزخانه چکه می‌کند..."
-                            />
-                            <div className="flex gap-3 mt-6">
-                                <button
-                                    onClick={handleMaintenanceSubmit}
-                                    disabled={isMaintenanceLoading}
-                                    className="flex-1 bg-orange-600 hover:bg-orange-700 text-white py-3 rounded-2xl font-bold transition-all disabled:opacity-50"
-                                >
-                                    {isMaintenanceLoading ? "در حال ارسال..." : "ارسال گزارش"}
-                                </button>
-                                <button
-                                    onClick={() => setIsModalOpen(false)}
-                                    className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-2xl font-bold transition-all"
-                                >
-                                    انصراف
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* بقیه بخش‌ها بدون تغییر استایل */}
-                <div className='w-full '>
-                    <Image src={houses} alt='' unoptimized className='w-full' />
-                </div>
-
-                <div className='w-full flex flex-row justify-center items-start gap-20 p-10 '>
-                    <div className="w-[70%] bg-white dark:bg-transparent flex flex-col justify-center items-center rounded-lg">
-                        <section>
-                            <h2 className="text-3xl font-bold text-gray-800 mb-4 text-right dark:text-[#D9D9E0]">چرا {data?.title} رو انتخاب کنیم؟</h2>
-                            <p className="text-gray-600 leading-relaxed text-xl text-right dark:text-[#D9D9E0]">
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است...
-                            </p>
-                            <div className="w-full flex flex-row justify-center items-center gap-10 p-5">
-                                <div className='w-[70%] flex flex-row justify-center items-center gap-10 '>
-                                    <Image src={house1} alt="Lighthouse" className="w-full rounded-lg h-64" />
-                                    <Image src={house2} alt="Lighthouse" className="w-full rounded-lg h-64" />
-                                </div>
-                            </div>
-                        </section>
-
-                        <div className='w-full flex felx-row justify-center items-center '>
-                            <FacilitiesRent
-                                bathrooms={data?.bathrooms}
-                                parking={data?.parking}
-                                rooms={data?.rooms}
-                                capacity={data?.capacity}
-                            />
-                        </div>
-                        <ReserveComments id={id} />
-                    </div>
-
-                    <div className='w-[30%] flex flex-col justify-center gap-5 items-center'>
-                        <RentForm id={id} price={data?.price} discount={data?.discounted_price} />
-                        <Appointments id={id} />
-                    </div>
+                <div className='flex flex-wrap items-center gap-2'>
+                    <button
+                        type="button"
+                        onClick={() => setIsModalOpen(true)}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-deal/30 bg-deal-soft px-3 py-2 text-xs font-bold text-deal transition hover:bg-deal hover:text-white"
+                    >
+                        <Wrench className="size-3.5" />
+                        گزارش خرابی
+                    </button>
+                    <button type="button" onClick={handleShare} className="btn-icon size-9 xl:size-10" aria-label="اشتراک‌گذاری">
+                        <Share2 className="size-4" />
+                    </button>
+                    <button type="button" onClick={handleCopy} className="btn-icon size-9 xl:size-10" aria-label="کپی لینک">
+                        <Link2 className="size-4" />
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleAddFavorite}
+                        disabled={isPending}
+                        className="inline-flex size-9 items-center justify-center rounded-full border border-border bg-card text-ink-muted transition hover:border-danger/40 hover:text-danger disabled:opacity-50 xl:size-10 dark:border-white/10"
+                        aria-label="علاقه‌مندی"
+                    >
+                        <Heart className={`size-4 ${data?.isFavorite ? "fill-danger text-danger" : ""}`} />
+                    </button>
                 </div>
             </div>
 
-            <div className=' w-full flex flex-row overflow-x-auto' dir='ltr'>
-                {slides.slice(0, 3).map((item, index) => (
-                    <Card value={item} key={index} />
-                ))}
+            {/* Gallery */}
+            <div className="grid w-full gap-3 lg:grid-cols-[1fr_220px] xl:grid-cols-[1fr_260px] xl:gap-4">
+                <div className="relative aspect-[16/10] min-h-[240px] overflow-hidden rounded-3xl shadow-[var(--shadow-soft)] sm:min-h-[320px]">
+                    <Image
+                        src={gallery[activeImage] || houses}
+                        alt={data?.title || "property"}
+                        fill
+                        priority
+                        unoptimized
+                        className="object-cover transition-opacity duration-300"
+                        sizes="(max-width: 1024px) 100vw, 70vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                </div>
+                <div className="flex h-auto gap-2 overflow-x-auto scroll-smooth pb-1 [scrollbar-width:thin] [scrollbar-color:var(--color-border)_transparent] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border/70 [&::-webkit-scrollbar-track]:bg-transparent lg:h-145 lg:flex-col lg:gap-3 lg:overflow-x-hidden lg:overflow-y-auto lg:pb-0">
+                    {gallery.map((src, index) => (
+                        <button
+                            key={index}
+                            type="button"
+                            onClick={() => setActiveImage(index)}
+                            className={`relative aspect-[4/3] h-20 w-28 shrink-0 overflow-hidden rounded-2xl border-2 transition lg:h-auto lg:min-h-[72px] lg:w-full ${
+                                activeImage === index
+                                    ? "border-brand shadow-md shadow-brand/20"
+                                    : "border-transparent opacity-80 hover:opacity-100"
+                            }`}
+                        >
+                            <Image src={src} alt="" fill unoptimized className="object-cover" sizes="120px" />
+                        </button>
+                    ))}
+                </div>
             </div>
+
+            {/* Main layout */}
+            <div className='grid w-full grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_340px] xl:gap-8'>
+                <div className="flex min-w-0 flex-col gap-6">
+                    <section className="surface-card p-5 sm:p-6 xl:p-8">
+                        <h2 className="mb-3 text-lg font-extrabold text-ink sm:text-xl dark:text-white">
+                            چرا {data?.title || "این ملک"} رو انتخاب کنیم؟
+                        </h2>
+                        <p className="text-sm leading-8 text-ink-muted sm:text-base sm:leading-9 dark:text-white/70">
+                            {data?.caption ||
+                                "این اقامتگاه با امکانات کامل و موقعیت عالی، گزینه‌ای مطمئن برای اجاره کوتاه‌مدت یا بلندمدت است. فضای دلنشین، دسترسی مناسب و خدمات پشتیبانی، تجربه‌ای آرامش‌بخش برای شما می‌سازد."}
+                        </p>
+
+                        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                                <Image src={house1} alt="" fill className="object-cover" unoptimized />
+                            </div>
+                            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                                <Image src={house2} alt="" fill className="object-cover" unoptimized />
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3 className="mb-3 text-base font-extrabold text-ink dark:text-white">امکانات ملک</h3>
+                        <FacilitiesRent
+                            bathrooms={data?.bathrooms}
+                            parking={data?.parking}
+                            rooms={data?.rooms}
+                            capacity={data?.capacity}
+                        />
+                    </section>
+
+                    <ReserveComments id={id} />
+                </div>
+
+                <aside className='flex w-full flex-col gap-4 xl:sticky xl:top-24'>
+                    <RentForm id={id} price={data?.price} discount={data?.discounted_price} />
+                    <Appointments id={id} />
+                </aside>
+            </div>
+
+            {/* Similar */}
+            <section className="mt-4 flex w-full flex-col gap-4">
+                <h3 className="section-title text-xl md:text-2xl xl:text-3xl">ملک‌های مشابه</h3>
+                <div className="cards-grid flex flex-row flex-wrap justify-center items-center gap-6">
+                    {slides.slice(0, 3).map((item, index) => (
+                        <Card value={item} key={item.id ?? index} detailPath="rent" />
+                    ))}
+                </div>
+            </section>
+
+            {/* Maintenance modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+                    <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-6 shadow-[var(--shadow-lift)] dark:border-white/10">
+                        <h2 className="mb-2 text-xl font-extrabold text-ink dark:text-white">ثبت گزارش خرابی</h2>
+                        <p className="mb-4 text-sm text-ink-muted">
+                            جزئیات خرابی مشاهده‌شده در «{data?.title}» را بنویسید.
+                        </p>
+                        <textarea
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            className="field-input h-32 resize-none rounded-2xl"
+                            placeholder="مثلاً: شیر آب آشپزخانه چکه می‌کند..."
+                        />
+                        <div className="mt-5 flex gap-2.5">
+                            <button
+                                type="button"
+                                onClick={handleMaintenanceSubmit}
+                                disabled={isMaintenanceLoading}
+                                className="flex-1 rounded-full bg-deal py-3 text-sm font-bold text-white transition hover:opacity-90 disabled:opacity-50"
+                            >
+                                {isMaintenanceLoading ? "در حال ارسال..." : "ارسال گزارش"}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setIsModalOpen(false)}
+                                className="flex-1 rounded-full bg-muted py-3 text-sm font-bold text-ink transition hover:bg-muted/80 dark:text-white"
+                            >
+                                انصراف
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

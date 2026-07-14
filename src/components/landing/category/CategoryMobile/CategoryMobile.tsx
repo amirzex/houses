@@ -9,141 +9,54 @@ import beech from '../../../../assets/landing/beech.png'
 import pool from '../../../../assets/landing/pool.jpg'
 import villa from '../../../../assets/landing/villa.png'
 
+const items = [
+    { src: boom, label: 'بوم گردی' },
+    { src: kolbe, label: 'ملک کلبه' },
+    { src: beech, label: 'ملک ساحلی' },
+    { src: villa, label: 'ملک ویلایی' },
+    { src: pool, label: 'استخر دار' },
+    { src: apartment, label: 'آپارتمان' },
+]
+
 const CategoryMobile = () => {
     return (
-        <div>
-
-
-            {/* والد: flex-nowrap برای جلوگیری از شکستن خط و snap-x برای اسکرول نرم */}
-            <div className='w-full flex flex-row flex-nowrap max-sm:justify-start justify-center items-center gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scroll py-4 max-sm:px-4'>
-
-                {/* left div */}
-                {/* فرزند: shrink-0 برای فشرده نشدن و snap-center برای قرار گرفتن در مرکز موقع اسکرول */}
-                <div className='relative w-[16.6%] max-sm:w-[80vw] shrink-0 snap-center h-110 rounded-4xl flex justify-center overflow-hidden '>
-                    <Image
-                        src={boom}
-                        fill
-                        alt="landing background"
-                        className=" object-cover overflow-hidden brightness-75 hover:scale-110 transition-all duration-300 hover:brightness-100"
-                        unoptimized
-                    />
-                    <Link href={"/"} className=' absolute bottom-5 right-5 bg-white text-black text-center text-2xl max-sm:text-xl p-2 w-[35%] rounded-4xl'>بوم گردی </Link>
-                    <button className='absolute bottom-5 left-5 bg-white w-[10%] max-sm:w-12 max-sm:h-12 flex justify-center items-center rounded-full overflow-hidden'>
+        <div className='w-full'>
+            <div className='flex w-full flex-nowrap items-center justify-start gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth py-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
+                {items.map((item) => (
+                    <div
+                        key={item.label}
+                className='relative h-[22rem] w-[78vw] shrink-0 snap-center overflow-hidden rounded-3xl shadow-[var(--shadow-soft)] sm:w-[55vw] md:h-[24rem] md:w-[42vw] lg:w-[320px]'
+                    >
                         <Image
-                            src={arrow}
-                            width={100}
-                            alt="landing background"
-                            className=" object-cover overflow-hidden brightness-75  "
+                            src={item.src}
+                            fill
+                            alt={item.label}
+                            className="object-cover brightness-[0.72] transition-all duration-500 hover:scale-110 hover:brightness-100"
                             unoptimized
                         />
-                    </button>
-                </div>
-
-                <div className='relative w-[16.6%] max-sm:w-[80vw] shrink-0 snap-center h-110 overflow-hidden rounded-4xl'>
-                    <Image
-                        src={kolbe}
-                        fill
-                        alt="landing background"
-                        className="h-full object-cover overflow-hidden brightness-75 rounded-4xl hover:scale-110 transition-all duration-300 hover:brightness-100"
-                        unoptimized
-                    />
-                    <Link href={"/"} className='absolute bottom-5 right-5 bg-white text-black text-center text-2xl max-sm:text-xl p-2 w-[35%] rounded-4xl'>ملک کلبه</Link>
-                    <button className='absolute bottom-5 left-5 bg-white w-[10%] max-sm:w-12 max-sm:h-12 flex justify-center items-center rounded-full overflow-hidden'>
-                        <Image
-                            src={arrow}
-                            width={100}
-                            alt="landing background"
-                            className=" object-cover overflow-hidden brightness-75  "
-                            unoptimized
-                        />
-                    </button>
-
-                </div>
-
-                <div className='relative w-[16.6%] max-sm:w-[80vw] shrink-0 snap-center h-110 overflow-hidden rounded-4xl'>
-                    <Image
-                        src={beech}
-                        fill
-                        alt="landing background"
-                        className="h-full object-cover overflow-hidden brightness-75 rounded-4xl hover:scale-110 transition-all duration-300 hover:brightness-100"
-                        unoptimized
-                    />
-                    <Link href={"/"} className='absolute bottom-5 right-5 bg-white text-black text-center text-2xl max-sm:text-xl p-2 w-[40%] rounded-4xl'>ملک ساحلی </Link>
-
-                    <button className='absolute bottom-5 left-5 bg-white w-[10%] max-sm:w-12 max-sm:h-12 flex justify-center items-center rounded-full overflow-hidden'>
-                        <Image
-                            src={arrow}
-                            width={100}
-                            alt="landing background"
-                            className=" object-cover overflow-hidden brightness-75 "
-                            unoptimized
-                        />
-                    </button>
-                </div>
-
-                <div className='relative w-[16.6%] max-sm:w-[80vw] shrink-0 snap-center h-110 overflow-hidden rounded-4xl'>
-                    <Image
-                        src={villa}
-                        fill
-                        alt="landing background"
-                        className="h-full object-cover overflow-hidden brightness-75 rounded-4xl hover:scale-110 transition-all duration-300 hover:brightness-100"
-                        unoptimized
-                    />
-                    <Link href={"/"} className='absolute bottom-5 right-5 bg-white text-black text-center text-2xl max-sm:text-xl p-2 w-[40%] rounded-4xl'>ملک ویلایی </Link>
-
-                    <button className='absolute bottom-5 left-5 bg-white w-[10%] max-sm:w-12 max-sm:h-12 flex justify-center items-center rounded-full overflow-hidden'>
-                        <Image
-                            src={arrow}
-                            width={100}
-                            alt="landing background"
-                            className=" object-cover overflow-hidden brightness-75  "
-                            unoptimized
-                        />
-                    </button>
-                </div>
-
-                <div className='relative w-[16.6%] max-sm:w-[80vw] shrink-0 snap-center h-110 overflow-hidden rounded-4xl'>
-                    <Image
-                        src={pool}
-                        fill
-                        alt="landing background"
-                        className="h-full object-cover overflow-hidden brightness-75 rounded-4xl hover:scale-110 transition-all duration-300 hover:brightness-100"
-                        unoptimized
-                    />
-
-                    <Link href={"/"} className='absolute bottom-5 right-5 bg-white text-black text-center text-2xl max-sm:text-xl p-2 w-[40%] rounded-4xl'> استخر دار </Link>
-                    <button className='absolute bottom-5 left-5 bg-white w-[10%] max-sm:w-12 max-sm:h-12 flex justify-center items-center rounded-full overflow-hidden'>
-                        <Image
-                            src={arrow}
-                            width={100}
-                            alt="landing background"
-                            className=" object-cover overflow-hidden brightness-75 "
-                            unoptimized
-                        />
-                    </button>
-                </div>
-
-                {/* right div */}
-                <div className='relative w-[16.6%] max-sm:w-[80vw] shrink-0 snap-center h-110 rounded-4xl flex justify-center overflow-hidden '>
-                    <Image
-                        src={apartment}
-                        fill
-                        alt="landing background"
-                        className=" object-cover overflow-hidden brightness-75 hover:scale-110 transition-all duration-300 hover:brightness-100"
-                        unoptimized
-                    />
-                    <Link href={"/"} className=' absolute bottom-5 right-5 bg-white text-black text-center text-2xl max-sm:text-xl p-2 w-[35%] rounded-4xl'>آپارتمان  </Link>
-                    <button className='absolute bottom-5 left-5 bg-white w-[10%] max-sm:w-12 max-sm:h-12 flex justify-center items-center rounded-full overflow-hidden'>
-                        <Image
-                            src={arrow}
-                            width={100}
-                            alt="landing background"
-                            className=" object-cover overflow-hidden brightness-75 "
-                            unoptimized
-                        />
-                    </button>
-                </div>
-
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                        <Link
+                            href="/"
+                            className='absolute bottom-4 right-3 rounded-full bg-white/95 px-4 py-2 text-center text-base font-bold text-ink shadow-md backdrop-blur-sm'
+                        >
+                            {item.label}
+                        </Link>
+                        <Link
+                            href="/"
+                            className='absolute bottom-4 left-3 flex size-11 items-center justify-center overflow-hidden rounded-full bg-white/95 shadow-md'
+                            aria-label={item.label}
+                        >
+                            <Image
+                                src={arrow}
+                                width={28}
+                                height={28}
+                                alt=""
+                                className="object-contain"
+                                unoptimized
+                            />
+                        </Link>
+                    </div>
+                ))}
             </div>
         </div>
     )

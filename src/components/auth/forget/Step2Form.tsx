@@ -80,7 +80,7 @@ export const Step2Form = ({ onNext, onBack, email }) => {
                         value={digit}
                         onChange={(e) => handleChange(e.target.value, i)}
                         onKeyDown={(e) => handleBackspace(e, i)}
-                        className="w-14 h-14 text-center border border-gray-200 rounded-xl text-xl font-bold focus:border-[#1a3b99] focus:outline-none transition-colors"
+                        className="w-14 h-14 text-center border border-gray-200 rounded-xl text-xl font-bold focus:border-brand focus:outline-none transition-colors"
                     />
                 ))}
             </div>
@@ -92,7 +92,7 @@ export const Step2Form = ({ onNext, onBack, email }) => {
             <button
                 disabled={isPending}
                 type="submit"
-                className="bg-[#1a3b99] text-white p-4 rounded-full font-bold text-sm hover:bg-blue-900 transition-colors"
+                className="bg-brand text-white p-4 rounded-full font-bold text-sm hover:bg-brand-hover transition-colors"
             >
                 تایید کد
             </button>

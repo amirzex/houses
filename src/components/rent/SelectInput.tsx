@@ -6,7 +6,7 @@ export const SelectInput = ({ label, placeholder, value, onChange, options = [] 
             <select
                 value={value || ""}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full bg-gray-100/80 text-gray-500 dark:text-[#D9D9E0] dark:bg-[#353535] text-sm rounded-full px-4 py-3 appearance-none outline-none focus:ring-2 focus:ring-[#1a3b99]/20 cursor-pointer transition-all"
+                className="w-full bg-gray-100/80 text-gray-500 dark:text-[#D9D9E0] dark:bg-[#353535] text-sm rounded-full px-4 py-3 appearance-none outline-none focus:ring-2 focus:ring-brand/20 cursor-pointer transition-all"
             >
                 <option value="">{placeholder}</option>
 

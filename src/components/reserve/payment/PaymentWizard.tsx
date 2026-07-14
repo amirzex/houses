@@ -99,7 +99,7 @@ const PaymentWizard = ({ bookingData }) => {
                     <React.Fragment key={step.id}>
                         <div
                             onClick={() => !isPending && setCurrentStep(step.id)}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-colors ${step.status === 'completed' ? 'bg-blue-800 text-white' :
+                            className={`flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-colors ${step.status === 'completed' ? 'bg-brand text-white' :
                                 step.status === 'active' ? 'border border-blue-800 text-blue-800 bg-white dark:bg-[#353535] shadow-sm' :
                                     'text-gray-400'
                                 }`}
@@ -115,7 +115,7 @@ const PaymentWizard = ({ bookingData }) => {
                         </div>
 
                         {index < steps.length - 1 && (
-                            <div className={`flex-1 h-[2px] mx-2 transition-colors ${step.status === 'completed' ? 'bg-blue-800' : 'bg-gray-200'}`}></div>
+                            <div className={`flex-1 h-[2px] mx-2 transition-colors ${step.status === 'completed' ? 'bg-brand' : 'bg-gray-200'}`}></div>
                         )}
                     </React.Fragment>
                 ))}
@@ -137,7 +137,7 @@ const PaymentWizard = ({ bookingData }) => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <p className="text-lg font-bold text-blue-900 dark:text-white">بلیت شما صادر شد</p>
+                        <p className="text-lg font-bold text-brand dark:text-white">بلیت شما صادر شد</p>
                         <p className="text-sm text-gray-500">پرداخت با موفقیت ثبت شد و رزرو تأیید گردید.</p>
                     </div>
                 )}
@@ -149,7 +149,7 @@ const PaymentWizard = ({ bookingData }) => {
                         type="button"
                         onClick={handleNextStep}
                         disabled={isPending || currentStep === 4}
-                        className={`${isPending || currentStep === 4 ? 'bg-gray-400' : 'bg-blue-800 hover:bg-blue-700'} text-white px-6 py-3 rounded-full font-semibold flex flex-row-reverse items-center gap-2 transition`}
+                        className={`${isPending || currentStep === 4 ? 'bg-gray-400' : 'bg-brand hover:bg-brand-hover'} text-white px-6 py-3 rounded-full font-semibold flex flex-row-reverse items-center gap-2 transition`}
                     >
                         {isPending ? 'لطفاً صبر کنید...' : currentStep === 3 ? 'پرداخت آنلاین' : currentStep === 5 ? 'مشاهده جزئیات' : 'تایید و ادامه فرایند'}
                         <span>‹</span>
@@ -157,7 +157,7 @@ const PaymentWizard = ({ bookingData }) => {
 
                     <div className="text-gray-800 flex items-center gap-2 flex-row-reverse" dir='rtl'>
                         <span className="text-gray-500 text-sm">قیمت کل</span>
-                        <span className="text-2xl font-bold text-blue-900">{Number(bookingData?.discounted_price).toLocaleString("fa-IR")}</span>
+                        <span className="text-2xl font-bold text-brand">{Number(bookingData?.discounted_price).toLocaleString("fa-IR")}</span>
                         <span className="text-gray-500 text-sm">تومان</span>
                     </div>
                 </div>

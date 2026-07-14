@@ -1,49 +1,63 @@
-
 import Image from 'next/image'
 import Link from 'next/link'
 import home from '../../../assets/landing/Vector.svg'
-
 import DarkModeSwitch from './DarkModeSwitch'
 
-const MobileMenuDrawer = ({ isOpen, onClose, handleDarkMode }) => {
+const MobileMenuDrawer = ({
+  isOpen,
+  onClose,
+  handleDarkMode,
+}: {
+  isOpen: boolean
+  onClose: () => void
+  handleDarkMode: () => void
+  isLoggedIn?: boolean
+}) => {
+  const links = [
+    { href: '/', label: 'خانه' },
+    { href: '/fast-reserve', label: 'رزرو سریع' },
+    { href: '/rent', label: 'رهن و اجاره' },
+    { href: '/contact-us', label: 'تماس با ما' },
+    { href: '/blogs', label: 'اخبار مهم' },
+  ]
+
   return (
     <div
-      className={`fixed inset-0 z-50 bg-[#f4f6fb] dark:bg-[#272727]  flex flex-col transition-transform duration-300 md:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+      className={`fixed inset-0 z-50 flex flex-col bg-surface transition-transform duration-300 ease-out md:hidden dark:bg-[#121820] ${
+        isOpen ? 'translate-x-0' : 'translate-x-full'
+      }`}
     >
-      {/* Drawer Header */}
-      <div className="flex flex-row-reverse justify-between items-center p-5 border-b border-gray-200/60">
+      <div className="flex flex-row-reverse items-center justify-between border-b border-border/60 p-5">
         <div className='flex flex-row-reverse items-center gap-2'>
           <Image src={home} width={32} height={32} unoptimized alt='logo' />
-          <p className='text-3xl font-bold text-black'>Home</p>
+          <p className='text-2xl font-black text-ink dark:text-white'>Home</p>
         </div>
         <button
+          type="button"
           onClick={onClose}
-          className="text-[#2644a6] text-3xl pb-1 px-2"
+          className="flex size-10 items-center justify-center rounded-full bg-brand-soft text-2xl text-brand transition hover:bg-brand hover:text-white dark:bg-brand-soft"
+          aria-label="بستن منو"
         >
           &times;
         </button>
       </div>
 
-      {/* Drawer Links */}
-      <div className="flex flex-col p-6 gap-8 font-bold text-black text-lg" dir="rtl">
-        <Link href='/fast-reserve' onClick={onClose} className="flex dark:text-white justify-between items-center cursor-pointer">
-          <span>رزرو سریع</span>
-          {/* <svg width="12" height="7" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg> */}
-        </Link>
+      <nav className="flex flex-1 flex-col gap-2 p-5" dir="rtl">
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            onClick={onClose}
+            className="rounded-2xl px-4 py-3.5 text-lg font-bold text-ink transition-colors hover:bg-brand-soft hover:text-brand dark:text-white dark:hover:bg-white/5"
+          >
+            {link.label}
+          </Link>
+        ))}
 
-        <Link href='/rent' onClick={onClose} className="flex dark:text-white justify-between items-center cursor-pointer">
-          <span>رهن و اجاره</span>
-          {/* <svg width="12" height="7" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg> */}
-        </Link>
-
-        <Link href="/contact-us" onClick={onClose} className='dark:text-white'>تماس با ما</Link>
-        <Link href="/blogs" onClick={onClose} className='dark:text-white'> مهم ترین اخبار </Link>
-
-        {/* dark mode */}
-        <DarkModeSwitch />
-
-      </div>
+        <div className="mt-4 rounded-2xl border border-border/60 bg-card p-4 dark:border-white/10">
+          <DarkModeSwitch />
+        </div>
+      </nav>
     </div>
   )
 }

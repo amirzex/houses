@@ -19,17 +19,21 @@ export default function DashboardPage() {
       {/* Stats Grid */}
       <State  />
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-3 xl:gap-8">
         {/* Recent Activities */}
-        <BookingTable />
+        <div className="min-w-0 xl:col-span-2">
+          <BookingTable />
+        </div>
 
         {/* chart */}
-        <BookingChart
-          bookingCount={data?.bookings?.bookingCount || 6}
-          pendingBookings={data?.bookings?.pendingBookings || 10}
-          conformedBookings={data?.bookings?.conformedBookings || 15}
-          canceledBookings={data?.bookings?.canceledBookings || 4}
-        />
+        <div className="min-w-0">
+          <BookingChart
+            bookingCount={data?.bookings?.bookingCount || 6}
+            pendingBookings={data?.bookings?.pendingBookings || 10}
+            conformedBookings={data?.bookings?.conformedBookings || 15}
+            canceledBookings={data?.bookings?.canceledBookings || 4}
+          />
+        </div>
       </div>
     </div>
   );

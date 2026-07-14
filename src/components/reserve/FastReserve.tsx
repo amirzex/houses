@@ -61,7 +61,7 @@ const FastReserve = () => {
             <Breadcrumb />
 
             {/* filter div */}
-            <div className="w-full p-10 mb-10 max-sm:p-5 max-sm:mb-0">
+            <div className="w-full p-10 mb-10 max-sm:p-5 max-sm:mb-0 mt-5">
                 {/* desktop */}
                 <div className="max-sm:hidden md:block">
                     <FilterForm filters={filters} setFilters={setFilters} />
@@ -76,7 +76,7 @@ const FastReserve = () => {
             <div className="w-full flex flex-row max-sm:flex-col-reverse justify-center items-start gap-5 max-sm:gap-0">
 
                 {/* desktop cards */}
-                <div className="w-[60%] max-sm:hidden md:flex flex-col justify-start items-center gap-5 pr-10 h-370 overflow-y-auto">
+                <div className="w-[60%] max-sm:hidden md:flex flex-col justify-start items-center gap-5 pr-10 h-auto overflow-y-auto">
                     {data?.map((item, index) => (
                         <FastCard item={item} key={index} />
                     ))}

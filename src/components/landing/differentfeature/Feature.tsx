@@ -14,11 +14,15 @@ const Feature = () => {
     });
 
     if (isLoading) {
-        return <div> در حال بارگزاری ... </div>;
+        return (
+            <div className="section-wrap py-20 text-center text-ink-muted">
+                در حال بارگزاری ...
+            </div>
+        );
     }
 
     return (
-        <section dir="rtl" className='relative w-full min-h-screen py-20  mt-30  flex items-center overflow-hidden max-sm:hidden md:block' >
+        <section dir="rtl" className='relative mt-12 hidden min-h-[560px] w-full items-center overflow-hidden py-12 md:mt-16 md:flex xl:mt-24 xl:min-h-[80vh] xl:py-20' >
 
             <div className='absolute inset-0 -z-10'>
                 <Image
@@ -27,32 +31,31 @@ const Feature = () => {
                     fill
                     className='object-cover object-center'
                 />
-                <div className="absolute inset-0 bg-black/20"></div>
+                <div className="absolute inset-0 bg-gradient-to-l from-black/55 via-black/35 to-black/20" />
             </div>
 
-            <div className='container mx-auto px-4 sm:px-6 lg:px-12 '>
-                <div className='flex flex-col lg:flex-row items-center gap-12 lg:gap-20'>
+            <div className='section-wrap'>
+                <div className='flex flex-col items-center gap-12 lg:flex-row lg:gap-16'>
 
-                    <div className='lg:w-1/2 w-full text-white flex flex-col gap-6 text-right'>
-                        <h2 className='text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-md'>
+                    <div className='flex w-full flex-col gap-5 text-right text-white lg:w-1/2'>
+                        <p className="text-sm font-bold tracking-wide text-white/70">نظرات کاربران</p>
+                        <h2 className='text-3xl font-extrabold leading-snug drop-shadow-md sm:text-4xl lg:text-5xl'>
                             رضایت شما اعتبار ماست
                         </h2>
-                        <p className='text-sm sm:text-base leading-8 sm:leading-[2.5rem] text-gray-100 font-medium drop-shadow'>
-                            پیدا کردن ویلای مناسب همیشه کار راحتی نیست. ما اینجاییم تا همه چیز رو برای شما ساده کنیم. ...
+                        <p className='max-w-xl text-sm leading-8 text-white/85 sm:text-base sm:leading-9'>
+                            پیدا کردن ویلای مناسب همیشه کار راحتی نیست. ما اینجاییم تا همه چیز را برای شما ساده کنیم و تجربه‌ای مطمئن بسازیم.
                         </p>
                     </div>
 
-                    <div className='lg:w-1/2 w-full relative flex justify-center lg:justify-end'>
-
-                        <div className='w-full max-w-[420px] h-[700px] overflow-y-auto overflow-x-hidden py-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'>
-                            <div className='flex flex-col gap-8'>
+                    <div className='relative flex w-full justify-center lg:w-1/2 lg:justify-end'>
+                        <div className='h-[620px] w-full max-w-[400px] overflow-x-hidden overflow-y-auto py-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'>
+                            <div className='flex flex-col gap-5'>
                                 {data?.comments?.map((comment, index) => (
-                                    <CommentCard key={index} value={comment} />
+                                    <CommentCard key={comment.id ?? index} value={comment} />
                                 ))}
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>

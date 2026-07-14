@@ -4,20 +4,18 @@ import bgMobile from '../../../assets/landing/bg mobile.svg'
 
 const Help = () => {
     return (
-        <div className='w-full mt-30 overflow-hidden rounded-r-[100px] max-sm:rounded-2xl'>
-            {/* desktop */}
+        <section className='section-wrap mt-16 overflow-hidden rounded-3xl sm:mt-24 md:rounded-[3rem] md:rounded-r-[5rem]'>
             <Image
                 src={bg}
-                alt=''
+                alt='راهنمای استفاده'
                 unoptimized
-                className='w-full max-sm:hidden md:block' />
-            {/* mobile */}
+                className='hidden w-full md:block' />
             <Image
                 src={bgMobile}
-                alt=''
+                alt='راهنمای استفاده'
                 unoptimized
-                className='w-full max-sm:block md:hidden' />
-        </div>
+                className='w-full md:hidden' />
+        </section>
     )
 }
 

@@ -46,7 +46,7 @@ const Slider = () => {
 
             {/* Right button */}
             <div
-                className="bg-blue-900 w-15 h-15 rounded-full flex justify-center items-center absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+                className="bg-brand w-15 h-15 rounded-full flex justify-center items-center absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
                 onClick={nextSlide}
             >
                 <Image
@@ -60,7 +60,7 @@ const Slider = () => {
 
             {/* Left button */}
             <div
-                className="bg-blue-900 w-15 h-15 rounded-full flex justify-center items-center absolute left-2 top-1/2 -translate-y-1/2 cursor-pointer"
+                className="bg-brand w-15 h-15 rounded-full flex justify-center items-center absolute left-2 top-1/2 -translate-y-1/2 cursor-pointer"
                 onClick={prevSlide}
             >
                 <Image

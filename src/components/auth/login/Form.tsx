@@ -33,39 +33,34 @@ const Form = () => {
 
     return (
         <div>
-            <form onSubmit={handleLogin} className="w-full flex flex-col gap-5">
+            <form onSubmit={handleLogin} className="flex w-full flex-col gap-4">
+                <input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="field-input rounded-full border border-border/80 bg-card"
+                    placeholder="ایمیل خود را وارد کنید"
+                    type="email"
+                    required
+                />
 
-                <div className="relative w-full">
-                    <input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full border border-gray-300 p-4 rounded-full outline-none focus:border-[#1a3b99]"
-                        placeholder="ایمیل خود را وارد کنید"
-                        type="email"
-                        required
-                    />
-                </div>
-
-                <div className="relative w-full">
-                    <input
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="w-full border border-gray-300 p-4 rounded-full outline-none focus:border-[#1a3b99]"
-                        placeholder="رمز عبور خود را وارد کنید"
-                        type="password"
-                        required
-                    />
-                </div>
+                <input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="field-input rounded-full border border-border/80 bg-card"
+                    placeholder="رمز عبور خود را وارد کنید"
+                    type="password"
+                    required
+                />
 
                 <button
                     type="submit"
                     disabled={isPending}
-                    className="bg-[#1a3b99] text-white p-4 rounded-full mt-4 font-bold text-base hover:bg-blue-900 transition-colors disabled:bg-gray-400"
+                    className="btn-brand-lg mt-2 w-full disabled:cursor-not-allowed disabled:opacity-50"
                 >
                     {isPending ? "در حال ورود..." : "ورود به حساب کاربری"}
                 </button>
 
-                <Link href='/forget' className="text-[#1a3b99] text-sm text-center mt-2">
+                <Link href='/forget' className="mt-1 text-center text-sm font-bold text-brand transition-opacity hover:opacity-80">
                     رمز خود را فراموش کرده‌اید؟
                 </Link>
             </form>

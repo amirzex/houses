@@ -45,7 +45,7 @@ const BookingChart = ({
     ];
 
     return (
-        <div className="bg-white dark:bg-[#1E1E1E] rounded-[32px] p-6 shadow-sm border border-gray-100 dark:border-white/5 h-full flex flex-col">
+        <div className="bg-white dark:bg-[#1E1E1E] rounded-[32px] p-4 xl:p-6 shadow-sm border border-gray-100 dark:border-white/5 h-full min-w-0 flex flex-col">
 
             {/* Header */}
             <div className="flex justify-between items-center mb-6 px-2">
@@ -72,8 +72,8 @@ const BookingChart = ({
                     </p>
                 </div>
             ) : (
-                <div className="flex-grow w-full h-[250px]">
-                    <ResponsiveContainer width="100%" height="100%">
+        <div className="flex-grow min-h-[220px] w-full min-w-0 h-[220px] xl:h-[250px]">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                         <AreaChart data={data}>
                             <defs>
                                 <linearGradient

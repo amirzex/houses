@@ -125,7 +125,7 @@ const AppointmentsFullCalendar = () => {
                                 {cell.isCurrentMonth && (
                                     <span className={`
                                         inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold mb-2
-                                        ${isToday ? 'bg-blue-600 text-white shadow-md' : 'text-gray-700 dark:text-white'}
+                                        ${isToday ? 'bg-brand text-white shadow-md' : 'text-gray-700 dark:text-white'}
                                     `}>
                                         {cell.dayNumber}
                                     </span>

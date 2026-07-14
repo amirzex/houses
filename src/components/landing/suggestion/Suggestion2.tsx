@@ -8,32 +8,30 @@ const Suggestion2 = async () => {
   const response = await getSuggestion()
 
   return (
-    <div className="w-full flex flex-col gap-10 p-20 max-sm:p-5 max-sm:mt-20">
-      {/* Header */}
-      <div className="w-full flex flex-col gap-7 max-sm:hidden md:block">
-
-        <h2 className='text-center w-full text-2xl text-blue-900'>همه جا ما با شما هستیم</h2>
-        <h2 className='w-full text-center text-5xl mt-5'> بهترین اقامتگاه ها برای شما   </h2>
+    <section className="section-wrap mt-12 flex flex-col gap-6 sm:mt-16 sm:gap-8 xl:mt-20">
+      <div className="hidden w-full flex-col items-center gap-2 md:flex">
+        <p className='section-eyebrow'>همه جا ما با شما هستیم</p>
+        <h2 className='section-title text-center'>بهترین اقامتگاه ها برای شما</h2>
       </div>
 
-      {/* header mobile */}
-      <div className='max-sm:flex flex-col justify-center items-center gap-3 md:hidden'>
-        <p className='text-blue-900 text-sm'> ویژگی های ویژه </p>
-        <h2 className='text-xl font-bold'> برای شما توصیه می شود </h2>
+      <div className='flex flex-col items-center justify-center gap-2 md:hidden'>
+        <p className='section-eyebrow text-sm'>ویژگی های ویژه</p>
+        <h2 className='text-xl font-extrabold text-ink dark:text-white'>برای شما توصیه می شود</h2>
       </div>
 
-      {/* Array map */}
-      <div className=" gap-10 flex flex-row w-full max-sm:flex-col ">
+      <div className="cards-grid flex flex-row flex-wrap justify-center items-center gap-6">
         {Array.isArray(response) &&
           response.slice(3, 6).map((item, index) => (
-            <Card value={item} key={index} />
+            <Card value={item} key={item.id ?? index} />
           ))
         }
       </div>
-      <div className='w-full flex justify-center items-center '>
-        <Link href="/" className='border border-blue-900 p-5 max-sm:p-3 rounded-full text-blue-900 text-2xl max-sm:text-sm'> مشاهده بیشتر </Link>
+      <div className='flex w-full items-center justify-center'>
+        <Link href="/fast-reserve" className='btn-outline-brand-lg'>
+          مشاهده بیشتر
+        </Link>
       </div>
-    </div>
+    </section>
   )
 }
 

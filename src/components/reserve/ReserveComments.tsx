@@ -9,7 +9,7 @@ import {
     useUpdateComment,
 } from "@/core/api/comments/queries";
 
-const ReserveComments = ({ id }) => {
+const ReserveComments = ({ id }: { id: string }) => {
 
     const { data } = useHouseComments(id);
 
@@ -27,7 +27,6 @@ const ReserveComments = ({ id }) => {
 
         if (!caption.trim()) return;
 
-        // اگر در حالت ویرایش هستیم
         if (editingCommentId) {
             updateComment({
                 id: editingCommentId,
@@ -57,91 +56,69 @@ const ReserveComments = ({ id }) => {
     };
 
 
-    const handleEdit = (comment) => {
-        setEditingCommentId(data?.comments?.id);
+    const handleEdit = (comment: any) => {
+        setEditingCommentId(comment.id);
         setCaption(comment.caption);
         setTitle(comment.title);
-
-
     };
 
 
     return (
-        <div
-            className="w-full border rounded-2xl bg-[#FFFFFA] dark:bg-[#272727] mt-10 "
-            dir="rtl"
-        >
-            <section className="w-full p-6">
+        <div className="surface-card mt-2 w-full" dir="rtl">
+            <section className="w-full p-5 sm:p-6">
+                <h3 className="mb-4 text-base font-extrabold text-ink dark:text-white">نظرات کاربران</h3>
 
-                <div className="h-100 overflow-y-scroll">
-
-                    {data?.comments?.map((comment) => (
-
-                        <div key={comment.id} className="mb-10">
-
-                            <div className="flex items-center gap-3 mb-3 border-b pb-3">
-
+                <div className="mb-6 max-h-80 space-y-4 overflow-y-auto pe-1">
+                    {data?.comments?.length ? data.comments.map((comment: any) => (
+                        <div key={comment.id} className="rounded-2xl border border-border/60 bg-muted/40 p-4 dark:border-white/10 dark:bg-[#2a3340]/40">
+                            <div className="mb-3 flex items-center gap-3 border-b border-border/50 pb-3 dark:border-white/10">
                                 <Image
                                     src={userprofile}
                                     alt="profile"
-                                    width={48}
-                                    height={48}
-                                    className="w-12 h-12 rounded-full object-cover"
+                                    width={44}
+                                    height={44}
+                                    className="size-11 rounded-full object-cover ring-2 ring-brand/15"
                                 />
 
-                                <div className="flex flex-col">
-                                    <span className="font-bold text-lg text-gray-900 dark:text-[#D9D9E0]">
+                                <div className="flex min-w-0 flex-1 flex-col">
+                                    <span className="truncate text-sm font-bold text-ink dark:text-white">
                                         {comment.user?.firstName} {comment.user?.lastName}
                                     </span>
-
-                                    <span className="text-gray-400 text-sm">
+                                    <span className="text-xs text-ink-muted">
                                         {new Date(comment.created_at).toLocaleDateString("fa-IR")}
                                     </span>
                                 </div>
 
-                                {/* <button
-                                    onClick={() => setParentCommentId(comment.id)}
-                                    className="text-sm text-[#1d3557] hover:underline"
-                                >
-                                    پاسخ
-                                </button> */}
-
                                 <button
+                                    type="button"
                                     onClick={() => handleEdit(comment)}
-                                    className="text-sm text-[#1d3557] hover:underline border p-3 rounded-full "
+                                    className="rounded-full border border-brand/30 px-3 py-1.5 text-xs font-bold text-brand transition hover:bg-brand hover:text-white"
                                 >
                                     ویرایش
                                 </button>
-
                             </div>
 
-                            <p className="text-gray-500 dark:text-[#D9D9E0] leading-8 text-sm md:text-base">
+                            <p className="text-sm leading-7 text-ink-muted dark:text-white/75">
                                 {comment.caption}
                             </p>
-
                         </div>
-
-                    ))}
-
+                    )) : (
+                        <p className="py-6 text-center text-sm text-ink-muted">هنوز نظری ثبت نشده است</p>
+                    )}
                 </div>
 
-
-                {/* create / update comments */}
-
-                <div className="mb-8">
-
-                    <p className="font-bold text-gray-900 mb-4 text-base dark:text-[#D9D9E0]">
+                <div>
+                    <p className="mb-3 text-sm font-bold text-ink dark:text-white">
                         {editingCommentId ? "ویرایش نظر" : "نظر خود را وارد کنید"}
                     </p>
 
-                    <div className="bg-[#f5f5f5] dark:bg-[#353535] rounded-2xl p-4 flex flex-col gap-4">
-
+                    <div className="flex flex-col gap-3 rounded-2xl bg-muted/50 p-4 dark:bg-[#2a3340]/50">
                         <input
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             type="text"
                             placeholder="عنوان نظر"
-                            className="bg-white dark:bg-[#2b2b2b] rounded-xl px-4 py-3 outline-none text-sm text-gray-700 dark:text-white placeholder:text-gray-400"
+                            className="field-input rounded-xl bg-card"
                         />
 
                         <textarea
@@ -149,22 +126,20 @@ const ReserveComments = ({ id }) => {
                             onChange={(e) => setCaption(e.target.value)}
                             placeholder="نظر خود را بنویسید..."
                             rows={4}
-                            className="bg-white dark:bg-[#2b2b2b] rounded-xl px-4 py-3 outline-none resize-none text-sm text-gray-700 dark:text-white placeholder:text-gray-400"
+                            className="field-input resize-none rounded-xl bg-card"
                         />
 
                         <div className="flex justify-end">
                             <button
+                                type="button"
                                 onClick={handleSendComment}
-                                className="bg-[#1d3557] hover:bg-[#16324f] text-white text-sm px-6 py-2 rounded-full transition-all duration-200"
+                                className="btn-brand px-6"
                             >
                                 {editingCommentId ? "ویرایش نظر" : "ارسال نظر"}
                             </button>
                         </div>
-
                     </div>
-
                 </div>
-
             </section>
         </div>
     );

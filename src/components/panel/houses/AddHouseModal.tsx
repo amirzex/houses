@@ -86,7 +86,7 @@ const AddHouseModal = ({ isOpen, onClose }) => {
 
                     <div className="flex gap-3 pt-4">
                         <button type="button" onClick={onClose} className="flex-1 py-3 rounded-xl bg-gray-100 font-medium hover:bg-gray-200 transition">انصراف</button>
-                        <button type="submit" disabled={isPending} className="flex-1 py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition">
+                        <button type="submit" disabled={isPending} className="flex-1 py-3 rounded-xl bg-brand text-white font-bold hover:bg-brand-hover transition">
                             {isPending ? 'در حال ثبت...' : 'ثبت نهایی'}
                         </button>
                     </div>

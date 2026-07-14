@@ -18,7 +18,7 @@ const NumberInput: React.FC<NumberInputProps> = ({ label, name, value, onChange 
                 value={value || ""} 
                 onChange={(e) => onChange(name, e.target.value)} 
                 placeholder="مقدار"
-                className="w-full bg-gray-100/80 text-gray-500 dark:text-[#D9D9E0] dark:bg-[#353535] text-sm rounded-full px-4 py-3 outline-none focus:ring-2 focus:ring-[#1a3b99]/20"
+                className="w-full bg-gray-100/80 text-gray-500 dark:text-[#D9D9E0] dark:bg-[#353535] text-sm rounded-full px-4 py-3 outline-none focus:ring-2 focus:ring-brand/20"
             />
         </div>
     );
@@ -44,7 +44,7 @@ const FilterForm = ({ filters, setFilters }: any) => {
                         value={filters?.search || ""}
                         onChange={(e) => handleChange("search", e.target.value)}
                         placeholder="نام محل مورد نظر ..."
-                        className="w-full bg-gray-100/80 text-gray-500 dark:text-[#D9D9E0] dark:bg-[#353535] text-sm rounded-full px-4 py-3 outline-none focus:ring-2 focus:ring-[#1a3b99]/20 transition-all placeholder:text-gray-400"
+                        className="w-full bg-gray-100/80 text-gray-500 dark:text-[#D9D9E0] dark:bg-[#353535] text-sm rounded-full px-4 py-3 outline-none focus:ring-2 focus:ring-brand/20 transition-all placeholder:text-gray-400"
                     />
                 </div>
 

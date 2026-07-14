@@ -26,89 +26,87 @@ const Card: FC<CardProps> = ({ value, detailPath = "rent" }) => {
             : null
 
     return (
-        <Link href={`/${detailPath}/${value.id}`} className='flex flex-col mt-15 w-[31.5%] max-sm:w-full max-sm:h-100 bg-white dark:bg-[#272727] rounded-3xl overflow-hidden border dark:border-none border-gray-200 shadow-sm mx-auto font-sans'>
-            {/* image holder */}
-            <div className='relative h-80 w-full overflow-hidden'>
+        <Link
+            href={`/${detailPath}/${value.id}`}
+            className='surface-card group flex w-[30%] min-w-[300px] flex-col font-sans'
+        >
+            <div className='relative h-48 w-full overflow-hidden sm:h-56 xl:h-64'>
                 <Image
                     src={value.photos?.[0] || picture}
                     fill
-                    alt="landing background"
-                    className="object-cover"
+                    alt={value.title || "property"}
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                     unoptimized
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
 
-                {/* Top Right Badges */}
                 <div className='absolute top-3 right-3 flex gap-2'>
-                    <div className='bg-[#FF4D4D] text-white px-4 py-3  rounded-full text-2xl max-sm:px-2 max-sm:py-0 max-sm:h-10 max-sm:text-sm font-bold flex items-center justify-center shadow-md'>
-                        %{discountPercent}
-                    </div>
-                    <div className='bg-[#1E3A8A] text-white px-3 py-3 rounded-full text-2xl max-sm:text-sm max-sm:h-10 font-bold flex flex-row-reverse items-center justify-center gap-3 shadow-md'>
-                        <span >{value.rate}</span>
-                        <Image src={star} alt='star' unoptimized />
+                    {discountPercent != null && (
+                        <div className='flex h-9 items-center justify-center rounded-full bg-danger px-3 text-sm font-bold text-white shadow-md sm:h-10 sm:px-3.5 sm:text-base'>
+                            %{discountPercent.toLocaleString("fa-IR")}
+                        </div>
+                    )}
+                    <div className='flex h-9 flex-row-reverse items-center justify-center gap-1.5 rounded-full bg-brand px-3 text-sm font-bold text-white shadow-md sm:h-10 sm:gap-2 sm:text-base'>
+                        <span>{value.rate}</span>
+                        <Image src={star} alt='star' unoptimized className="size-4" />
                     </div>
                 </div>
 
-                {/* Location Overlay */}
-                <div className=' w-full absolute bottom-3 right-3 flex flex-row-reverse gap-1 justify-start items-center text-white drop-shadow-md'>
+                <div className='absolute bottom-3 right-3 left-3 flex flex-row-reverse items-center justify-start gap-1.5 text-white drop-shadow-md'>
                     <Image
                         src={loc}
-                        width={20}
-                        height={20}
+                        width={16}
+                        height={16}
                         alt="location"
-                        className="object-contain w-[5%] text-white"
+                        className="size-4 shrink-0 object-contain brightness-0 invert"
                         unoptimized
                     />
-                    <p className='text-2xl max-sm:text-sm font-medium'>{value.address || "خیابان 404 بروکلین کالیفرنیا نیویورک"}</p>
+                    <p className='truncate text-xs font-medium sm:text-sm'>{value.address || "خیابان 404 بروکلین کالیفرنیا نیویورک"}</p>
                 </div>
             </div>
 
-            {/* card info */}
-            <div className='flex flex-col p-5 gap-6'>
+            <div className='flex flex-col gap-4 p-4 sm:gap-5 sm:p-5'>
+                <h3 className='line-clamp-2 text-right text-lg font-extrabold leading-snug text-ink sm:text-xl dark:text-white'>
+                    {value.title || "خانه ویلایی با پارکینگ اختصاصی"}
+                </h3>
 
-                {/* Title */}
-                <div className='flex dark:text-blue-600/90 flex-row-reverse justify-start items-center text-3xl max-sm:text-xl font-extrabold text-gray-800 w-full'>
-                    <p>{value.title || "خانه ویلایی با پارکینگ اختصاصی"}</p>
-                </div>
-
-                {/* Amenities */}
-                <div className='w-full flex text-2xl max-sm:text-xs flex-row-reverse justify-between items-center  text-gray-500 font-medium'>
-                    <div className='flex flex-row-reverse gap-1 justify-center items-center'>
-                        <Image src={bed} width={20} height={20} alt="bed" unoptimized />
+                <div className='grid w-full grid-cols-4 gap-2 text-[11px] font-medium text-ink-muted sm:text-xs'>
+                    <div className='flex flex-row-reverse items-center justify-center gap-1'>
+                        <Image src={bed} width={16} height={16} alt="bed" unoptimized className="size-4" />
                         <span>{value.rooms || "3"}</span>
-                        <p>خواب</p>
+                        <span>خواب</span>
                     </div>
-                    <div className='flex flex-row-reverse gap-1 justify-center items-center'>
-                        <Image src={bath} width={20} height={20} alt="bath" unoptimized />
+                    <div className='flex flex-row-reverse items-center justify-center gap-1'>
+                        <Image src={bath} width={16} height={16} alt="bath" unoptimized className="size-4" />
                         <span>{value.bathrooms || "3"}</span>
-                        <p>حمام</p>
+                        <span>حمام</span>
                     </div>
-                    <div className='flex flex-row-reverse gap-1 justify-center items-center'>
-                        <Image src={count} width={20} height={20} alt="guests" unoptimized />
+                    <div className='flex flex-row-reverse items-center justify-center gap-1'>
+                        <Image src={count} width={16} height={16} alt="guests" unoptimized className="size-4" />
                         <span>{value.num_comments || "3"}</span>
-                        <p>نفر</p>
+                        <span>نفر</span>
                     </div>
-                    <div className='flex flex-row-reverse gap-1 justify-center items-center'>
-                        <Image src={car} width={20} height={20} alt="parking" unoptimized />
+                    <div className='flex flex-row-reverse items-center justify-center gap-1'>
+                        <Image src={car} width={16} height={16} alt="parking" unoptimized className="size-4" />
                         <span>{value.parking || "1"}</span>
-                        <p>پارکینگ</p>
+                        <span>پارک</span>
                     </div>
                 </div>
 
-                {/* Pricing Area */}
-                <div className='bg-[#F3F4F6] dark:bg-[#353535] rounded-2xl flex flex-row-reverse justify-center items-center py-5 px-4 mt-2'>
-                    {value.price && (
+                <div className='mt-1 flex flex-row-reverse items-center justify-center gap-2 rounded-2xl bg-muted px-3 py-3.5 dark:bg-[#2a3340]'>
+                    {value.price && discountPercent != null && (
                         <>
-                            <span className='flex flex-row-reverse justify-center items-center text-2xl max-sm:text-xs text-[#EF4444] line-through ml-2 font-medium'>
-                                {Number(value.price ).toLocaleString("fa-IR") }
+                            <span className='flex flex-row-reverse items-center text-xs font-medium text-danger line-through sm:text-sm'>
+                                {Number(value.price).toLocaleString("fa-IR")}
                                 <span className='mr-1'>تومان</span>
                             </span>
-                            <div className='w-[1px] h-4 bg-gray-300 mx-2'></div>
+                            <div className='mx-1 h-4 w-px bg-border' />
                         </>
                     )}
-                    <span className='flex flex-row-reverse justify-center  dark:text-white items-center text-2xl max-sm:text-xs font-bold text-black gap-1'>
-                        {Number(value.discounted_price ? value.discounted_price : "2500000000").toLocaleString("fa-IR")}
-                        <span className='text-3xl font-normal ml-1 max-sm:text-xs'>ت</span> /
-                        <span className='text-xl max-sm:text-xs text-gray-500 font-normal dark:text-gray-200'> هر شب</span>
+                    <span className='flex flex-row-reverse items-center gap-1 text-sm font-bold text-ink sm:text-base dark:text-white'>
+                        {Number(value.discounted_price ? value.discounted_price : value.price || 2500000000).toLocaleString("fa-IR")}
+                        <span className='text-xs font-normal text-ink-muted sm:text-sm'>تومان</span>
+                        <span className='text-xs font-normal text-ink-muted'>/ هر شب</span>
                     </span>
                 </div>
             </div>

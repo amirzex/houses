@@ -41,7 +41,7 @@ const BlogDetail: FC<BlogDetailProps> = ({ id }) => {
             {data?.title}
           </h1>
           <div className='w-[50%] flex justify-end items-center '>
-            <div className='bg-blue-900 px-5 py-2 w-[15%]  rounded-full text-white flex flex-row-reverse justify-center items-center gap-1'>
+            <div className='bg-brand px-5 py-2 w-[15%]  rounded-full text-white flex flex-row-reverse justify-center items-center gap-1'>
               <Image src={clock} alt='' unoptimized />
               <p>
                 { }
@@ -113,7 +113,7 @@ const BlogDetail: FC<BlogDetailProps> = ({ id }) => {
           <h2 className='w-[85%] text-2xl'> مقالات مشابه </h2>
           <div className='w-[15%] flex justify-end'>
 
-            <Link href='/blogs' className='w-[60%] flex flex-row-reverse border border-blue-900 p-4 rounded-full text-blue-900'>
+            <Link href='/blogs' className='w-[60%] flex flex-row-reverse border border-brand p-4 rounded-full text-brand'>
               <Image src={arrow} alt='arrow' unoptimized />
               مشاهده همه </Link>
           </div>

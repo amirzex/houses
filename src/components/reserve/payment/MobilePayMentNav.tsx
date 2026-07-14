@@ -53,7 +53,7 @@ const MobilePayMentNav = () => {
 
                         {/* خطوط رابط: در موبایل مخفی، در دسکتاپ نمایش */}
                         {index < steps.length - 1 && (
-                            <div className={`hidden md:block flex-1 h-[2px] mx-2 transition-colors ${step.status === 'completed' ? 'bg-blue-800' : 'bg-gray-200'
+                            <div className={`hidden md:block flex-1 h-[2px] mx-2 transition-colors ${step.status === 'completed' ? 'bg-brand' : 'bg-gray-200'
                                 }`}></div>
                         )}
                     </React.Fragment>

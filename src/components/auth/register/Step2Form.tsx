@@ -68,7 +68,7 @@ export const Step2Form = ({ onNext, onBack, tempUserId }) => {
                         maxLength="1"
                         value={code[i]}
                         onChange={(e) => handleChange(e.target.value, i)}
-                        className="w-12 h-12 text-center border border-gray-200 rounded-xl text-lg font-bold focus:border-[#1a3b99] focus:outline-none transition-colors"
+                        className="w-12 h-12 text-center border border-gray-200 rounded-xl text-lg font-bold focus:border-brand focus:outline-none transition-colors"
                     />
                 ))}
             </div>
@@ -80,7 +80,7 @@ export const Step2Form = ({ onNext, onBack, tempUserId }) => {
             <button
                 type="submit"
                 disabled={isPending}
-                className="bg-[#1a3b99] text-white p-4 rounded-full font-bold text-sm hover:bg-blue-900 transition-colors"
+                className="bg-brand text-white p-4 rounded-full font-bold text-sm hover:bg-brand-hover transition-colors"
             >
                 ارسال کد تایید
             </button>

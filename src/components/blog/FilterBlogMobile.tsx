@@ -31,13 +31,13 @@ const FilterBlogMobile = () => {
             <div className="lg:hidden">
                 <button
                     onClick={() => setIsMenuOpen(true)}
-                    className="flex items-center justify-start gap-x-2 w-full px-4 py-3 bg-gray-300 dark:bg-[#272727] dark:text-blue-600/90 dark:border-blue-600/90 text-blue-900 rounded-full shadow-md font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+                    className="flex items-center justify-start gap-x-2 w-full px-4 py-3 bg-gray-300 dark:bg-[#272727] dark:text-blue-600/90 dark:border-blue-600/90 text-brand rounded-full shadow-md font-semibold hover:bg-brand-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand/40 transition-colors duration-200"
                 >
-                    <div className='flex flex-row gap-1 border p-3 border-blue-900 rounded-full'>
+                    <div className='flex flex-row gap-1 border p-3 border-brand rounded-full'>
                         <Image src={fillter} alt='flter' unoptimized />
                         <span> مشخصات</span>
                     </div>
-                    <div className='flex flex-row gap-1 border p-3 border-blue-900 rounded-full'>
+                    <div className='flex flex-row gap-1 border p-3 border-brand rounded-full'>
                         <Image src={fillter} alt='flter' unoptimized />
                         <span> فیلتر</span>
                     </div>
@@ -80,7 +80,7 @@ const FilterBlogMobile = () => {
                         <div className="p-4 border-t border-gray-200 bg-gray-50">
                             <button
                                 onClick={closeMenu}
-                                className="w-full px-4 py-3 bg-blue-900 text-white rounded-full font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+                                className="w-full px-4 py-3 bg-brand text-white rounded-full font-semibold hover:bg-brand-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand/40 transition-colors"
                             >
                                 اعمال فیلترها
                             </button>

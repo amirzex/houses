@@ -42,7 +42,7 @@ const MaintenancePage = () => {
 
         <button
           onClick={() => refetch()}
-          className="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors"
+          className="px-4 py-2 rounded-md bg-brand hover:bg-brand-hover text-white text-sm font-semibold transition-colors"
         >
           بروزرسانی
         </button>

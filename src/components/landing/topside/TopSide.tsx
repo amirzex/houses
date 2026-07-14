@@ -7,68 +7,67 @@ import FormSearchMobile from '../form/FormSearchMobile';
 
 
 const TopSide = () => {
-    const [selected, setSelected] = useState<number | null>(null);
+    const [selected, setSelected] = useState<number | null>(0);
 
     const options = ["رزرو ملک", "رهن و اجاره", "خرید و فروش"];
 
     return (
-        <div className=" w-full flex flex-row justify-center">
-            <div className="relative w-full h-250 flex justify-center">
+        <section className="relative w-full">
+            <div className="hero-shell relative flex min-h-[560px] w-full items-center justify-center overflow-hidden h-[100svh] max-h-[860px] md:min-h-[600px] xl:h-[90vh]">
                 <Image
                     src={background}
                     alt="landing background"
                     fill
-                    className="object-cover"
+                    priority
+                    className="object-cover scale-105"
                     unoptimized
                 />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/65" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgb(0_0_0/0.35)_100%)]" />
 
-                <div className="w-full absolute text-white flex flex-col items-center justify-center h-full px-6 text-center ">
-                    {/* left */}
-                    <div className='w-full flex flex-col justify-center items-center h-[50%] max-sm:h-[25%] max-sm:justify-start max-sm:pt-0 pt-50 text-right gap-5'>
-                        <div className='flex flex-col justify-center items-center w-full gap-8'>
-                            <span className="text-7xl max-sm:text-3xl text-center font-bold w-full leading-20 max-sm:leading-10">
-                                خانه رویایی <br /> خودت رو پیدا کن
-                            </span>
-                            <p className="text-xl text-center w-full max-sm:hidden">
-                                ما آژانس املاکی هستیم که به شما کمک می کنیم بهترین اقامتگاهی را که <br /> رویای آن را
-                                دارید پیدا کنید، بیایید درباره خانه رویایی شما بحث کنیم؟
-                            </p>
-                            <p className="text-xl text-center w-full max-sm:text-sm md:hidden">
-                                ما آژانس املاکی هستیم که به شما کمک می کنیم بهترین اقامتگاهی را که  رویای آن را
-                                دارید پیدا کنید، بیایید درباره خانه رویایی شما بحث کنیم؟
-                            </p>
-                        </div>
+                <div className="hero-inner relative z-10 flex h-full w-full max-w-7xl flex-col items-center justify-center gap-5 px-3 pb-6 pt-20 text-center text-white sm:px-5 sm:gap-6 md:gap-7 md:pb-10 md:pt-24 xl:gap-8 xl:pt-28">
+                    <div className='animate-fade-up flex w-full flex-col items-center gap-2.5 sm:gap-3 md:gap-4'>
+                        <p className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] font-bold tracking-wide backdrop-blur-md sm:px-4 sm:py-1.5 sm:text-xs md:text-sm">
+                            پلتفرم هوشمند املاک و اقامتگاه
+                        </p>
+                        <h1 className="hero-title max-w-4xl text-[1.75rem] font-black leading-[1.3] tracking-tight sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl">
+                            خانه رویایی
+                            <br />
+                            خودت رو پیدا کن
+                        </h1>
+                        <p className="hero-subtitle hidden max-w-2xl text-sm leading-7 text-white/85 sm:block md:text-base md:leading-8 xl:text-lg">
+                            ما آژانس املاکی هستیم که به شما کمک می‌کنیم بهترین اقامتگاهی را که رویای آن را دارید پیدا کنید.
+                        </p>
                     </div>
-                    {/* right */}
-                    <div className='w-full flex flex-col justify-center items-center  h-[50%] '>
-                        <div className='flex flex-col w-full gap-5 justify-center items-center'>
-                            <div className="w-[80%] max-sm:w-full  flex flex-row-reverse justify-start max-sm:justify-center items-center gap-5 pt-5">
-                                {options.map((option, index) => (
-                                    <p
-                                        key={index}
-                                        onClick={() => setSelected(index)}
-                                        className={`border-2 p-2 max-sm:p-3 text-xl max-sm:text-sm rounded-4xl cursor-pointer transition
-                                                ${selected === index
-                                                ? "border-blue-900 bg-blue-900 text-white"
-                                                : "border-gray-200 text-gray-100"}`}
-                                    >
-                                        {option}
-                                    </p>
-                                ))}
-                            </div>
-                            {/* form */}
-                            <div className='w-[80%] max-sm:hidden flex flex-row-reverse justify-center items-center bg-white dark:bg-[#272727] h-auto rounded-4xl p-5'>
-                                <FormSearch selectedTab={options[selected]} />
-                            </div>
-                            <div className='max-sm:flex md:hidden w-full rounded-4xl bg-white '>
-                                <FormSearchMobile selectedTab={options[selected]}/>
-                            </div>
 
+                    <div className='animate-fade-up-delay flex w-full flex-col items-center gap-3 sm:gap-4'>
+                        <div className="flex w-full max-w-4xl flex-row-reverse flex-wrap items-center justify-center gap-1.5 sm:gap-2 md:gap-3">
+                            {options.map((option, index) => (
+                                <button
+                                    key={option}
+                                    type="button"
+                                    onClick={() => setSelected(index)}
+                                    className={`rounded-full border px-3 py-2 text-xs font-bold transition-all duration-300 sm:px-4 sm:py-2.5 sm:text-sm md:text-base xl:px-5 xl:text-lg ${
+                                        selected === index
+                                            ? "border-white bg-white text-brand shadow-lg shadow-black/20"
+                                            : "border-white/35 bg-white/10 text-white/90 backdrop-blur-md hover:bg-white/20"
+                                    }`}
+                                >
+                                    {option}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className='hidden w-full max-w-5xl rounded-2xl border border-white/40 bg-white/95 p-3 shadow-[var(--shadow-lift)] backdrop-blur-xl md:block xl:rounded-[1.75rem] xl:p-4 dark:border-white/10 dark:bg-[#1a222d]/95'>
+                            <FormSearch selectedTab={options[selected ?? 0]} />
+                        </div>
+                        <div className='w-full max-w-lg md:hidden'>
+                            <FormSearchMobile selectedTab={options[selected ?? 0]}/>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 

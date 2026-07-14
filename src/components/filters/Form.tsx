@@ -52,7 +52,7 @@ const Form = () => {
                     <input
                         type="text"
                         placeholder='نام هتل یا اقامتگاه'
-                        className='w-full text-right p-3 bg-gray-100 rounded-4xl outline-0 focus:ring-2 focus:ring-blue-900 transition-all'
+                        className='w-full text-right p-3 bg-gray-100 rounded-4xl outline-0 focus:ring-2 focus:ring-brand transition-all'
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
@@ -76,7 +76,7 @@ const Form = () => {
                     <input
                         type="text"
                         placeholder='استان,شهر'
-                        className='text-right bg-gray-100 p-3 rounded-4xl outline-0 focus:ring-2 focus:ring-blue-900 transition-all'
+                        className='text-right bg-gray-100 p-3 rounded-4xl outline-0 focus:ring-2 focus:ring-brand transition-all'
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                     />

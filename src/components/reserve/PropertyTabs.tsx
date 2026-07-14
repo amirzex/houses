@@ -129,7 +129,7 @@ const PropertyTabs = ({ property }) => {
                 <button
                     onClick={() => setActiveTab('about')}
                     className={`p-3 w-[120px] text-center rounded-4xl transition-all duration-300 ${activeTab === 'about'
-                        ? 'bg-blue-900 text-white shadow-lg scale-105'
+                        ? 'bg-brand text-white shadow-lg scale-105'
                         : 'bg-gray-100 hover:bg-gray-200'
                         }`}
                 >
@@ -138,7 +138,7 @@ const PropertyTabs = ({ property }) => {
                 <button
                     onClick={() => setActiveTab('amenities')}
                     className={`p-3 w-[150px] text-center rounded-4xl transition-all duration-300 ${activeTab === 'amenities'
-                        ? 'bg-blue-900 text-white shadow-lg scale-105'
+                        ? 'bg-brand text-white shadow-lg scale-105'
                         : 'bg-gray-100 hover:bg-gray-200'
                         }`}
                 >
@@ -147,7 +147,7 @@ const PropertyTabs = ({ property }) => {
                 <button
                     onClick={() => setActiveTab('reviews')}
                     className={`p-3 w-[120px] text-center rounded-4xl transition-all duration-300 ${activeTab === 'reviews'
-                        ? 'bg-blue-900 text-white shadow-lg scale-105'
+                        ? 'bg-brand text-white shadow-lg scale-105'
                         : 'bg-gray-100 hover:bg-gray-200'
                         }`}
                 >

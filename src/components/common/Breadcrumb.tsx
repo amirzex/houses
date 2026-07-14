@@ -7,9 +7,9 @@ const routeNameMap: Record<string, string> = {
     rent: "رهن و اجاره",
     apartment: "آپارتمان",
     "fast-reserve": "رزرو سریع",
-    Payment: "رزرو هتل ",
+    Payment: "پرداخت",
     blogs: "اخبار",
-    "contact-us": "تماس با ما ",
+    "contact-us": "تماس با ما",
 }
 
 const Breadcrumb = () => {
@@ -17,42 +17,50 @@ const Breadcrumb = () => {
     const pathSegments = pathname.split("/").filter(Boolean)
 
     return (
-        <div className="flex flex-row flex-wrap items-center justify-center gap-2 text-xs md:text-sm text-gray-500 w-full mb-8 mt-4 px-10">
-            <Link href="/" className="cursor-pointer hover:text-gray-800"> 
+        <nav
+            aria-label="مسیر صفحه"
+            className="flex w-full flex-row flex-wrap items-center justify-center gap-1.5 text-xs text-ink-muted sm:gap-2 sm:text-sm"
+            dir="rtl"
+        >
+            <Link href="/" className="transition-colors hover:text-brand">
                 خانه
             </Link>
 
             {pathSegments.map((segment, index) => {
                 const href = "/" + pathSegments.slice(0, index + 1).join("/")
                 const isLast = index === pathSegments.length - 1
-                const label = routeNameMap[segment] || decodeURIComponent(segment)
+                const isId = /^\d+$/.test(segment)
+                const label = isId
+                    ? "جزئیات ملک"
+                    : routeNameMap[segment] || decodeURIComponent(segment)
 
                 return (
-                    <div key={index} className="flex items-center gap-2">
+                    <div key={href} className="flex items-center gap-1.5 sm:gap-2">
                         <svg
-                            width="14"
-                            height="14"
+                            width="12"
+                            height="12"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            strokeWidth="2"
+                            strokeWidth="2.5"
+                            className="opacity-50"
                         >
                             <path d="M15 18l-6-6 6-6" />
                         </svg>
 
                         {isLast ? (
-                            <span className="text-[#1a3b99] font-bold border-b border-[#1a3b99] pb-0.5">
+                            <span className="max-w-[140px] truncate font-bold text-brand sm:max-w-none">
                                 {label}
                             </span>
                         ) : (
-                            <Link href={href} className="cursor-pointer hover:text-gray-800">
+                            <Link href={href} className="transition-colors hover:text-brand">
                                 {label}
                             </Link>
                         )}
                     </div>
                 )
             })}
-        </div>
+        </nav>
     )
 }
 

@@ -19,7 +19,7 @@ const PaginationFor = () => {
                     prev: "bg-primary-100 text-primary w-12 rounded-xl ",
                     next: "bg-primary-100 text-primary w-12",
                     item: "bg-transparent text-gray-700 hover:bg-primary-100 w-12",
-                    cursor: "bg-blue-900 text-white font-bold w-10 h-10 rounded-xl",
+                    cursor: "bg-brand text-white font-bold w-10 h-10 rounded-xl",
                 }}
             />
         </div>

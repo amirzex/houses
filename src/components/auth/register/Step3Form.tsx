@@ -55,7 +55,7 @@ export const Step3Form = ({ onBack, userId }) => {
                 <input
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="w-full border dark:bg-[#353535] text-gray-700 outline-none p-3.5 pr-12 rounded-full focus:border-[#1a3b99] transition-colors placeholder:text-gray-400 text-sm"
+                    className="w-full border dark:bg-[#353535] text-gray-700 outline-none p-3.5 pr-12 rounded-full focus:border-brand transition-colors placeholder:text-gray-400 text-sm"
                     placeholder="شماره موبایل"
                     type="text"
                 />
@@ -69,7 +69,7 @@ export const Step3Form = ({ onBack, userId }) => {
                 <input
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full border dark:bg-[#353535] text-gray-700 outline-none p-3.5 pr-12 rounded-full focus:border-[#1a3b99] transition-colors placeholder:text-gray-400 text-sm"
+                    className="w-full border dark:bg-[#353535] text-gray-700 outline-none p-3.5 pr-12 rounded-full focus:border-brand transition-colors placeholder:text-gray-400 text-sm"
                     placeholder="رمز عبور"
                     type="password"
                 />
@@ -79,7 +79,7 @@ export const Step3Form = ({ onBack, userId }) => {
                 <input
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full border dark:bg-[#353535] text-gray-700 outline-none p-3.5 pr-12 rounded-full focus:border-[#1a3b99] transition-colors placeholder:text-gray-400 text-sm"
+                    className="w-full border dark:bg-[#353535] text-gray-700 outline-none p-3.5 pr-12 rounded-full focus:border-brand transition-colors placeholder:text-gray-400 text-sm"
                     placeholder="تکرار رمز عبور"
                     type="password"
                 />
@@ -88,7 +88,7 @@ export const Step3Form = ({ onBack, userId }) => {
             <button
                 type="submit"
                 disabled={isPending}
-                className="bg-[#1a3b99] text-white p-4 rounded-full mt-2 font-bold text-sm hover:bg-blue-900 transition-colors disabled:bg-gray-400"
+                className="bg-brand text-white p-4 rounded-full mt-2 font-bold text-sm hover:bg-brand-hover transition-colors disabled:bg-gray-400"
             >
                 {isPending ? "در حال ارسال..." : "ارسال و ورود"}
             </button>

@@ -42,7 +42,7 @@ const Step1Form = ({ onNext, setTempUserId }) => {
                 <input
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full border  dark:bg-[#353535]  text-gray-700 outline-none p-3.5 pr-12 rounded-full focus:border-[#1a3b99] transition-colors placeholder:text-gray-400 text-sm"
+                    className="w-full border  dark:bg-[#353535]  text-gray-700 outline-none p-3.5 pr-12 rounded-full focus:border-brand transition-colors placeholder:text-gray-400 text-sm"
                     placeholder="ایمیل خود را وارد کنید"
                     type="email"
                 />
@@ -52,7 +52,7 @@ const Step1Form = ({ onNext, setTempUserId }) => {
                 type="submit"
                 disabled={isPending}
                 // onClick={(e) => { e.preventDefault(); onNext(); }}
-                className="bg-[#1a3b99] text-white p-4 rounded-full mt-2 font-bold text-sm hover:bg-blue-900 transition-colors"
+                className="bg-brand text-white p-4 rounded-full mt-2 font-bold text-sm hover:bg-brand-hover transition-colors"
             >
                 ارسال کد تایید
             </button>

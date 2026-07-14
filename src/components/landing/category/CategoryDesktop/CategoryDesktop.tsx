@@ -24,40 +24,47 @@ const CategoryDesktop = () => {
         order: "DESC",
     });
 
-    if (isLoading) return <p>در حال دریافت دسته‌بندی‌ها...</p>;
-    if (isError) return <p>خطا در دریافت دسته‌بندی‌ها</p>;
+    if (isLoading) return <p className="text-center text-ink-muted">در حال دریافت دسته‌بندی‌ها...</p>;
+    if (isError) return <p className="text-center text-danger">خطا در دریافت دسته‌بندی‌ها</p>;
 
     const categories = data?.data || [];
 
     return (
-        <div className="w-full flex flex-row justify-center items-center gap-3">
+        <div className="grid w-full grid-cols-6 gap-3 xl:gap-4">
             {categories.map((cat, index) => (
                 <div
                     key={cat.id}
-                    className="relative bg-gray-400 w-[16.6%] h-110 rounded-4xl flex justify-center overflow-hidden"
+                    className="group relative flex aspect-[3/5] min-h-0 w-full justify-center overflow-hidden rounded-3xl bg-muted shadow-[var(--shadow-soft)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
                 >
                     <Image
                         src={categoryImages[index] || categoryImages[0]}
                         fill
+                        sizes="(max-width: 1536px) 16vw, 200px"
                         alt={cat.name}
-                        className="object-cover brightness-75 hover:scale-110 transition-all duration-300 hover:brightness-100"
+                        className="object-cover brightness-[0.72] transition-all duration-500 group-hover:scale-110 group-hover:brightness-100"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
                     <Link
                         href={`/categories/${cat.slug || cat.id}`}
-                        className="absolute bottom-5 right-5 bg-white text-black text-center text-xl p-2 w-[40%] rounded-4xl"
+                        className="absolute bottom-3 right-2 z-10 max-w-[70%] truncate rounded-full bg-white/95 px-2.5 py-1.5 text-center text-xs font-bold text-ink shadow-md backdrop-blur-sm transition hover:bg-white xl:bottom-4 xl:right-3 xl:px-3 xl:py-2 xl:text-sm"
                     >
                         {cat.name}
                     </Link>
 
-                    <button className="absolute bottom-5 left-5 bg-white w-[10%] rounded-full overflow-hidden">
+                    <Link
+                        href={`/categories/${cat.slug || cat.id}`}
+                        className="absolute bottom-3 left-2 z-10 flex size-8 items-center justify-center overflow-hidden rounded-full bg-white/95 shadow-md transition hover:scale-105 xl:bottom-4 xl:left-3 xl:size-10"
+                        aria-label={cat.name}
+                    >
                         <Image
                             src={arrow}
-                            width={100}
+                            width={28}
+                            height={28}
                             alt="arrow"
-                            className="object-cover"
+                            className="object-contain"
                         />
-                    </button>
+                    </Link>
                 </div>
             ))}
         </div>

@@ -18,66 +18,73 @@ const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 
   return (
     <>
-      <div className='z-10 absolute top-0 w-full flex flex-row-reverse justify-between items-center px-4 py-3 ' dir='ltr'>
+      <header className='z-40 absolute top-0 w-full px-2 pt-2 sm:px-4 sm:pt-3 lg:px-5 lg:pt-3 xl:px-8 xl:pt-4' dir='ltr'>
+        <div className='glass-panel mx-auto flex max-w-7xl flex-row-reverse items-center justify-between gap-1.5 rounded-full px-2.5 py-1.5 sm:gap-2 sm:px-3 sm:py-2 lg:gap-3 lg:px-4 xl:px-5'>
 
-        {/* Logo (Right) */}
-        <div className='flex flex-row-reverse items-center gap-2 md:w-[25%] md:justify-start md:pr-10'>
-          <Image
-            src={home}
-            width={40}
-            height={40}
-            unoptimized
-            alt='logo'
-            className='w-5 h-5 md:w-[50px] md:h-[50px]'
-          />
-          <p className='text-2xl max-sm:text-sm md:text-4xl font-bold text-black dark:text-[#D9D9E0]'>Home</p>
-        </div>
-
-        {/* Navigate Desktop */}
-        <div className='hidden md:flex md:w-[50%] p-2 font-bold text-lg lg:text-2xl flex-row-reverse gap-10 justify-center items-center text-black'>
-          <HeaderNav />
-        </div>
-
-        <div className='flex flex-row-reverse items-center gap-13 md:w-[25%] bo md:justify-end md:pl-10'>
-
-          <Link href="/chat" className="relative group ml-[-40px]">
-            <div className="p-3 bg-blue-900 hover:bg-[#2481cc] text-white rounded-full transition-all duration-300 shadow-lg hover:shadow-blue-500/50 flex items-center justify-center cursor-pointer active:scale-90">
-              <MessageCircle size={22} className="group-hover:rotate-12 transition-transform" />
-              <span className="absolute top-0 right-0 w-3 h-3 bg-red-500 border-2 border-white rounded-full animate-pulse"></span>
-            </div>
+          <Link href="/" className='flex min-w-0 shrink-0 flex-row-reverse items-center gap-1.5 transition-opacity hover:opacity-90 lg:gap-2'>
+            <Image
+              src={home}
+              width={40}
+              height={40}
+              unoptimized
+              alt='logo'
+              className='size-7 shrink-0 lg:size-9 xl:size-11'
+            />
+            <p className='truncate text-base font-black tracking-tight text-ink sm:text-lg lg:text-xl xl:text-3xl dark:text-white'>Home</p>
           </Link>
 
-          {/* dark mode */}
-          <div onClick={handleDarkMode} className='p-3 ml-[-40px] bg-blue-900 rounded-full max-sm:hidden cursor-pointer'>
-            <Image src={moon} alt='moon' unoptimized />
+          <div className='hidden min-w-0 flex-1 justify-center px-1 lg:flex'>
+            <HeaderNav />
           </div>
 
-          {/* Conditional Button: Login or Dashboard */}
-          <Link href={isLoggedIn ? 'panel/dashboard' : '/register'}>
-            <button className='text-white bg-blue-900 flex flex-row-reverse items-center gap-2 px-4 py-2 md:px-5 md:py-3 rounded-full text-sm md:text-xl'>
-              <Image src={user} width={20} height={20} alt='user' className='w-5 h-5 md:w-6 md:h-6' unoptimized />
-              <span>{isLoggedIn ? 'پنل کاربری' : 'ورود / ثبت نام'}</span>
+          <div className='flex shrink-0 flex-row-reverse items-center gap-1 sm:gap-1.5 lg:gap-2'>
+
+            <Link href="/chat" className="relative group" aria-label="گفتگو">
+              <div className="btn-icon">
+                <MessageCircle size={18} className="transition-transform group-hover:rotate-12 xl:size-5" />
+                <span className="absolute top-0.5 right-0.5 size-2 rounded-full border-2 border-white bg-danger animate-pulse" />
+              </div>
+            </Link>
+
+            <button
+              type="button"
+              onClick={handleDarkMode}
+              aria-label="حالت تاریک"
+              className='btn-icon hidden cursor-pointer lg:inline-flex'
+            >
+              <Image src={moon} alt='moon' unoptimized className="size-4 xl:size-5" />
             </button>
-          </Link>
 
-          {/* Hamburger Menu Mobile */}
-          <button
-            onClick={() => setIsMobileMenuOpen(true)}
-            className='md:hidden bg-blue-900 flex flex-col justify-center items-center gap-[4px] w-10 h-10 rounded-full'
-          >
-            <span className='block w-5 h-[2px] bg-white rounded-full'></span>
-            <span className='block w-5 h-[2px] bg-white rounded-full'></span>
-            <span className='block w-5 h-[2px] bg-white rounded-full'></span>
-          </button>
+            <Link href={isLoggedIn ? '/panel/dashboard' : '/register'} className="shrink-0">
+              <span className='btn-brand gap-1.5 whitespace-nowrap px-2.5 py-1.5 text-[11px] sm:px-3 sm:text-xs lg:px-3.5 lg:py-2 xl:px-5 xl:py-2.5 xl:text-sm'>
+                <Image src={user} width={18} height={18} alt='user' className='size-3.5 shrink-0 sm:size-4 xl:size-5' unoptimized />
+                <span className="hidden 2xl:inline">{isLoggedIn ? 'پنل کاربری' : 'ورود / ثبت نام'}</span>
+                <span className="2xl:hidden">{isLoggedIn ? 'پنل' : 'ورود'}</span>
+              </span>
+            </Link>
 
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="منو"
+              className='btn-icon lg:hidden'
+            >
+              <span className='flex flex-col gap-1'>
+                <span className='block h-0.5 w-3.5 rounded-full bg-white' />
+                <span className='block h-0.5 w-3.5 rounded-full bg-white' />
+                <span className='block h-0.5 w-2.5 rounded-full bg-white' />
+              </span>
+            </button>
+
+          </div>
         </div>
-      </div>
+      </header>
 
       <MobileMenuDrawer
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
         handleDarkMode={handleDarkMode}
-        isLoggedIn={isLoggedIn} // ارسال وضعیت به دراور موبایل در صورت نیاز
+        isLoggedIn={isLoggedIn}
       />
     </>
   )
